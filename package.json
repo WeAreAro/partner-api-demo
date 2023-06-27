@@ -1,0 +1,33 @@
+{
+  "name": "cp-partner-demo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.14",
+    "@nextui-org/react": "^1.0.0-beta.12",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@tailwindcss/forms": "^0.5.3",
+    "@types/node": "18.15.11",
+    "@types/react-dom": "18.0.11",
+    "autoprefixer": "10.4.14",
+    "eslint": "8.38.0",
+    "eslint-config-next": "13.3.0",
+    "next": "13.1.1",
+    "postcss": "8.4.21",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwindcss": "3.3.1",
+    "typescript": "5.0.4",
+    "zustand": "^4.3.8"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.13",
+    "sass": "^1.62.1"
+  }
+}
