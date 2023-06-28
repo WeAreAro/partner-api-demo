@@ -13,6 +13,8 @@ It *is intended* to provide clarity on the:
 
 The documentation is available [here](https://developer.freedomfinance.co.uk/).
 
+A live version of this demo can be found [here](https://partner-api-demo.freedom-finance-test.cloud/)
+
 ## Getting Started
 
 First, run the development server:
