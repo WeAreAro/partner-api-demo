@@ -23,7 +23,7 @@ const CurrentEmploymentStage = () => {
 
     const [formData, setFormData] = useState<EmploymentPayload>({
         occupation: savedOccupation ?? "Software Engineer",
-        employer_name: savedEmployerName ?? "Freedom Finance",
+        employer_name: savedEmployerName ?? "Aro",
 
         employment_industry: savedEmploymentIndustry ?? EmploymentIndustry['Computers - Software'],
         employment_status: savedEmploymentStatus ?? EmploymentStatus['Full time'],

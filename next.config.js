@@ -7,7 +7,7 @@ const nextConfig = {
     return [
       {
         source: '/ff-api/:path*',
-        destination: 'https://api-sandbox.freedomfinance.co.uk/:path*'
+        destination: 'https://api.aro-sandbox.co.uk/:path*'
       },
     ]
   },

@@ -1,4 +1,4 @@
-# Partner API Sandbox Project
+# Aro Partner API Sandbox Project
 
 The purpose of this project is to provide an example of how a Partner could implement the API within a modern frontend stack.
 
@@ -11,7 +11,7 @@ It *is intended* to provide clarity on the:
 3. The conditional logic around certain aspects of the form such as if the applicant is retired.
 4. How the result looks and could be handled.
 
-The documentation is available [here](https://developer.freedomfinance.co.uk/).
+The documentation is available [here](https://developer.aro.co.uk/).
 
 A live version of this demo can be found [here](https://partner-api-demo.freedom-finance-test.cloud/)
 
@@ -29,6 +29,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Bootstrapping common components from TailWindCSS. 
 
-## Freedom Finance API
+## Aro Sandbox API
 
 It currently uses [`next.config.js`] to bypass CORS for local development.

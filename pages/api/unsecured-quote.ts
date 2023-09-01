@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 const sendPayload = async (payload: any) => {
-  const url = "https://api-sandbox.freedomfinance.co.uk/partner/v1/quote"
+  const url = "https://api.aro-sandbox.co.uk/partner/v1/quote"
   const myHeaders = new Headers();
 
   myHeaders.append("Content-Type", "application/json");
