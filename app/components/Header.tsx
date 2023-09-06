@@ -11,12 +11,12 @@ const Header = (props: Props) => {
     return (
         <div className="bg-primary grid grid-cols-6 gap-4 min-h-[10vh]">
             <div className="col-start-1 col-end-3">
-                <Image
+                {/* <Image
                     className="float-left w-4/6"
                     src="/logo.png"
                     height="450"
                     width="450"
-                    alt={''} />
+                    alt={''} /> */}
             </div>
 
             {/* Nav bar */}
