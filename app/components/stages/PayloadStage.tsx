@@ -161,7 +161,7 @@ const PayloadStage = () => {
         };
 
         const url = savedFormType === FormType.UNSECURED_LOAN ?
-            "http://localhost:3000/api/unsecured-quote" :
+            "https://partner-api-demo.freedom-finance-test.cloud/api/unsecured-quote" :
             "https://partner-api-demo.freedom-finance-test.cloud/api/card-quote"
 
         await fetch(url, requestOptions)
