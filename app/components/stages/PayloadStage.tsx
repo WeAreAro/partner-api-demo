@@ -153,8 +153,19 @@ const PayloadStage = () => {
         return JSON.stringify(payload, null, 2);
     }
 
+    async function fetchMockedResponses() {
+        const response = await fetch('/mocks/mockedResponses.json');
+        return await response.json();
+    }
 
     const sendPayload = async () => {
+
+        if (!process.env.NEXT_PUBLIC_API_BEARER_TOKEN || !process.env.NEXT_PUBLIC_API_BEARER_TOKEN.startsWith("ey")) {
+            const mockedResponses = await fetchMockedResponses();
+            setResult(JSON.stringify(mockedResponses[FormType[savedFormType]], null, 2));
+            return;
+        }
+
         const myHeaders = new Headers();
 
         myHeaders.append("Content-Type", "application/json");
