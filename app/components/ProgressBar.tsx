@@ -1,6 +1,7 @@
-import { FormType, TOTAL_CARD_STAGES, TOTAL_UNSECURED_STAGES } from "../state/stages"
+import {FormType, TOTAL_CARD_STAGES, TOTAL_UNSECURED_STAGES} from "../state/stages"
+import {nanoid} from "nanoid";
 
-const ProgressBar = ({ currentStage, formType }: any) => {
+const ProgressBar = ({currentStage, formType}: any) => {
 
     const TOTAL_STAGES = formType === FormType.UNSECURED_LOAN ? TOTAL_UNSECURED_STAGES : TOTAL_CARD_STAGES
 
@@ -26,7 +27,7 @@ const ProgressBar = ({ currentStage, formType }: any) => {
         }
 
         const className = PROGRESS_BAR_CLASS_NAMES[stage]
-        return (<span className={className} />)
+        return (<span className={className} key={nanoid()}/>)
     }
 
     const renderProgressBar = () => {
@@ -48,7 +49,8 @@ const ProgressBar = ({ currentStage, formType }: any) => {
                 {...renderProgressBar()}
             </div>
             <small className="m-auto text-gray-600">
-                {formType === FormType.UNSECURED_LOAN ? (TOTAL_UNSECURED_STAGES - currentStage) : (TOTAL_CARD_STAGES - currentStage)} remaining steps to complete</small>
+                {formType === FormType.UNSECURED_LOAN ? (TOTAL_UNSECURED_STAGES - currentStage) : (TOTAL_CARD_STAGES - currentStage)} remaining
+                steps to complete</small>
         </div>)
 }
 

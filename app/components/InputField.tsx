@@ -1,5 +1,7 @@
 'use client';
 
+import {nanoid} from "nanoid";
+
 export interface Field {
     name: string,
     type?: InputType,
@@ -38,7 +40,9 @@ const transformTitle = (text: string) => {
     return finalResult
 }
 
-export const handleChange = (e: { target: { name: any; value: any; }; }, type: any, formData: any, setFormData: (formData: any) => void) => {
+export const handleChange = (e: {
+    target: { name: any; value: any; };
+}, type: any, formData: any, setFormData: (formData: any) => void) => {
     let value = e.target.value
 
     if (type === InputType.Number) {
@@ -68,6 +72,7 @@ export const createInputFields = (fields: Field[], formData: any, errors: any, s
                 title={title}
                 name={name}
                 type={type}
+                key={nanoid()}
 
                 possibleValues={field?.possibleValues}
                 value={value}
@@ -102,7 +107,7 @@ export const InputField = (props: Props) => {
                     type={!numeric ? "text" : "number"}
                     name={props.name}
                     value={props.value}
-                    onChange={props.onChange} />
+                    onChange={props.onChange}/>
                 {props.error && <span
                     className="text-red-500 text-xs italic">{props.error}</span>}
             </div>)
@@ -111,7 +116,7 @@ export const InputField = (props: Props) => {
         const enumOptions: JSX.Element[] = [];
 
         for (const [key, value] of Object.entries(props.possibleValues as any)) {
-            enumOptions.push(<option value={value as any}>{key}</option>)
+            enumOptions.push(<option value={value as any} key={nanoid()}>{key}</option>)
         }
 
         return enumOptions
@@ -132,8 +137,7 @@ export const InputField = (props: Props) => {
     } else {
         if (props.type === InputType.String) {
             return renderTextField()
-        }
-        else if (props.type === InputType.Number) {
+        } else if (props.type === InputType.Number) {
             return renderTextField(true)
         } else if (props.type === InputType.Phone) {
             return renderTextField()

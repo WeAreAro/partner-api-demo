@@ -936,5 +936,5 @@ export enum EmploymentIndustry {
     "Yarn Spinning" = "Yarn Spinning",
     "Youth Hostel Organisation" = "Youth Hostel Organisation",
     "Youth Organisation" = "Youth Organisation",
-    "Zoo Operator" = "Zoo Operator"]
+    "Zoo Operator" = "Zoo Operator"
 }

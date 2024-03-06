@@ -1,9 +1,9 @@
 'use client';
 
-import { CardPayload, YesNoValue, useStageStore } from '@/app/state/stages';
-import React, { useEffect, useState } from 'react';
-import { InputType, createInputFields, getPossibleValues } from '../InputField';
-import { StageForm } from '../StageForm';
+import {CardPayload, useStageStore, YesNoValue} from '@/app/state/stages';
+import React, {useEffect, useState} from 'react';
+import {createInputFields, getPossibleValues, InputType} from '../InputField';
+import {StageForm} from '../StageForm';
 
 const CardStage = () => {
 
@@ -64,13 +64,13 @@ const CardStage = () => {
         if (Object.keys(errors).length === 0 && isSubmitted) {
             setCurrentStage(savedStage + 1)
         }
-        setPayload({ ...formData })
+        setPayload({...formData})
     }, [formData, isSubmitted, errors])
 
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <StageForm title="Quote details" canGoBack={false} inputFields={inputFields} submitFormData={submitFormData} />
+        <StageForm title="Quote details" canGoBack={false} inputFields={inputFields} submitFormData={submitFormData}/>
     )
 }
 export default CardStage

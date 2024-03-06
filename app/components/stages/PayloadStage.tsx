@@ -1,5 +1,5 @@
-import { FormType, OtherIncome, useStageStore } from '@/app/state/stages';
-import React, { useEffect, useState } from 'react';
+import {FormType, OtherIncome, useStageStore} from '@/app/state/stages';
+import React, {useEffect, useState} from 'react';
 
 const PayloadStage = () => {
 
@@ -53,12 +53,12 @@ const PayloadStage = () => {
 
     const mapCardCurrentEmploymentDetailsPayload = () => {
         const copy = Object.assign({}, currentEmploymentPayload);
-        return { ...copy, gross_income_all: currentEmploymentPayload.gross_income }
+        return {...copy, gross_income_all: currentEmploymentPayload.gross_income}
     }
 
     const mapCardAboutYouPayload = () => {
         const copy = Object.assign({}, aboutYouPayload);
-        return { ...copy, first_name: aboutYouPayload.forename }
+        return {...copy, first_name: aboutYouPayload.forename}
     }
 
     const mapUnsecuredLoanOtherIncomePayload = () => {
@@ -91,8 +91,8 @@ const PayloadStage = () => {
 
     const shouldSendSecondPreviousAddress = () => {
         return ((currentAddressPayload?.years_lived * 12 + currentAddressPayload?.months_lived)
-            + ((firstPreviousAddressPayload?.years_lived * 12) + firstPreviousAddressPayload?.months_lived)
-            < 36)
+                + ((firstPreviousAddressPayload?.years_lived * 12) + firstPreviousAddressPayload?.months_lived)
+                < 36)
             && !isNaN(secondPreviousAddressPayload.years_lived) && !isNaN(secondPreviousAddressPayload.months_lived)
     }
 
@@ -105,13 +105,13 @@ const PayloadStage = () => {
             },
 
             // Journey specific.
-            ...(savedFormType === FormType.UNSECURED_LOAN && { "Loan": { ...quotePayload } }),
-            ...(savedFormType === FormType.CARD && { "Quote": { ...quotePayload } }),
+            ...(savedFormType === FormType.UNSECURED_LOAN && {"Loan": {...quotePayload}}),
+            ...(savedFormType === FormType.CARD && {"Quote": {...quotePayload}}),
 
             "Primary_Applicant": {
                 // About you / Applicant details are standard.
-                ...(savedFormType === FormType.UNSECURED_LOAN && { ...aboutYouPayload }),
-                ...(savedFormType === FormType.CARD && { ...cardAboutYouPayload }),
+                ...(savedFormType === FormType.UNSECURED_LOAN && {...aboutYouPayload}),
+                ...(savedFormType === FormType.CARD && {...cardAboutYouPayload}),
 
                 // Current address is standard.
                 "Current_Address": {
@@ -119,14 +119,14 @@ const PayloadStage = () => {
                 },
 
                 // First address is standard.
-                ...(shouldSendFirstPreviousAddress() && { "First_Previous_Address": { ...firstPreviousAddressPayload } }),
+                ...(shouldSendFirstPreviousAddress() && {"First_Previous_Address": {...firstPreviousAddressPayload}}),
 
                 // Second address is specific to unsecured loan.
-                ...(savedFormType === FormType.UNSECURED_LOAN && shouldSendSecondPreviousAddress() && { "Second_Previous_Address": { ...secondPreviousAddressPayload } }),
+                ...(savedFormType === FormType.UNSECURED_LOAN && shouldSendSecondPreviousAddress() && {"Second_Previous_Address": {...secondPreviousAddressPayload}}),
 
                 // Employment differs.
-                ...(savedFormType === FormType.UNSECURED_LOAN && { "Current_Employment": { ...currentEmploymentPayload } }),
-                ...(savedFormType === FormType.CARD && { "Current_Employment": { ...cardCurrentEmploymentPayload } }),
+                ...(savedFormType === FormType.UNSECURED_LOAN && {"Current_Employment": {...currentEmploymentPayload}}),
+                ...(savedFormType === FormType.CARD && {"Current_Employment": {...cardCurrentEmploymentPayload}}),
 
                 // Expenditure is standard.
                 "Expenditure": {
@@ -155,14 +155,20 @@ const PayloadStage = () => {
 
 
     const sendPayload = async () => {
+        const myHeaders = new Headers();
+
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + process.env.NEXT_PUBLIC_API_BEARER_TOKEN); // See README.md
+
         const requestOptions = {
             method: 'POST',
+            headers: myHeaders,
             body: payload,
         };
 
         const url = savedFormType === FormType.UNSECURED_LOAN ?
-            "https://partner-api-demo.freedom-finance-test.cloud/api/unsecured-quote" :
-            "https://partner-api-demo.freedom-finance-test.cloud/api/card-quote"
+            "/ff-api/partner/v1/quote" :
+            "/ff-api/partner/v1/quote/card"
 
         await fetch(url, requestOptions)
             .then(response => response.json())
@@ -186,7 +192,8 @@ const PayloadStage = () => {
 
             <div><h4 className="text-2xl">Result</h4>
                 <br></br>
-                <pre>{`Response: ${result ?? "Loading... Please wait."}`}</pre></div>
+                <pre>{`Response: ${result ?? "Loading... Please wait."}`}</pre>
+            </div>
             <input
                 className="mx-8 bg-amber-700 hover:bg-lime-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="submit"
