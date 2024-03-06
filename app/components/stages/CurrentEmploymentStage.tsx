@@ -33,7 +33,7 @@ const CurrentEmploymentStage = () => {
         emp_years: savedEmploymentYears ?? 2,
         emp_months: savedEmploymentMonths ?? 4,
 
-        other_household_income: savedOtherHouseholdIncome ?? 12000
+        other_household_income: savedOtherHouseholdIncome ?? undefined
     })
 
     const [errors, setErrors] = useState({} as any);

@@ -26,7 +26,7 @@ const ProgressBar = ({currentStage, formType}: any) => {
         }
 
         const className = PROGRESS_BAR_CLASS_NAMES[stage]
-        return (<span className={className}/>)
+        return (<span className={className} key={progressStage}/>)
     }
 
     const renderProgressBar = () => {

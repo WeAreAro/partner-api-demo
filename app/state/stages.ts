@@ -149,12 +149,6 @@ export enum OtherIncomeDescription {
     "Other" = "OTH",
 }
 
-export enum OtherIncomePeriod {
-    "Yearly" = "Y",
-    "Monthly" = "M",
-    "Weekly" = "W",
-}
-
 export interface AboutYouPayload {
     title: Title,
     forename: string,
@@ -226,18 +220,14 @@ export interface MarketingConsentPayload {
 export interface OtherIncome {
     income: number;
     income_description: OtherIncomeDescription;
-    period: OtherIncomePeriod;
-    rank: number;
 }
 
 export interface OtherIncomePayload {
     income_1: number;
     description_1: OtherIncomeDescription;
-    period_1: OtherIncomePeriod;
 
     income_2: number;
     description_2: OtherIncomeDescription;
-    period_2: OtherIncomePeriod;
 }
 
 export enum AddressStages {

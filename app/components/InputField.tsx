@@ -45,6 +45,10 @@ export const handleChange = (e: {
 
     if (type === InputType.Number) {
         value = parseInt(value)
+
+        if (isNaN(value)) {
+            value = undefined;
+        }
     }
 
     setFormData({
@@ -70,6 +74,7 @@ export const createInputFields = (fields: Field[], formData: any, errors: any, s
                 title={title}
                 name={name}
                 type={type}
+                key={title}
 
                 possibleValues={field?.possibleValues}
                 value={value}
@@ -113,7 +118,7 @@ export const InputField = (props: Props) => {
         const enumOptions: JSX.Element[] = [];
 
         for (const [key, value] of Object.entries(props.possibleValues as any)) {
-            enumOptions.push(<option value={value as any}>{key}</option>)
+            enumOptions.push(<option value={value as any} key={key}>{key}</option>)
         }
 
         return enumOptions

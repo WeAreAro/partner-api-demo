@@ -88,8 +88,6 @@ const PayloadStage = () => {
             otherIncome.push({
                 income: otherIncomePayload.income_1,
                 income_description: otherIncomePayload.description_1,
-                period: otherIncomePayload.period_1,
-                rank: 1
             })
         }
 
@@ -97,8 +95,6 @@ const PayloadStage = () => {
             otherIncome.push({
                 income: otherIncomePayload.income_2,
                 income_description: otherIncomePayload.description_2,
-                period: otherIncomePayload.period_2,
-                rank: 2
             })
         }
 
