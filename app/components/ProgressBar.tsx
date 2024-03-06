@@ -1,5 +1,4 @@
 import {FormType, TOTAL_CARD_STAGES, TOTAL_UNSECURED_STAGES} from "../state/stages"
-import {nanoid} from "nanoid";
 
 const ProgressBar = ({currentStage, formType}: any) => {
 
@@ -27,7 +26,7 @@ const ProgressBar = ({currentStage, formType}: any) => {
         }
 
         const className = PROGRESS_BAR_CLASS_NAMES[stage]
-        return (<span className={className} key={nanoid()}/>)
+        return (<span className={className}/>)
     }
 
     const renderProgressBar = () => {

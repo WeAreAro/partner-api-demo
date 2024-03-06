@@ -1,5 +1,5 @@
 import {FormType, OtherIncome, useStageStore} from '@/app/state/stages';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 const PayloadStage = () => {
 
@@ -16,7 +16,6 @@ const PayloadStage = () => {
 
     const currentEmploymentPayload = useStageStore((state) => state.currentEmploymentPayload);
     const expenditurePayload = useStageStore((state) => state.expenditurePayload);
-    const bankDetailsPayload = useStageStore((state) => state.bankDetailsPayload);
 
     const otherIncomePayload = useStageStore((state) => state.otherIncomePayload);
 
@@ -25,6 +24,7 @@ const PayloadStage = () => {
     const [payload, setPayload] = useState("");
     const [result, setResult] = useState(undefined as {});
 
+    const backRef = useRef(null);
 
     // Unsecured loan specific.
     let unsecuredLoanOtherIncomePayload = [] as OtherIncome[];
@@ -50,6 +50,26 @@ const PayloadStage = () => {
             sendPayload();
         }
     }, [payload])
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            const isFormControlFocused = document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA';
+
+            if (!isFormControlFocused) {
+                if (event.key === 'ArrowLeft') {
+                    backRef?.current?.click();
+                }
+            }
+        };
+
+        // Add event listener for keydown events
+        window.addEventListener('keydown', handleKeyDown);
+
+        // Cleanup function to remove event listener
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
 
     const mapCardCurrentEmploymentDetailsPayload = () => {
         const copy = Object.assign({}, currentEmploymentPayload);
@@ -133,11 +153,6 @@ const PayloadStage = () => {
                     ...expenditurePayload
                 },
 
-                // Bank details is standard.
-                "Bank_Details": {
-                    ...bankDetailsPayload
-                },
-
                 // Other income is unsecured loan specific.
                 ...(savedFormType === FormType.UNSECURED_LOAN && unsecuredLoanOtherIncomePayload.length > 0 && {
                     "Other_Income": unsecuredLoanOtherIncomePayload
@@ -196,21 +211,30 @@ const PayloadStage = () => {
     return (
         <div className="m-auto text-center">
             <div>
-                <h4 className="text-2xl">Payload</h4>
-                <br></br>
-                <pre>{`Payload: ${payload}`}</pre>
+                <br/>
+                <h4 className="text-2xl">API Request Payload</h4>
+                <div className={"jsonContainer"}>
+                    <pre>{`${payload}`}</pre>
+                </div>
             </div>
 
-            <div><h4 className="text-2xl">Result</h4>
-                <br></br>
-                <pre>{`Response: ${result ?? "Loading... Please wait."}`}</pre>
+            <div>
+                <br/>
+                <h4 className="text-2xl">{(!process.env.NEXT_PUBLIC_API_BEARER_TOKEN || !process.env.NEXT_PUBLIC_API_BEARER_TOKEN.startsWith("ey")) ? "Mocked " : ""}API
+                    Response</h4>
+                <div className={"jsonContainer"}>
+                    <pre>{`${result ?? "Loading... Please wait."}`}</pre>
+                </div>
             </div>
+            <br/>
             <input
+                ref={backRef}
                 className="mx-8 bg-amber-700 hover:bg-lime-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="submit"
                 value="Back"
                 onClick={() => setCurrentStage(savedStage - 1)}
             />
+            <br/><br/>
         </div>
     );
 }

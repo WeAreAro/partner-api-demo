@@ -1,7 +1,5 @@
 'use client';
 
-import {nanoid} from "nanoid";
-
 export interface Field {
     name: string,
     type?: InputType,
@@ -72,7 +70,6 @@ export const createInputFields = (fields: Field[], formData: any, errors: any, s
                 title={title}
                 name={name}
                 type={type}
-                key={nanoid()}
 
                 possibleValues={field?.possibleValues}
                 value={value}
@@ -116,14 +113,14 @@ export const InputField = (props: Props) => {
         const enumOptions: JSX.Element[] = [];
 
         for (const [key, value] of Object.entries(props.possibleValues as any)) {
-            enumOptions.push(<option value={value as any} key={nanoid()}>{key}</option>)
+            enumOptions.push(<option value={value as any}>{key}</option>)
         }
 
         return enumOptions
     }
 
     if (props.possibleValues) {
-        return (<div><label
+        return (<div className="enumList"><label
             className="block text-gray-700 text-sm font-bold mt-2 mb-2"
             htmlFor={props.name}>{props.title}</label>
             <select

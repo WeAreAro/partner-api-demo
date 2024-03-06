@@ -1,9 +1,9 @@
 'use client';
 
-import { AboutYouPayload, MaritalStatus, ResidentialStatus, Title, useStageStore } from '@/app/state/stages';
-import React, { useEffect, useState } from 'react';
-import { InputType, createInputFields, getPossibleValues } from '../InputField';
-import { StageForm } from '../StageForm';
+import {AboutYouPayload, MaritalStatus, ResidentialStatus, Title, useStageStore} from '@/app/state/stages';
+import React, {useEffect, useState} from 'react';
+import {createInputFields, getPossibleValues, InputType} from '../InputField';
+import {StageForm} from '../StageForm';
 
 const AboutYouStage = () => {
 
@@ -54,7 +54,7 @@ const AboutYouStage = () => {
         },
         {
             name: "surname",
-            title: "Second name"
+            title: "Surname"
         },
         {
             name: "email",
@@ -150,13 +150,13 @@ const AboutYouStage = () => {
         if (Object.keys(errors).length === 0 && isSubmitted) {
             setCurrentStage(savedStage + 1)
         }
-        setAboutYouPayload({ ...formData })
+        setAboutYouPayload({...formData})
     }, [formData, isSubmitted, errors])
 
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <StageForm title="Personal Details" canGoBack={true} inputFields={inputFields} submitFormData={submitFormData} />
+        <StageForm title="Personal Details" canGoBack={true} inputFields={inputFields} submitFormData={submitFormData}/>
     )
 }
 export default AboutYouStage

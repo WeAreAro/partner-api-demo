@@ -1,9 +1,9 @@
 'use client';
 
-import { EmploymentIndustry, EmploymentPayload, EmploymentStatus, useStageStore } from '@/app/state/stages';
-import React, { useEffect, useState } from 'react';
-import { InputType, createInputFields, getPossibleValues } from '../InputField';
-import { StageForm } from '../StageForm';
+import {EmploymentIndustry, EmploymentPayload, EmploymentStatus, useStageStore} from '@/app/state/stages';
+import React, {useEffect, useState} from 'react';
+import {createInputFields, getPossibleValues, InputType} from '../InputField';
+import {StageForm} from '../StageForm';
 
 const CurrentEmploymentStage = () => {
 
@@ -16,6 +16,7 @@ const CurrentEmploymentStage = () => {
     const savedEmploymentStatus = useStageStore((state) => state.currentEmploymentPayload?.employment_status);
     const savedEmploymentYears = useStageStore((state) => state.currentEmploymentPayload?.emp_years);
     const savedEmploymentMonths = useStageStore((state) => state.currentEmploymentPayload?.emp_months);
+    const savedOtherHouseholdIncome = useStageStore((state) => state.currentEmploymentPayload?.other_household_income);
 
     const setCurrentStage = useStageStore((state) => state.setCurrentStage)
 
@@ -31,6 +32,8 @@ const CurrentEmploymentStage = () => {
         gross_income: savedGrossIncome ?? 26000,
         emp_years: savedEmploymentYears ?? 2,
         emp_months: savedEmploymentMonths ?? 4,
+
+        other_household_income: savedOtherHouseholdIncome ?? 12000
     })
 
     const [errors, setErrors] = useState({} as any);
@@ -54,6 +57,11 @@ const CurrentEmploymentStage = () => {
         {
             name: "gross_income",
             title: "Gross Income",
+            type: InputType.Number
+        },
+        {
+            name: "other_household_income",
+            title: "Other Household Income",
             type: InputType.Number
         },
         {
@@ -92,6 +100,10 @@ const CurrentEmploymentStage = () => {
                 && (isNaN(formData.gross_income) || formData.gross_income < 0 || formData.gross_income > 1000000)) {
                 formErrors.gross_income = "Please provide your yearly gross income. It cannot be negative."
             }
+            if (formData?.other_household_income
+                && (formData.other_household_income < 0 || formData.other_household_income > 1000000)) {
+                formErrors.other_household_income = "Please provide a valid household income. It cannot be negative."
+            }
             if (formData?.emp_years && (isNaN(formData.emp_years))) {
                 formErrors.emp_years = "Please provide a valid number of years."
             }
@@ -109,9 +121,10 @@ const CurrentEmploymentStage = () => {
             formData.gross_income = 0
             formData.emp_years = 0
             formData.emp_months = 0
+            formData.other_household_income = 0
         }
 
-        console.log({ formData })
+        console.log({formData})
         return formErrors
     }
 
@@ -140,14 +153,15 @@ const CurrentEmploymentStage = () => {
         if (Object.keys(errors).length === 0 && isSubmitted) {
             setCurrentStage(savedStage + 1)
         }
-        setPayload({ ...formData })
+        setPayload({...formData})
     }, [formData, isSubmitted, errors])
 
     const inputFields =
         createInputFields(shouldHaveAnIncome(formData.employment_status) ? allFields : noIncomeFields, formData, errors, setFormData)
 
     return (
-        <StageForm title={"Current Employment Details"} canGoBack={true} inputFields={inputFields} submitFormData={submitFormData} />
+        <StageForm title={"Current Employment Details"} canGoBack={true} inputFields={inputFields}
+                   submitFormData={submitFormData}/>
     )
 }
 export default CurrentEmploymentStage

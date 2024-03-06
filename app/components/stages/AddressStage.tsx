@@ -1,9 +1,16 @@
 'use client';
 
-import { AddressPayload, UnsecuredLoanFormStage, StageState, useStageStore, FormType, CardFormStage } from '@/app/state/stages';
-import React, { useEffect, useState } from 'react';
-import { InputType, createInputFields } from '../InputField';
-import { StageForm } from '../StageForm';
+import {
+    AddressPayload,
+    CardFormStage,
+    FormType,
+    StageState,
+    UnsecuredLoanFormStage,
+    useStageStore
+} from '@/app/state/stages';
+import React, {useEffect, useState} from 'react';
+import {createInputFields, InputType} from '../InputField';
+import {StageForm} from '../StageForm';
 
 interface Props {
     title: string,
@@ -11,7 +18,7 @@ interface Props {
     addressPayloadSetter: keyof StageState,
 }
 
-const AddressStage = ({ title, addressPayloadName, addressPayloadSetter }: Props) => {
+const AddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) => {
 
     const savedFormType = useStageStore((state) => state.formType)
 
@@ -187,13 +194,14 @@ const AddressStage = ({ title, addressPayloadName, addressPayloadSetter }: Props
             }
         }
 
-        setPayload({ ...formData })
+        setPayload({...formData})
     }, [formData, isSubmitted, errors])
 
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <StageForm title={title ?? "Your current address"} canGoBack={true} inputFields={inputFields} submitFormData={submitFormData} />
+        <StageForm title={title ?? "Your current address"} canGoBack={true} inputFields={inputFields}
+                   submitFormData={submitFormData}/>
     )
 }
 export default AddressStage

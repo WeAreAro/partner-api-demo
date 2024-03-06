@@ -1,17 +1,33 @@
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.jsonContainer {
+    margin: 10px 20px 10px 20px;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: ivory;
+}
+
+.jsonContainer > pre {
+    text-align: left;
+    white-space: pre-wrap;
+}
+
+.enumList {
+    margin-bottom: 15px;
+}

@@ -1,9 +1,5 @@
-import { create, } from "zustand";
-import { EmploymentIndustry } from "./enum/EmploymentIndustry";
-
-export const TOTAL_UNSECURED_STAGES = 11;
-
-export const TOTAL_CARD_STAGES = 9;
+import {create,} from "zustand";
+import {EmploymentIndustry} from "./enum/EmploymentIndustry";
 
 export enum FormType {
     UNSECURED_LOAN,
@@ -20,10 +16,9 @@ export enum UnsecuredLoanFormStage {
     SecondPreviousAddressStage = 5,
     EmploymentStage = 6,
     ExpenditureStage = 7,
-    BankDetailsStage = 8,
-    OtherIncomeStage = 9,
-    MarketingConsentStage = 10,
-    PayloadStage = 11,
+    OtherIncomeStage = 8,
+    MarketingConsentStage = 9,
+    PayloadStage = 10,
 }
 
 export enum CardFormStage {
@@ -33,11 +28,13 @@ export enum CardFormStage {
     FirstPreviousAddressStage = 4,
     EmploymentStage = 5,
     ExpenditureStage = 6,
-    BankDetailsStage = 7,
-    MarketingConsentStage = 8,
-    PayloadStage = 9
+    MarketingConsentStage = 7,
+    PayloadStage = 8
 }
 
+export const TOTAL_UNSECURED_STAGES = Object.keys(UnsecuredLoanFormStage).length / 2;
+
+export const TOTAL_CARD_STAGES = Object.keys(CardFormStage).length / 2;
 
 export enum Title {
     "Mr" = "Mr",
@@ -210,7 +207,9 @@ export interface EmploymentPayload {
 
     gross_income: number,
     emp_years: number,
-    emp_months: number
+    emp_months: number,
+
+    other_household_income: number,
 }
 
 export interface ExpenditurePayload {
@@ -218,18 +217,10 @@ export interface ExpenditurePayload {
     monthly_mortgage_rent_share?: number,
 }
 
-export interface BankDetailsPayload {
-    years_at_bank: number,
-    months_at_bank: number
-}
-
 export interface MarketingConsentPayload {
-    opt_out?: YesNoValue,
     email_opt_in: YesNoValue,
     text_opt_in: YesNoValue,
-    post_opt_in: YesNoValue,
 }
-
 
 
 export interface OtherIncome {
@@ -275,7 +266,6 @@ export interface StageState {
     currentEmploymentPayload: EmploymentPayload
     otherIncomePayload: OtherIncomePayload
     expenditurePayload: ExpenditurePayload
-    bankDetailsPayload: BankDetailsPayload
     marketingConsentPayload: MarketingConsentPayload
 
     setFormType: (formType: FormType) => void
@@ -294,7 +284,6 @@ export interface StageState {
     setOtherIncomePayload: (payload: OtherIncomePayload) => void
 
     setExpenditurePayload: (payload: ExpenditurePayload) => void
-    setBankDetailsPayload: (payload: BankDetailsPayload) => void
     setMarketingConsentPayload: (payload: MarketingConsentPayload) => void
 }
 
@@ -315,28 +304,26 @@ export const useStageStore = create<StageState>()((set) => ({
     otherIncomePayload: {} as OtherIncomePayload,
 
     expenditurePayload: {} as ExpenditurePayload,
-    bankDetailsPayload: {} as BankDetailsPayload,
     marketingConsentPayload: {} as MarketingConsentPayload,
 
-    setFormType: (formType) => set((state) => ({ formType })),
+    setFormType: (formType) => set((state) => ({formType})),
 
 
-    setCurrentStage: (currentStage) => set((state) => ({ currentStage })),
-    setPreviousStage: (previousStage) => set((state) => ({ previousStage })),
+    setCurrentStage: (currentStage) => set((state) => ({currentStage})),
+    setPreviousStage: (previousStage) => set((state) => ({previousStage})),
 
-    setAboutYouPayload: (aboutYouPayload) => set((state) => ({ aboutYouPayload })),
-    setQuotePayload: (quotePayload) => set((state) => ({ quotePayload })),
+    setAboutYouPayload: (aboutYouPayload) => set((state) => ({aboutYouPayload})),
+    setQuotePayload: (quotePayload) => set((state) => ({quotePayload})),
 
-    setCurrentAddressPayload: (currentAddressPayload) => set((state) => ({ currentAddressPayload })),
-    setFirstPreviousAddressPayload: (firstPreviousAddressPayload) => set((state) => ({ firstPreviousAddressPayload })),
-    setSecondPreviousAddressPayload: (secondPreviousAddressPayload) => set((state) => ({ secondPreviousAddressPayload })),
+    setCurrentAddressPayload: (currentAddressPayload) => set((state) => ({currentAddressPayload})),
+    setFirstPreviousAddressPayload: (firstPreviousAddressPayload) => set((state) => ({firstPreviousAddressPayload})),
+    setSecondPreviousAddressPayload: (secondPreviousAddressPayload) => set((state) => ({secondPreviousAddressPayload})),
 
-    setOtherIncomePayload: (otherIncomePayload) => set((state) => ({ otherIncomePayload })),
+    setOtherIncomePayload: (otherIncomePayload) => set((state) => ({otherIncomePayload})),
 
-    setCurrentEmploymentPayload: (currentEmploymentPayload) => set((state) => ({ currentEmploymentPayload })),
-    setExpenditurePayload: (expenditurePayload) => set((state) => ({ expenditurePayload })),
-    setBankDetailsPayload: (bankDetailsPayload) => set((state) => ({ bankDetailsPayload })),
-    setMarketingConsentPayload: (marketingConsentPayload) => set((state) => ({ marketingConsentPayload })),
+    setCurrentEmploymentPayload: (currentEmploymentPayload) => set((state) => ({currentEmploymentPayload})),
+    setExpenditurePayload: (expenditurePayload) => set((state) => ({expenditurePayload})),
+    setMarketingConsentPayload: (marketingConsentPayload) => set((state) => ({marketingConsentPayload})),
 }))
 
-export { EmploymentIndustry };
+export {EmploymentIndustry};
