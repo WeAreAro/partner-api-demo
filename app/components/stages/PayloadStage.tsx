@@ -227,13 +227,6 @@ const PayloadStage = () => {
 
     return (
         <div className="m-auto text-center">
-            <div>
-                <br/>
-                <h4 className="text-2xl">API Request Payload</h4>
-                <div className={"jsonContainer"}>
-                    <pre>{`${payload}`}</pre>
-                </div>
-            </div>
 
             <div>
                 <br/>
@@ -243,6 +236,15 @@ const PayloadStage = () => {
                     <pre>{`${result ?? "Loading... Please wait."}`}</pre>
                 </div>
             </div>
+
+            <div>
+                <br/>
+                <h4 className="text-2xl">API Request Payload</h4>
+                <div className={"jsonContainer"}>
+                    <pre>{`${payload}`}</pre>
+                </div>
+            </div>
+
             <br/>
             <input
                 ref={backRef}

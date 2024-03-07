@@ -31,13 +31,13 @@ const BearerTokenHeader = () => {
     }
 
     return (
-        <div className={`sticky-header ${isOpen ? 'open' : ''}`}>
-            <div className="tab" onClick={toggleOpen}>
+        <div className={`bearer-token-header ${isOpen ? 'open' : ''}`}>
+            <div className="bearer-token-header-tab" onClick={toggleOpen}>
                 {!isOpen ? getTokenIcon() : 'Close'}
             </div>
-            <div className="content">
+            <div>
                 {isOpen && (
-                    <div className="contentOpen">
+                    <div className="bearer-token-header-open">
                         <textarea
                             ref={refTextArea}
                             style={{width: "100%"}}
