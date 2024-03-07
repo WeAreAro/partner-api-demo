@@ -29,8 +29,7 @@
         "./*"
       ]
     },
-    "strict": false,
-    "strictNullChecks": true
+    "strict": false
   },
   "include": [
     "next-env.d.ts",
