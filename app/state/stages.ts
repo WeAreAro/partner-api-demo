@@ -149,6 +149,12 @@ export enum OtherIncomeDescription {
     "Other" = "OTH",
 }
 
+export enum OtherIncomePeriod {
+    "Yearly" = "Y",
+    "Monthly" = "M",
+    "Weekly" = "W",
+}
+
 export interface AboutYouPayload {
     title: Title,
     forename: string,
@@ -220,14 +226,17 @@ export interface MarketingConsentPayload {
 export interface OtherIncome {
     income: number;
     income_description: OtherIncomeDescription;
+    period: OtherIncomePeriod;
 }
 
 export interface OtherIncomePayload {
     income_1: number;
     description_1: OtherIncomeDescription;
+    period_1: OtherIncomePeriod;
 
     income_2: number;
     description_2: OtherIncomeDescription;
+    period_2: OtherIncomePeriod;
 }
 
 export enum AddressStages {
@@ -258,6 +267,10 @@ export interface StageState {
     expenditurePayload: ExpenditurePayload
     marketingConsentPayload: MarketingConsentPayload
 
+    jwtBearerToken: string
+
+    // --------------------------------
+
     setFormType: (formType: FormType) => void
 
     setCurrentStage: (currentStage: number) => void
@@ -275,6 +288,9 @@ export interface StageState {
 
     setExpenditurePayload: (payload: ExpenditurePayload) => void
     setMarketingConsentPayload: (payload: MarketingConsentPayload) => void
+
+    setJwtBearerToken: (jwtBearerToken: string) => void
+
 }
 
 export const useStageStore = create<StageState>()((set) => ({
@@ -296,8 +312,9 @@ export const useStageStore = create<StageState>()((set) => ({
     expenditurePayload: {} as ExpenditurePayload,
     marketingConsentPayload: {} as MarketingConsentPayload,
 
-    setFormType: (formType) => set((state) => ({formType})),
+    jwtBearerToken: "",
 
+    setFormType: (formType) => set((state) => ({formType})),
 
     setCurrentStage: (currentStage) => set((state) => ({currentStage})),
     setPreviousStage: (previousStage) => set((state) => ({previousStage})),
@@ -314,6 +331,8 @@ export const useStageStore = create<StageState>()((set) => ({
     setCurrentEmploymentPayload: (currentEmploymentPayload) => set((state) => ({currentEmploymentPayload})),
     setExpenditurePayload: (expenditurePayload) => set((state) => ({expenditurePayload})),
     setMarketingConsentPayload: (marketingConsentPayload) => set((state) => ({marketingConsentPayload})),
+
+    setJwtBearerToken: (jwtBearerToken: string) => set((state) => ({jwtBearerToken})),
 }))
 
 export {EmploymentIndustry};

@@ -1,6 +1,6 @@
 'use client';
 
-import {OtherIncomeDescription, OtherIncomePayload, useStageStore} from '@/app/state/stages';
+import {OtherIncomeDescription, OtherIncomePayload, OtherIncomePeriod, useStageStore} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
 import {createInputFields, getPossibleValues, InputType} from '../InputField';
 import {StageForm} from '../StageForm';
@@ -21,9 +21,11 @@ const OtherIncomeStage = () => {
     const [formData, setFormData] = useState<OtherIncomePayload>({
         income_1: savedIncomeOne ?? 800,
         description_1: savedIncomeDescriptionOne ?? OtherIncomeDescription['Adoption Allowance'],
+        period_1: OtherIncomePeriod.Monthly,
 
         income_2: savedIncomeTwo,
         description_2: savedIncomeDescriptionTwo,
+        period_2: OtherIncomePeriod.Monthly,
     })
 
     const [errors, setErrors] = useState({} as any);
@@ -79,7 +81,7 @@ const OtherIncomeStage = () => {
         createInputFields(allFields, formData, errors, setFormData)
 
     return (
-        <StageForm title={"Other Income Details"} canGoBack={true} inputFields={inputFields}
+        <StageForm title={"Other Monthly Incomes"} canGoBack={true} inputFields={inputFields}
                    submitFormData={submitFormData}/>
     )
 }

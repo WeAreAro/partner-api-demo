@@ -1,5 +1,6 @@
 import {FormType, OtherIncome, useStageStore} from '@/app/state/stages';
 import React, {useEffect, useRef, useState} from 'react';
+import {hasTokenDefinedInEnv, isValidJwtBearerToken} from "@/app/utils/BearerUtils";
 
 const PayloadStage = () => {
 
@@ -21,8 +22,11 @@ const PayloadStage = () => {
 
     const marketingConsentPayload = useStageStore((state) => state.marketingConsentPayload);
 
+    const savedJwtBearerToken = useStageStore((state) => state.jwtBearerToken);
+
     const [payload, setPayload] = useState("");
     const [result, setResult] = useState(undefined as {});
+    const [usingMocks, setUsingMocks] = useState(false);
 
     const backRef = useRef(null);
 
@@ -88,6 +92,7 @@ const PayloadStage = () => {
             otherIncome.push({
                 income: otherIncomePayload.income_1,
                 income_description: otherIncomePayload.description_1,
+                period: otherIncomePayload.period_1
             })
         }
 
@@ -95,6 +100,7 @@ const PayloadStage = () => {
             otherIncome.push({
                 income: otherIncomePayload.income_2,
                 income_description: otherIncomePayload.description_2,
+                period: otherIncomePayload.period_2
             })
         }
 
@@ -171,16 +177,28 @@ const PayloadStage = () => {
 
     const sendPayload = async () => {
 
-        if (!process.env.NEXT_PUBLIC_API_BEARER_TOKEN || !process.env.NEXT_PUBLIC_API_BEARER_TOKEN.startsWith("ey")) {
+        setUsingMocks(false);
+
+        let useJwtToken = undefined;
+
+        if (hasTokenDefinedInEnv()) {
+            useJwtToken = process.env.NEXT_PUBLIC_API_BEARER_TOKEN;
+        } else if (isValidJwtBearerToken(savedJwtBearerToken)) {
+            useJwtToken = savedJwtBearerToken;
+        }
+
+        if (!useJwtToken) {
             const mockedResponses = await fetchMockedResponses();
             setResult(JSON.stringify(mockedResponses[FormType[savedFormType]], null, 2));
+
+            setUsingMocks(true);
             return;
         }
 
         const myHeaders = new Headers();
 
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer " + process.env.NEXT_PUBLIC_API_BEARER_TOKEN); // See README.md
+        myHeaders.append("Authorization", "Bearer " + useJwtToken); // See README.md
 
         const requestOptions = {
             method: 'POST',
@@ -203,6 +221,9 @@ const PayloadStage = () => {
             .catch(error => console.log('error', error));
     }
 
+    const isUsingMocks = (): boolean => {
+        return usingMocks;
+    }
 
     return (
         <div className="m-auto text-center">
@@ -216,7 +237,7 @@ const PayloadStage = () => {
 
             <div>
                 <br/>
-                <h4 className="text-2xl">{(!process.env.NEXT_PUBLIC_API_BEARER_TOKEN || !process.env.NEXT_PUBLIC_API_BEARER_TOKEN.startsWith("ey")) ? "Mocked " : ""}API
+                <h4 className="text-2xl">{isUsingMocks() ? "Mocked " : ""}API
                     Response</h4>
                 <div className={"jsonContainer"}>
                     <pre>{`${result ?? "Loading... Please wait."}`}</pre>
