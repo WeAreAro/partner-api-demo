@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 const colors = require('tailwindcss/colors')
 module.exports = {
+    mode: 'jit',
     theme: {
         extend: {
             colors: {
@@ -13,6 +14,11 @@ module.exports = {
         './components/**/*.{js,ts,jsx,tsx}',
         './app/**/*.{js,ts,jsx,tsx}',
         './node_modules/flowbite/**/*.js',
+    ],
+    purge: [
+        './pages/**/*.{js,ts,jsx,tsx}',
+        './components/**/*.{js,ts,jsx,tsx}',
+        './app/**/*.{js,ts,jsx,tsx}',
     ],
     plugins: [
         require('@tailwindcss/forms')({

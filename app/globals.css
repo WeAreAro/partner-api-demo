@@ -44,7 +44,7 @@
     right: 0;
     width: 40px;
     background-color: #fff;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     transition: transform 0.3s ease;
     z-index: 1000;
 }
