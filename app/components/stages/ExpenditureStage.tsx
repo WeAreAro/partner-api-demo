@@ -1,9 +1,9 @@
 'use client';
 
-import { ExpenditurePayload, useStageStore } from '@/app/state/stages';
-import React, { useEffect, useState } from 'react';
-import { InputType, createInputFields } from '../InputField';
-import { StageForm } from '../StageForm';
+import {ExpenditurePayload, useStageStore} from '@/app/state/stages';
+import React, {useEffect, useState} from 'react';
+import {createInputFields, Field, InputType} from '../InputField';
+import {StageForm} from '../StageForm';
 
 const ExpenditureStage = () => {
 
@@ -20,11 +20,12 @@ const ExpenditureStage = () => {
         monthly_mortgage_rent_share: savedMonthlyMortgageRentShare,
     })
 
-    const fields = [
+    const fields: Field[] = [
         {
             name: "monthly_mortgage_rent",
             title: "Your monthly mortgage or rent payment.",
-            type: InputType.Number
+            type: InputType.Number,
+            required: true
         },
         {
             name: "monthly_mortgage_rent_share",
@@ -57,13 +58,14 @@ const ExpenditureStage = () => {
         if (Object.keys(errors).length === 0 && isSubmitted) {
             setCurrentStage(savedStage + 1)
         }
-        setPayload({ ...formData })
+        setPayload({...formData})
     }, [formData, isSubmitted, errors])
 
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <StageForm title={"Expenditure Details"} canGoBack={true} inputFields={inputFields} submitFormData={submitFormData} />
+        <StageForm title={"Expenditure Details"} canGoBack={true} inputFields={inputFields}
+                   submitFormData={submitFormData}/>
     )
 }
 export default ExpenditureStage

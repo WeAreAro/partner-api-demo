@@ -2,7 +2,7 @@
 
 import {OtherIncomeDescription, OtherIncomePayload, OtherIncomePeriod, useStageStore} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, getPossibleValues, InputType} from '../InputField';
+import {createInputFields, Field, getPossibleValues, InputType} from '../InputField';
 import {StageForm} from '../StageForm';
 
 const OtherIncomeStage = () => {
@@ -31,28 +31,28 @@ const OtherIncomeStage = () => {
     const [errors, setErrors] = useState({} as any);
     const [isSubmitted, setIsSubmitted] = useState(false)
 
-    const allFields = [
+    const allFields: Field[] = [
         {
             name: "income_1",
             title: "Other Income 1 Amount",
-            type: InputType.Number
+            type: InputType.Number,
         },
         {
             name: "description_1",
             title: "Other Income 1 Description",
             type: InputType.Enum,
-            possibleValues: getPossibleValues(OtherIncomeDescription)
+            possibleValues: getPossibleValues(OtherIncomeDescription),
         },
         {
             name: "income_2",
             title: "Other Income 2 Amount",
-            type: InputType.Number
+            type: InputType.Number,
         },
         {
             name: "description_2",
             title: "Other Income 2 Description",
             type: InputType.Enum,
-            possibleValues: getPossibleValues(OtherIncomeDescription)
+            possibleValues: getPossibleValues(OtherIncomeDescription),
         },
     ]
 

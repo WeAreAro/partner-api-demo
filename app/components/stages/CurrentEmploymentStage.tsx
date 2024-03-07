@@ -2,7 +2,7 @@
 
 import {EmploymentIndustry, EmploymentPayload, EmploymentStatus, useStageStore} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, getPossibleValues, InputType} from '../InputField';
+import {createInputFields, Field, getPossibleValues, InputType} from '../InputField';
 import {StageForm} from '../StageForm';
 
 const CurrentEmploymentStage = () => {
@@ -39,7 +39,7 @@ const CurrentEmploymentStage = () => {
     const [errors, setErrors] = useState({} as any);
     const [isSubmitted, setIsSubmitted] = useState(false)
 
-    const allFields = [
+    const allFields: Field[] = [
         {
             name: "occupation",
             title: "Occupation"
@@ -57,7 +57,8 @@ const CurrentEmploymentStage = () => {
         {
             name: "gross_income",
             title: "Gross Income",
-            type: InputType.Number
+            type: InputType.Number,
+            required: true
         },
         {
             name: "other_household_income",
@@ -68,21 +69,24 @@ const CurrentEmploymentStage = () => {
             name: "employment_status",
             title: "Employment Status",
             type: InputType.Enum,
-            possibleValues: getPossibleValues(EmploymentStatus)
+            possibleValues: getPossibleValues(EmploymentStatus),
+            required: true
         },
         {
             name: "emp_years",
             title: "The years you have been employed in this role.",
-            type: InputType.Number
+            type: InputType.Number,
+            required: true
         },
         {
             name: "emp_months",
             title: "The remainder months you have been employed in this role.",
-            type: InputType.Number
+            type: InputType.Number,
+            required: true
         },
     ]
 
-    const noIncomeFields = [
+    const noIncomeFields: Field[] = [
         {
             name: "employment_status",
             title: "Employment Status",

@@ -1,9 +1,9 @@
 'use client';
 
-import {LoanPayload, LoanPurpose, useStageStore } from '@/app/state/stages';
-import React, { useEffect, useState } from 'react';
-import { InputType, createInputFields, getPossibleValues } from '../InputField';
-import { StageForm } from '../StageForm';
+import {LoanPayload, LoanPurpose, useStageStore} from '@/app/state/stages';
+import React, {useEffect, useState} from 'react';
+import {createInputFields, Field, getPossibleValues, InputType} from '../InputField';
+import {StageForm} from '../StageForm';
 
 const LoanStage = () => {
 
@@ -28,22 +28,25 @@ const LoanStage = () => {
     const [errors, setErrors] = useState({} as any);
     const [isSubmitted, setIsSubmitted] = useState(false)
 
-    const fields = [
+    const fields: Field[] = [
         {
             name: "loan_amount",
             title: "Loan Amount",
-            type: InputType.Number
+            type: InputType.Number,
+            required: true
         },
         {
             name: "loan_term",
-            title: "Loan Term",
-            type: InputType.Number
+            title: "Loan Term (months)",
+            type: InputType.Number,
+            required: true
         },
         {
             name: "loan_purpose",
             title: "Loan Purpose",
             type: InputType.Enum,
-            possibleValues: getPossibleValues(LoanPurpose)
+            possibleValues: getPossibleValues(LoanPurpose),
+            required: true
         },
     ]
 
@@ -79,13 +82,13 @@ const LoanStage = () => {
         if (Object.keys(errors).length === 0 && isSubmitted) {
             setCurrentStage(savedStage + 1)
         }
-        setPayload({ ...formData })
+        setPayload({...formData})
     }, [formData, isSubmitted, errors])
 
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <StageForm title="Loan Details" canGoBack={false} inputFields={inputFields} submitFormData={submitFormData} />
+        <StageForm title="Loan Details" canGoBack={false} inputFields={inputFields} submitFormData={submitFormData}/>
     )
 }
 export default LoanStage

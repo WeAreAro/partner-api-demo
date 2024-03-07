@@ -2,7 +2,7 @@
 
 import {AboutYouPayload, MaritalStatus, ResidentialStatus, Title, useStageStore} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, getPossibleValues, InputType} from '../InputField';
+import {createInputFields, Field, getPossibleValues, InputType} from '../InputField';
 import {StageForm} from '../StageForm';
 
 const AboutYouStage = () => {
@@ -41,24 +41,28 @@ const AboutYouStage = () => {
     const [errors, setErrors] = useState({} as any);
     const [isSubmitted, setIsSubmitted] = useState(false)
 
-    const fields = [
+    const fields: Field[] = [
         {
             name: "title",
             title: "Title",
             type: InputType.Enum,
-            possibleValues: getPossibleValues(Title)
+            possibleValues: getPossibleValues(Title),
+            required: true
         },
         {
             name: "forename",
-            title: "First name"
+            title: "First name",
+            required: true
         },
         {
             name: "surname",
-            title: "Surname"
+            title: "Surname",
+            required: true
         },
         {
             name: "email",
-            title: "Email Address"
+            title: "Email Address",
+            required: true
         },
         {
             name: "home_phone",
@@ -74,17 +78,20 @@ const AboutYouStage = () => {
             name: "residential_status",
             title: "Residential Status",
             type: InputType.Enum,
-            possibleValues: getPossibleValues(ResidentialStatus)
+            possibleValues: getPossibleValues(ResidentialStatus),
+            required: true
         },
         {
             name: "dob",
-            title: "Date of Birth"
+            title: "Date of Birth",
+            required: true
         },
         {
             name: "marital_status",
             title: "Marital Status",
             type: InputType.Enum,
-            possibleValues: getPossibleValues(MaritalStatus)
+            possibleValues: getPossibleValues(MaritalStatus),
+            required: true
         },
         {
             name: "number_of_dependents",

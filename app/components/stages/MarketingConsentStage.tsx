@@ -2,7 +2,7 @@
 
 import {MarketingConsentPayload, useStageStore, YesNoValue} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, getPossibleValues, InputType} from '../InputField';
+import {createInputFields, Field, getPossibleValues, InputType} from '../InputField';
 import {StageForm} from '../StageForm';
 
 const MarketingConsentStage = () => {
@@ -20,7 +20,7 @@ const MarketingConsentStage = () => {
         text_opt_in: savedTextOptIn ?? YesNoValue.Yes
     })
 
-    const fields = [
+    const fields: Field[] = [
         {
             name: "email_opt_in",
             title: "Opt into email marketing",

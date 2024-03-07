@@ -9,7 +9,7 @@ import {
     useStageStore
 } from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, InputType} from '../InputField';
+import {createInputFields, Field, InputType} from '../InputField';
 import {StageForm} from '../StageForm';
 
 interface Props {
@@ -67,7 +67,7 @@ const AddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) 
         months_lived: savedMonthsLived ?? 5,
     })
 
-    const fields = [
+    const fields: Field[] = [
         {
             name: "flat",
             title: "Flat Name/Number"
@@ -82,11 +82,13 @@ const AddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) 
         },
         {
             name: "street",
-            title: "Street name"
+            title: "Street name",
+            required: true
         },
         {
             name: "posttown",
             title: "Town/City",
+            required: true
         },
         {
             name: "locality",
@@ -94,22 +96,26 @@ const AddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) 
         },
         {
             name: "country",
-            title: "Country"
+            title: "Country",
+            required: true
         },
         {
             name: "postcode",
-            title: "Post code"
+            title: "Post code",
+            required: true
         },
 
         {
             name: "years_lived",
             title: "Years lived at this address",
-            type: InputType.Number
+            type: InputType.Number,
+            required: true
         },
         {
             name: "months_lived",
             title: "Months lived at this address",
-            type: InputType.Number
+            type: InputType.Number,
+            required: true
         },
     ]
 

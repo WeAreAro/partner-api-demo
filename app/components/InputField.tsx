@@ -5,6 +5,7 @@ export interface Field {
     type?: InputType,
     title?: string,
     possibleValues?: PossibleValues,
+    required?: boolean
 }
 
 export enum InputType {
@@ -65,13 +66,14 @@ export const createInputFields = (fields: Field[], formData: any, errors: any, s
 
         const title = field?.title ?? transformTitle(name);
         const type = field?.type ?? InputType.String;
+        const requiredText = field?.required ? " *" : ""
 
         const value = formData[name]
         const error = errors[name]
 
         inputFields.push(
             <InputField
-                title={title}
+                title={title + "" + requiredText}
                 name={name}
                 type={type}
                 key={title}

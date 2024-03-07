@@ -2,7 +2,7 @@
 
 import {CardPayload, useStageStore, YesNoValue} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, getPossibleValues, InputType} from '../InputField';
+import {createInputFields, Field, getPossibleValues, InputType} from '../InputField';
 import {StageForm} from '../StageForm';
 
 const CardStage = () => {
@@ -28,24 +28,27 @@ const CardStage = () => {
     const [errors, setErrors] = useState({} as any);
     const [isSubmitted, setIsSubmitted] = useState(false)
 
-    const fields = [
+    const fields: Field[] = [
         {
             name: "cash_advance",
             title: "Do you need a cash advance?",
             type: InputType.Enum,
-            possibleValues: getPossibleValues(YesNoValue)
+            possibleValues: getPossibleValues(YesNoValue),
+            required: true
         },
         {
             name: "balance_transfer",
             title: "Do you want a balance transfer?",
             type: InputType.Enum,
-            possibleValues: getPossibleValues(YesNoValue)
+            possibleValues: getPossibleValues(YesNoValue),
+            required: true
 
         },
         {
             name: "balance_to_transfer",
             title: "What is the balance to transfer?",
-            type: InputType.Number
+            type: InputType.Number,
+            required: true
         },
     ]
 
