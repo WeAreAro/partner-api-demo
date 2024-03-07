@@ -16,7 +16,7 @@ The documentation is available [here](https://developer.aro.co.uk/).
 
 A live version of this demo can be found [here](https://partner-api-demo.freedom-finance-test.cloud/)
 
-## Setting up your API Bearer Token
+## Adding your API Bearer Token to the Environment
 
 **If you want to skip this step, then mocked responses will be returned instead (the API will not be invoked).**
 
@@ -31,6 +31,26 @@ and in the following format:
 ```
 NEXT_PUBLIC_API_BEARER_TOKEN=<token starting ey...>
 ```
+
+## Specifying API Bearer Token at Runtime
+
+If you have not defined your API Token within the environment, it is possible to specify it at runtime and still see
+real API responses.
+
+This option will only be available if the environment variable defined above **is not** specified.
+
+When running the app, there should be an option available on the top-right, as follows:
+
+![img.png](docs/img_unlocked.png)
+
+Clicking this button will show an input field where you can paste your bearer token. This will be the token supplied
+to you that starts "ey".
+
+![img_1.png](docs/img_set_token.png)
+
+After entering a valid token, the lock should close. Now whenever you make API requests the token will be used.
+
+![img_2.png](docs/img_locked.png)
 
 ## Getting Started
 
