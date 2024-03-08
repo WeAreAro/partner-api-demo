@@ -2,31 +2,31 @@
 
 import Head from "next/head";
 import {
-    AddressPayloadSetters,
-    AddressStages,
-    FormType,
-    UnsecuredLoanFormStage,
-    useStageStore
+    RedirectAddressPayloadSetters,
+    RedirectAddressStages,
+    RedirectFormType,
+    RedirectUnsecuredLoanFormStage,
+    useRedirectStageStore
 } from "@/app/state/stages";
-import AddressStage from "@/app/components/stages/AddressStage";
-import CurrentEmploymentStage from "@/app/components/stages/CurrentEmploymentStage";
-import ExpenditureStage from "@/app/components/stages/ExpenditureStage";
-import MarketingConsentStage from "@/app/components/stages/MarketingConsentStage";
-import PayloadStage from "@/app/components/stages/PayloadStage";
+import AddressStage from "@/app/components/stages/redirect/AddressStage";
+import CurrentEmploymentStage from "@/app/components/stages/redirect/CurrentEmploymentStage";
+import ExpenditureStage from "@/app/components/stages/redirect/ExpenditureStage";
+import MarketingConsentStage from "@/app/components/stages/redirect/MarketingConsentStage";
+import PayloadStage from "@/app/components/stages/redirect/PayloadStage";
 
 import '../app/globals.css'
 import Header from "@/app/components/Header";
-import OtherIncomeStage from "@/app/components/stages/OtherIncomeStage";
-import LoanStage from "@/app/components/stages/LoanStage";
+import OtherIncomeStage from "@/app/components/stages/redirect/OtherIncomeStage";
+import LoanStage from "@/app/components/stages/redirect/LoanStage";
 import {useEffect} from "react";
-import AboutYouStage from "@/app/components/stages/AboutYouStage";
+import AboutYouStage from "@/app/components/stages/redirect/AboutYouStage";
 
 const UnsecuredForm = () => {
-    const formStage = useStageStore((state) => state.currentStage);
+    const formStage = useRedirectStageStore((state) => state.currentStage);
 
-    const setFormType = useStageStore((state) => state.setFormType)
+    const setFormType = useRedirectStageStore((state) => state.setFormType)
 
-    useEffect(() => setFormType(FormType.UNSECURED_LOAN), [])
+    useEffect(() => setFormType(RedirectFormType.UNSECURED_LOAN), [])
 
     return (
         <><Head>
@@ -35,60 +35,60 @@ const UnsecuredForm = () => {
         </Head>
             <Header showNav={false}/>
             {
-                formStage === UnsecuredLoanFormStage.LoanStage && (
+                formStage === RedirectUnsecuredLoanFormStage.LoanStage && (
                     <LoanStage/>
                 )
             }
             {
-                formStage === UnsecuredLoanFormStage.AboutYouStage && (
+                formStage === RedirectUnsecuredLoanFormStage.AboutYouStage && (
                     <AboutYouStage/>
                 )
             }
             {
-                formStage === UnsecuredLoanFormStage.CurrentAddressStage && (
-                    <AddressStage title={"Current Address"} addressPayloadName={AddressStages.CURRENT_ADDRESS}
-                                  addressPayloadSetter={AddressPayloadSetters.CURRENT_ADDRESS}/>
+                formStage === RedirectUnsecuredLoanFormStage.CurrentAddressStage && (
+                    <AddressStage title={"Current Address"} addressPayloadName={RedirectAddressStages.CURRENT_ADDRESS}
+                                  addressPayloadSetter={RedirectAddressPayloadSetters.CURRENT_ADDRESS}/>
                 )
             }
             {
-                formStage === UnsecuredLoanFormStage.FirstPreviousAddressStage && (
+                formStage === RedirectUnsecuredLoanFormStage.FirstPreviousAddressStage && (
                     <AddressStage
                         title={"Due to living at your current address for under three years, you must provide your last previous address."}
-                        addressPayloadName={AddressStages.FIRST_PREVIOUS_ADDRESS}
-                        addressPayloadSetter={AddressPayloadSetters.FIRST_PREVIOUS_ADDRESS}/>
+                        addressPayloadName={RedirectAddressStages.FIRST_PREVIOUS_ADDRESS}
+                        addressPayloadSetter={RedirectAddressPayloadSetters.FIRST_PREVIOUS_ADDRESS}/>
                 )
             }
             {
-                formStage === UnsecuredLoanFormStage.SecondPreviousAddressStage && (
+                formStage === RedirectUnsecuredLoanFormStage.SecondPreviousAddressStage && (
                     <AddressStage
                         title={"Due to living at your current and previous address for under three years, you must provide your second to last address."}
-                        addressPayloadName={AddressStages.SECOND_PREVIOUS_ADDRESS}
-                        addressPayloadSetter={AddressPayloadSetters.SECOND_PREVIOUS_ADDRESS}/>
+                        addressPayloadName={RedirectAddressStages.SECOND_PREVIOUS_ADDRESS}
+                        addressPayloadSetter={RedirectAddressPayloadSetters.SECOND_PREVIOUS_ADDRESS}/>
                 )
 
             }
             {
-                formStage === UnsecuredLoanFormStage.EmploymentStage && (
+                formStage === RedirectUnsecuredLoanFormStage.EmploymentStage && (
                     <CurrentEmploymentStage/>
                 )
             }
             {
-                formStage === UnsecuredLoanFormStage.ExpenditureStage && (
+                formStage === RedirectUnsecuredLoanFormStage.ExpenditureStage && (
                     <ExpenditureStage/>
                 )
             }
             {
-                formStage === UnsecuredLoanFormStage.OtherIncomeStage && (
+                formStage === RedirectUnsecuredLoanFormStage.OtherIncomeStage && (
                     <OtherIncomeStage/>
                 )
             }
             {
-                formStage === UnsecuredLoanFormStage.MarketingConsentStage && (
+                formStage === RedirectUnsecuredLoanFormStage.MarketingConsentStage && (
                     <MarketingConsentStage/>
                 )
             }
             {
-                formStage === UnsecuredLoanFormStage.PayloadStage && (
+                formStage === RedirectUnsecuredLoanFormStage.PayloadStage && (
                     <PayloadStage/>
                 )
             }

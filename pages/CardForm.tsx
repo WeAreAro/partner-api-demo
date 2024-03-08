@@ -1,25 +1,31 @@
 'use client';
 
 import Head from "next/head";
-import {AddressPayloadSetters, AddressStages, CardFormStage, FormType, useStageStore} from "@/app/state/stages";
-import AddressStage from "@/app/components/stages/AddressStage";
-import CurrentEmploymentStage from "@/app/components/stages/CurrentEmploymentStage";
-import ExpenditureStage from "@/app/components/stages/ExpenditureStage";
-import MarketingConsentStage from "@/app/components/stages/MarketingConsentStage";
-import PayloadStage from "@/app/components/stages/PayloadStage";
+import {
+    RedirectAddressPayloadSetters,
+    RedirectAddressStages,
+    RedirectCardFormStage,
+    RedirectFormType,
+    useRedirectStageStore
+} from "@/app/state/stages";
+import AddressStage from "@/app/components/stages/redirect/AddressStage";
+import CurrentEmploymentStage from "@/app/components/stages/redirect/CurrentEmploymentStage";
+import ExpenditureStage from "@/app/components/stages/redirect/ExpenditureStage";
+import MarketingConsentStage from "@/app/components/stages/redirect/MarketingConsentStage";
+import PayloadStage from "@/app/components/stages/redirect/PayloadStage";
 
 import '../app/globals.css'
 import Header from "@/app/components/Header";
 import {useEffect} from "react";
-import AboutYouStage from "@/app/components/stages/AboutYouStage";
-import CardStage from "@/app/components/stages/CardStage";
+import AboutYouStage from "@/app/components/stages/redirect/AboutYouStage";
+import CardStage from "@/app/components/stages/redirect/CardStage";
 
 const CardForm = () => {
-    const formStage = useStageStore((state) => state.currentStage) as CardFormStage;
+    const formStage = useRedirectStageStore((state) => state.currentStage) as RedirectCardFormStage;
 
-    const setFormType = useStageStore((state) => state.setFormType)
+    const setFormType = useRedirectStageStore((state) => state.setFormType)
 
-    useEffect(() => setFormType(FormType.CARD), [])
+    useEffect(() => setFormType(RedirectFormType.CARD), [])
 
     return (
         <><Head>
@@ -28,46 +34,46 @@ const CardForm = () => {
         </Head>
             <Header showNav={false}/>
             {
-                formStage === CardFormStage.CardStage && (
+                formStage === RedirectCardFormStage.CardStage && (
                     <CardStage/>
                 )
             }
             {
-                formStage === CardFormStage.AboutYouStage && (
+                formStage === RedirectCardFormStage.AboutYouStage && (
                     <AboutYouStage/>
                 )
             }
             {
-                formStage === CardFormStage.CurrentAddressStage && (
-                    <AddressStage title={"Current Address"} addressPayloadName={AddressStages.CURRENT_ADDRESS}
-                                  addressPayloadSetter={AddressPayloadSetters.CURRENT_ADDRESS}/>
+                formStage === RedirectCardFormStage.CurrentAddressStage && (
+                    <AddressStage title={"Current Address"} addressPayloadName={RedirectAddressStages.CURRENT_ADDRESS}
+                                  addressPayloadSetter={RedirectAddressPayloadSetters.CURRENT_ADDRESS}/>
                 )
             }
             {
-                formStage === CardFormStage.FirstPreviousAddressStage && (
+                formStage === RedirectCardFormStage.FirstPreviousAddressStage && (
                     <AddressStage
                         title={"Due to living at your current address for under three years, you must provide your last previous address."}
-                        addressPayloadName={AddressStages.FIRST_PREVIOUS_ADDRESS}
-                        addressPayloadSetter={AddressPayloadSetters.FIRST_PREVIOUS_ADDRESS}/>
+                        addressPayloadName={RedirectAddressStages.FIRST_PREVIOUS_ADDRESS}
+                        addressPayloadSetter={RedirectAddressPayloadSetters.FIRST_PREVIOUS_ADDRESS}/>
                 )
             }
             {
-                formStage === CardFormStage.EmploymentStage && (
+                formStage === RedirectCardFormStage.EmploymentStage && (
                     <CurrentEmploymentStage/>
                 )
             }
             {
-                formStage === CardFormStage.ExpenditureStage && (
+                formStage === RedirectCardFormStage.ExpenditureStage && (
                     <ExpenditureStage/>
                 )
             }
             {
-                formStage === CardFormStage.MarketingConsentStage && (
+                formStage === RedirectCardFormStage.MarketingConsentStage && (
                     <MarketingConsentStage/>
                 )
             }
             {
-                formStage === CardFormStage.PayloadStage && (
+                formStage === RedirectCardFormStage.PayloadStage && (
                     <PayloadStage/>
                 )
             }

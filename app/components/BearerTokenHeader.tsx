@@ -1,5 +1,5 @@
 import {useRef, useState} from "react";
-import {useStageStore} from "@/app/state/stages";
+import {useRedirectStageStore} from "@/app/state/stages";
 import {FaLock, FaLockOpen} from "react-icons/fa";
 
 const BearerTokenHeader = () => {
@@ -7,8 +7,8 @@ const BearerTokenHeader = () => {
 
     const refTextArea = useRef(null);
 
-    const savedJwtBearerToken = useStageStore((state) => state.jwtBearerToken);
-    const setJwtBearerToken = useStageStore((state) => state.setJwtBearerToken);
+    const savedJwtBearerToken = useRedirectStageStore((state) => state.jwtBearerToken);
+    const setJwtBearerToken = useRedirectStageStore((state) => state.setJwtBearerToken);
 
     const toggleOpen = () => {
         setIsOpen(!isOpen);

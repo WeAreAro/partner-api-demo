@@ -1,14 +1,14 @@
 import {create,} from "zustand";
 import {EmploymentIndustry} from "./enum/EmploymentIndustry";
 
-export enum FormType {
+export enum RedirectFormType {
     UNSECURED_LOAN,
     CARD
 }
 
-export type FormStageType = | UnsecuredLoanFormStage | CardFormStage;
+export type RedirectFormStageType = | RedirectUnsecuredLoanFormStage | RedirectCardFormStage;
 
-export enum UnsecuredLoanFormStage {
+export enum RedirectUnsecuredLoanFormStage {
     LoanStage = 1,
     AboutYouStage = 2,
     CurrentAddressStage = 3,
@@ -21,7 +21,7 @@ export enum UnsecuredLoanFormStage {
     PayloadStage = 10,
 }
 
-export enum CardFormStage {
+export enum RedirectCardFormStage {
     CardStage = 1,
     AboutYouStage = 2,
     CurrentAddressStage = 3,
@@ -32,9 +32,9 @@ export enum CardFormStage {
     PayloadStage = 8
 }
 
-export const TOTAL_UNSECURED_STAGES = Object.keys(UnsecuredLoanFormStage).length / 2;
+export const REDIRECT_TOTAL_UNSECURED_STAGES = Object.keys(RedirectUnsecuredLoanFormStage).length / 2;
 
-export const TOTAL_CARD_STAGES = Object.keys(CardFormStage).length / 2;
+export const REDIRECT_TOTAL_CARD_STAGES = Object.keys(RedirectCardFormStage).length / 2;
 
 export enum Title {
     "Mr" = "Mr",
@@ -155,7 +155,7 @@ export enum OtherIncomePeriod {
     "Weekly" = "W",
 }
 
-export interface AboutYouPayload {
+export interface RedirectAboutYouPayload {
     title: Title,
     forename: string,
     surname: string,
@@ -169,21 +169,21 @@ export interface AboutYouPayload {
     dependent_ages?: string
 }
 
-export type QuotePayload = | LoanPayload | CardPayload;
+export type RedirectQuotePayload = | RedirectLoanPayload | RedirectCardPayload;
 
-export interface CardPayload {
+export interface RedirectCardPayload {
     cash_advance: string,
     balance_transfer: string,
     balance_to_transfer: number;
 }
 
-export interface LoanPayload {
+export interface RedirectLoanPayload {
     loan_amount: number,
     loan_term: number,
     loan_purpose: LoanPurpose
 }
 
-export interface AddressPayload {
+export interface RedirectAddressPayload {
     flat?: string,
     house_number?: string,
     house_name?: string,
@@ -198,7 +198,7 @@ export interface AddressPayload {
 }
 
 
-export interface EmploymentPayload {
+export interface RedirectEmploymentPayload {
     occupation?: string,
     employer_name?: string,
     employment_industry?: EmploymentIndustry,
@@ -212,24 +212,24 @@ export interface EmploymentPayload {
     other_household_income: number,
 }
 
-export interface ExpenditurePayload {
+export interface RedirectExpenditurePayload {
     monthly_mortgage_rent: number,
     monthly_mortgage_rent_share?: number,
 }
 
-export interface MarketingConsentPayload {
+export interface RedirectMarketingConsentPayload {
     email_opt_in: YesNoValue,
     text_opt_in: YesNoValue,
 }
 
 
-export interface OtherIncome {
+export interface RedirectOtherIncome {
     income: number;
     income_description: OtherIncomeDescription;
     period: OtherIncomePeriod;
 }
 
-export interface OtherIncomePayload {
+export interface RedirectOtherIncomePayload {
     income_1: number;
     description_1: OtherIncomeDescription;
     period_1: OtherIncomePeriod;
@@ -239,78 +239,78 @@ export interface OtherIncomePayload {
     period_2: OtherIncomePeriod;
 }
 
-export enum AddressStages {
+export enum RedirectAddressStages {
     CURRENT_ADDRESS = "currentAddressPayload",
     FIRST_PREVIOUS_ADDRESS = "firstPreviousAddressPayload",
     SECOND_PREVIOUS_ADDRESS = "secondPreviousAddressPayload"
 }
 
-export enum AddressPayloadSetters {
+export enum RedirectAddressPayloadSetters {
     CURRENT_ADDRESS = "setCurrentAddressPayload",
     FIRST_PREVIOUS_ADDRESS = "setFirstPreviousAddressPayload",
     SECOND_PREVIOUS_ADDRESS = "setSecondPreviousAddressPayload",
 }
 
-export interface StageState {
-    formType: FormType
+export interface RedirectStageState {
+    formType: RedirectFormType
 
-    currentStage: FormStageType
-    previousStage: FormStageType
+    currentStage: RedirectFormStageType
+    previousStage: RedirectFormStageType
 
-    quotePayload: QuotePayload
-    aboutYouPayload: AboutYouPayload
-    currentAddressPayload: AddressPayload
-    firstPreviousAddressPayload: AddressPayload
-    secondPreviousAddressPayload: AddressPayload
-    currentEmploymentPayload: EmploymentPayload
-    otherIncomePayload: OtherIncomePayload
-    expenditurePayload: ExpenditurePayload
-    marketingConsentPayload: MarketingConsentPayload
+    quotePayload: RedirectQuotePayload
+    aboutYouPayload: RedirectAboutYouPayload
+    currentAddressPayload: RedirectAddressPayload
+    firstPreviousAddressPayload: RedirectAddressPayload
+    secondPreviousAddressPayload: RedirectAddressPayload
+    currentEmploymentPayload: RedirectEmploymentPayload
+    otherIncomePayload: RedirectOtherIncomePayload
+    expenditurePayload: RedirectExpenditurePayload
+    marketingConsentPayload: RedirectMarketingConsentPayload
 
     jwtBearerToken: string
 
     // --------------------------------
 
-    setFormType: (formType: FormType) => void
+    setFormType: (formType: RedirectFormType) => void
 
     setCurrentStage: (currentStage: number) => void
     setPreviousStage: (previousStage: number) => void
 
-    setAboutYouPayload: (payload: AboutYouPayload) => void
-    setQuotePayload: (payload: QuotePayload) => void
+    setAboutYouPayload: (payload: RedirectAboutYouPayload) => void
+    setQuotePayload: (payload: RedirectQuotePayload) => void
 
-    setCurrentAddressPayload: (payload: AddressPayload) => void
-    setFirstPreviousAddressPayload: (payload: AddressPayload) => void
-    setSecondPreviousAddressPayload: (payload: AddressPayload) => void
+    setCurrentAddressPayload: (payload: RedirectAddressPayload) => void
+    setFirstPreviousAddressPayload: (payload: RedirectAddressPayload) => void
+    setSecondPreviousAddressPayload: (payload: RedirectAddressPayload) => void
 
-    setCurrentEmploymentPayload: (payload: EmploymentPayload) => void
-    setOtherIncomePayload: (payload: OtherIncomePayload) => void
+    setCurrentEmploymentPayload: (payload: RedirectEmploymentPayload) => void
+    setOtherIncomePayload: (payload: RedirectOtherIncomePayload) => void
 
-    setExpenditurePayload: (payload: ExpenditurePayload) => void
-    setMarketingConsentPayload: (payload: MarketingConsentPayload) => void
+    setExpenditurePayload: (payload: RedirectExpenditurePayload) => void
+    setMarketingConsentPayload: (payload: RedirectMarketingConsentPayload) => void
 
     setJwtBearerToken: (jwtBearerToken: string) => void
 
 }
 
-export const useStageStore = create<StageState>()((set) => ({
-    formType: FormType.UNSECURED_LOAN,
+export const useRedirectStageStore = create<RedirectStageState>()((set) => ({
+    formType: RedirectFormType.UNSECURED_LOAN,
 
-    currentStage: UnsecuredLoanFormStage.LoanStage,
-    previousStage: UnsecuredLoanFormStage.LoanStage,
+    currentStage: RedirectUnsecuredLoanFormStage.LoanStage,
+    previousStage: RedirectUnsecuredLoanFormStage.LoanStage,
 
-    quotePayload: {} as QuotePayload,
-    aboutYouPayload: {} as AboutYouPayload,
+    quotePayload: {} as RedirectQuotePayload,
+    aboutYouPayload: {} as RedirectAboutYouPayload,
 
-    currentAddressPayload: {} as AddressPayload,
-    firstPreviousAddressPayload: {} as AddressPayload,
-    secondPreviousAddressPayload: {} as AddressPayload,
+    currentAddressPayload: {} as RedirectAddressPayload,
+    firstPreviousAddressPayload: {} as RedirectAddressPayload,
+    secondPreviousAddressPayload: {} as RedirectAddressPayload,
 
-    currentEmploymentPayload: {} as EmploymentPayload,
-    otherIncomePayload: {} as OtherIncomePayload,
+    currentEmploymentPayload: {} as RedirectEmploymentPayload,
+    otherIncomePayload: {} as RedirectOtherIncomePayload,
 
-    expenditurePayload: {} as ExpenditurePayload,
-    marketingConsentPayload: {} as MarketingConsentPayload,
+    expenditurePayload: {} as RedirectExpenditurePayload,
+    marketingConsentPayload: {} as RedirectMarketingConsentPayload,
 
     jwtBearerToken: "",
 

@@ -1,6 +1,6 @@
 'use client';
 
-import {useStageStore} from "../state/stages";
+import {useRedirectStageStore} from "../state/stages";
 import ProgressBar from "./ProgressBar";
 import StageNav from "./StageNav";
 import BearerTokenHeader from "@/app/components/BearerTokenHeader";
@@ -8,8 +8,8 @@ import {hasTokenDefinedInEnv} from "@/app/utils/BearerUtils";
 
 export const StageForm = ({title, canGoBack, inputFields, submitFormData}: any) => {
 
-    const savedFormType = useStageStore((state) => state.formType)
-    const savedStage = useStageStore((state) => state.currentStage);
+    const savedFormType = useRedirectStageStore((state) => state.formType)
+    const savedStage = useRedirectStageStore((state) => state.currentStage);
 
     return (
         <div className="m-auto w-full max-w-xs">

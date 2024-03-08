@@ -1,28 +1,28 @@
-import {FormType, OtherIncome, useStageStore} from '@/app/state/stages';
+import {RedirectFormType, RedirectOtherIncome, useRedirectStageStore} from '@/app/state/stages';
 import React, {useEffect, useRef, useState} from 'react';
 import {hasTokenDefinedInEnv, isValidJwtBearerToken} from "@/app/utils/BearerUtils";
 
 const PayloadStage = () => {
 
-    const savedFormType = useStageStore((state) => state.formType)
+    const savedFormType = useRedirectStageStore((state) => state.formType)
 
-    const savedStage = useStageStore((state) => state.currentStage);
+    const savedStage = useRedirectStageStore((state) => state.currentStage);
 
-    const quotePayload = useStageStore((state) => state.quotePayload);
-    const aboutYouPayload = useStageStore((state) => state.aboutYouPayload);
+    const quotePayload = useRedirectStageStore((state) => state.quotePayload);
+    const aboutYouPayload = useRedirectStageStore((state) => state.aboutYouPayload);
 
-    const currentAddressPayload = useStageStore((state) => state.currentAddressPayload);
-    const firstPreviousAddressPayload = useStageStore((state) => state.firstPreviousAddressPayload);
-    const secondPreviousAddressPayload = useStageStore((state) => state.secondPreviousAddressPayload);
+    const currentAddressPayload = useRedirectStageStore((state) => state.currentAddressPayload);
+    const firstPreviousAddressPayload = useRedirectStageStore((state) => state.firstPreviousAddressPayload);
+    const secondPreviousAddressPayload = useRedirectStageStore((state) => state.secondPreviousAddressPayload);
 
-    const currentEmploymentPayload = useStageStore((state) => state.currentEmploymentPayload);
-    const expenditurePayload = useStageStore((state) => state.expenditurePayload);
+    const currentEmploymentPayload = useRedirectStageStore((state) => state.currentEmploymentPayload);
+    const expenditurePayload = useRedirectStageStore((state) => state.expenditurePayload);
 
-    const otherIncomePayload = useStageStore((state) => state.otherIncomePayload);
+    const otherIncomePayload = useRedirectStageStore((state) => state.otherIncomePayload);
 
-    const marketingConsentPayload = useStageStore((state) => state.marketingConsentPayload);
+    const marketingConsentPayload = useRedirectStageStore((state) => state.marketingConsentPayload);
 
-    const savedJwtBearerToken = useStageStore((state) => state.jwtBearerToken);
+    const savedJwtBearerToken = useRedirectStageStore((state) => state.jwtBearerToken);
 
     const [payload, setPayload] = useState("");
     const [result, setResult] = useState(undefined as {});
@@ -31,18 +31,18 @@ const PayloadStage = () => {
     const backRef = useRef(null);
 
     // Unsecured loan specific.
-    let unsecuredLoanOtherIncomePayload = [] as OtherIncome[];
+    let unsecuredLoanOtherIncomePayload = [] as RedirectOtherIncome[];
 
     // Card specific.
     let cardAboutYouPayload = {}
     let cardCurrentEmploymentPayload = {}
 
-    const setCurrentStage = useStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
 
     useEffect(() => {
-        if (savedFormType === FormType.UNSECURED_LOAN) {
+        if (savedFormType === RedirectFormType.UNSECURED_LOAN) {
             unsecuredLoanOtherIncomePayload = mapUnsecuredLoanOtherIncomePayload();
-        } else if (savedFormType === FormType.CARD) {
+        } else if (savedFormType === RedirectFormType.CARD) {
             cardAboutYouPayload = mapCardAboutYouPayload();
             cardCurrentEmploymentPayload = mapCardCurrentEmploymentDetailsPayload();
         }
@@ -86,7 +86,7 @@ const PayloadStage = () => {
     }
 
     const mapUnsecuredLoanOtherIncomePayload = () => {
-        const otherIncome = [] as OtherIncome[]
+        const otherIncome = [] as RedirectOtherIncome[]
 
         if (otherIncomePayload.income_1 > 0) {
             otherIncome.push({
@@ -127,13 +127,13 @@ const PayloadStage = () => {
             },
 
             // Journey specific.
-            ...(savedFormType === FormType.UNSECURED_LOAN && {"Loan": {...quotePayload}}),
-            ...(savedFormType === FormType.CARD && {"Quote": {...quotePayload}}),
+            ...(savedFormType === RedirectFormType.UNSECURED_LOAN && {"Loan": {...quotePayload}}),
+            ...(savedFormType === RedirectFormType.CARD && {"Quote": {...quotePayload}}),
 
             "Primary_Applicant": {
                 // About you / Applicant details are standard.
-                ...(savedFormType === FormType.UNSECURED_LOAN && {...aboutYouPayload}),
-                ...(savedFormType === FormType.CARD && {...cardAboutYouPayload}),
+                ...(savedFormType === RedirectFormType.UNSECURED_LOAN && {...aboutYouPayload}),
+                ...(savedFormType === RedirectFormType.CARD && {...cardAboutYouPayload}),
 
                 // Current address is standard.
                 "Current_Address": {
@@ -144,11 +144,11 @@ const PayloadStage = () => {
                 ...(shouldSendFirstPreviousAddress() && {"First_Previous_Address": {...firstPreviousAddressPayload}}),
 
                 // Second address is specific to unsecured loan.
-                ...(savedFormType === FormType.UNSECURED_LOAN && shouldSendSecondPreviousAddress() && {"Second_Previous_Address": {...secondPreviousAddressPayload}}),
+                ...(savedFormType === RedirectFormType.UNSECURED_LOAN && shouldSendSecondPreviousAddress() && {"Second_Previous_Address": {...secondPreviousAddressPayload}}),
 
                 // Employment differs.
-                ...(savedFormType === FormType.UNSECURED_LOAN && {"Current_Employment": {...currentEmploymentPayload}}),
-                ...(savedFormType === FormType.CARD && {"Current_Employment": {...cardCurrentEmploymentPayload}}),
+                ...(savedFormType === RedirectFormType.UNSECURED_LOAN && {"Current_Employment": {...currentEmploymentPayload}}),
+                ...(savedFormType === RedirectFormType.CARD && {"Current_Employment": {...cardCurrentEmploymentPayload}}),
 
                 // Expenditure is standard.
                 "Expenditure": {
@@ -156,7 +156,7 @@ const PayloadStage = () => {
                 },
 
                 // Other income is unsecured loan specific.
-                ...(savedFormType === FormType.UNSECURED_LOAN && unsecuredLoanOtherIncomePayload.length > 0 && {
+                ...(savedFormType === RedirectFormType.UNSECURED_LOAN && unsecuredLoanOtherIncomePayload.length > 0 && {
                     "Other_Income": unsecuredLoanOtherIncomePayload
                 }),
 
@@ -189,7 +189,7 @@ const PayloadStage = () => {
 
         if (!useJwtToken) {
             const mockedResponses = await fetchMockedResponses();
-            setResult(JSON.stringify(mockedResponses[FormType[savedFormType]], null, 2));
+            setResult(JSON.stringify(mockedResponses[RedirectFormType[savedFormType]], null, 2));
 
             setUsingMocks(true);
             return;
@@ -206,7 +206,7 @@ const PayloadStage = () => {
             body: payload,
         };
 
-        const url = savedFormType === FormType.UNSECURED_LOAN ?
+        const url = savedFormType === RedirectFormType.UNSECURED_LOAN ?
             "/ff-api/partner/v1/quote" :
             "/ff-api/partner/v1/quote/card"
 

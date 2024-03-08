@@ -1,25 +1,25 @@
 'use client';
 
-import {CardPayload, useStageStore, YesNoValue} from '@/app/state/stages';
+import {RedirectCardPayload, useRedirectStageStore, YesNoValue} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, Field, getPossibleValues, InputType} from '../InputField';
-import {StageForm} from '../StageForm';
+import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
+import {StageForm} from '../../StageForm';
 
 const CardStage = () => {
 
-    const savedStage = useStageStore((state) => state.currentStage);
+    const savedStage = useRedirectStageStore((state) => state.currentStage);
 
-    const savedCardQuote = useStageStore((state) => state.quotePayload) as CardPayload;
+    const savedCardQuote = useRedirectStageStore((state) => state.quotePayload) as RedirectCardPayload;
 
     const savedCashAdvance = savedCardQuote?.cash_advance;
     const savedBalanceTransfer = savedCardQuote?.balance_transfer;
     const savedBalanceToTransfer = savedCardQuote?.balance_to_transfer;
 
-    const setCurrentStage = useStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
 
-    const setPayload = useStageStore((state) => state.setQuotePayload)
+    const setPayload = useRedirectStageStore((state) => state.setQuotePayload)
 
-    const [formData, setFormData] = useState<CardPayload>({
+    const [formData, setFormData] = useState<RedirectCardPayload>({
         cash_advance: savedCashAdvance ?? YesNoValue.Yes,
         balance_transfer: savedBalanceTransfer ?? YesNoValue.Yes,
         balance_to_transfer: savedBalanceToTransfer ?? 4000
@@ -52,7 +52,7 @@ const CardStage = () => {
         },
     ]
 
-    const validate = (formData: CardPayload) => {
+    const validate = (formData: RedirectCardPayload) => {
         const formErrors = {} as any
         return formErrors
     }

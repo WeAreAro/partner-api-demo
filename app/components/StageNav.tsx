@@ -1,13 +1,13 @@
-import {UnsecuredLoanFormStage, useStageStore} from "../state/stages";
+import {RedirectUnsecuredLoanFormStage, useRedirectStageStore} from "../state/stages";
 import {useEffect, useRef} from "react";
 
 const StageNav = ({canGoBack}: any) => {
-    const savedStage = useStageStore((state) => state.currentStage);
+    const savedStage = useRedirectStageStore((state) => state.currentStage);
 
-    const previousStage = useStageStore((state) => state.previousStage);
-    const setCurrentStage = useStageStore((state) => state.setCurrentStage)
+    const previousStage = useRedirectStageStore((state) => state.previousStage);
+    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
 
-    const backStage = savedStage === UnsecuredLoanFormStage.EmploymentStage ? previousStage : savedStage - 1
+    const backStage = savedStage === RedirectUnsecuredLoanFormStage.EmploymentStage ? previousStage : savedStage - 1
 
     const continueRef = useRef(null);
     const backRef = useRef(null);

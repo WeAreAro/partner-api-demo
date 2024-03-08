@@ -1,8 +1,8 @@
-import {FormType, TOTAL_CARD_STAGES, TOTAL_UNSECURED_STAGES} from "../state/stages"
+import {REDIRECT_TOTAL_CARD_STAGES, REDIRECT_TOTAL_UNSECURED_STAGES, RedirectFormType} from "../state/stages"
 
 const ProgressBar = ({currentStage, formType}: any) => {
 
-    const TOTAL_STAGES = formType === FormType.UNSECURED_LOAN ? TOTAL_UNSECURED_STAGES : TOTAL_CARD_STAGES
+    const TOTAL_STAGES = formType === RedirectFormType.UNSECURED_LOAN ? REDIRECT_TOTAL_UNSECURED_STAGES : REDIRECT_TOTAL_CARD_STAGES
 
     const PROGRESS_BAR_CLASS_NAMES = [
         "mb-2 h-[15px] flex-1 rounded-xl bg-lime-950",
@@ -48,7 +48,7 @@ const ProgressBar = ({currentStage, formType}: any) => {
                 {...renderProgressBar()}
             </div>
             <small className="m-auto text-gray-600">
-                {formType === FormType.UNSECURED_LOAN ? (TOTAL_UNSECURED_STAGES - currentStage) : (TOTAL_CARD_STAGES - currentStage)} remaining
+                {formType === RedirectFormType.UNSECURED_LOAN ? (REDIRECT_TOTAL_UNSECURED_STAGES - currentStage) : (REDIRECT_TOTAL_CARD_STAGES - currentStage)} remaining
                 steps to complete</small>
         </div>)
 }

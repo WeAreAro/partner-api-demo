@@ -1,28 +1,33 @@
 'use client';
 
-import {EmploymentIndustry, EmploymentPayload, EmploymentStatus, useStageStore} from '@/app/state/stages';
+import {
+    EmploymentIndustry,
+    EmploymentStatus,
+    RedirectEmploymentPayload,
+    useRedirectStageStore
+} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, Field, getPossibleValues, InputType} from '../InputField';
-import {StageForm} from '../StageForm';
+import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
+import {StageForm} from '../../StageForm';
 
 const CurrentEmploymentStage = () => {
 
-    const savedStage = useStageStore((state) => state.currentStage);
+    const savedStage = useRedirectStageStore((state) => state.currentStage);
 
-    const savedOccupation = useStageStore((state) => state.currentEmploymentPayload?.occupation);
-    const savedEmployerName = useStageStore((state) => state.currentEmploymentPayload?.employer_name);
-    const savedEmploymentIndustry = useStageStore((state) => state.currentEmploymentPayload?.employment_industry);
-    const savedGrossIncome = useStageStore((state) => state.currentEmploymentPayload?.gross_income);
-    const savedEmploymentStatus = useStageStore((state) => state.currentEmploymentPayload?.employment_status);
-    const savedEmploymentYears = useStageStore((state) => state.currentEmploymentPayload?.emp_years);
-    const savedEmploymentMonths = useStageStore((state) => state.currentEmploymentPayload?.emp_months);
-    const savedOtherHouseholdIncome = useStageStore((state) => state.currentEmploymentPayload?.other_household_income);
+    const savedOccupation = useRedirectStageStore((state) => state.currentEmploymentPayload?.occupation);
+    const savedEmployerName = useRedirectStageStore((state) => state.currentEmploymentPayload?.employer_name);
+    const savedEmploymentIndustry = useRedirectStageStore((state) => state.currentEmploymentPayload?.employment_industry);
+    const savedGrossIncome = useRedirectStageStore((state) => state.currentEmploymentPayload?.gross_income);
+    const savedEmploymentStatus = useRedirectStageStore((state) => state.currentEmploymentPayload?.employment_status);
+    const savedEmploymentYears = useRedirectStageStore((state) => state.currentEmploymentPayload?.emp_years);
+    const savedEmploymentMonths = useRedirectStageStore((state) => state.currentEmploymentPayload?.emp_months);
+    const savedOtherHouseholdIncome = useRedirectStageStore((state) => state.currentEmploymentPayload?.other_household_income);
 
-    const setCurrentStage = useStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
 
-    const setPayload = useStageStore((state) => state.setCurrentEmploymentPayload)
+    const setPayload = useRedirectStageStore((state) => state.setCurrentEmploymentPayload)
 
-    const [formData, setFormData] = useState<EmploymentPayload>({
+    const [formData, setFormData] = useState<RedirectEmploymentPayload>({
         occupation: savedOccupation ?? "Software Engineer",
         employer_name: savedEmployerName ?? "Aro",
 
@@ -96,7 +101,7 @@ const CurrentEmploymentStage = () => {
     ]
 
 
-    const validate = (formData: EmploymentPayload) => {
+    const validate = (formData: RedirectEmploymentPayload) => {
         const formErrors = {} as any
 
         if (shouldHaveAnIncome(formData?.employment_status)) {

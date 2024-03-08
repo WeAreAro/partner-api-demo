@@ -1,30 +1,36 @@
 'use client';
 
-import {AboutYouPayload, MaritalStatus, ResidentialStatus, Title, useStageStore} from '@/app/state/stages';
+import {
+    MaritalStatus,
+    RedirectAboutYouPayload,
+    ResidentialStatus,
+    Title,
+    useRedirectStageStore
+} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, Field, getPossibleValues, InputType} from '../InputField';
-import {StageForm} from '../StageForm';
+import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
+import {StageForm} from '../../StageForm';
 
 const AboutYouStage = () => {
 
-    const savedStage = useStageStore((state) => state.currentStage);
+    const savedStage = useRedirectStageStore((state) => state.currentStage);
 
-    const savedTitle = useStageStore((state) => state.aboutYouPayload.title);
-    const savedForename = useStageStore((state) => state.aboutYouPayload?.forename);
-    const savedSurname = useStageStore((state) => state.aboutYouPayload?.surname);
-    const savedEmail = useStageStore((state) => state.aboutYouPayload?.email);
-    const savedHomePhone = useStageStore((state) => state.aboutYouPayload?.home_phone);
-    const savedMobilePhone = useStageStore((state) => state.aboutYouPayload?.mobile_phone);
-    const savedResidentialStatus = useStageStore((state) => state.aboutYouPayload?.residential_status);
-    const savedDob = useStageStore((state) => state.aboutYouPayload?.dob);
-    const savedMaritalStatus = useStageStore((state) => state.aboutYouPayload?.marital_status);
-    const savedNumberOfDependents = useStageStore((state) => state.aboutYouPayload?.number_of_dependents);
-    const savedDependentAges = useStageStore((state) => state.aboutYouPayload?.dependent_ages);
+    const savedTitle = useRedirectStageStore((state) => state.aboutYouPayload.title);
+    const savedForename = useRedirectStageStore((state) => state.aboutYouPayload?.forename);
+    const savedSurname = useRedirectStageStore((state) => state.aboutYouPayload?.surname);
+    const savedEmail = useRedirectStageStore((state) => state.aboutYouPayload?.email);
+    const savedHomePhone = useRedirectStageStore((state) => state.aboutYouPayload?.home_phone);
+    const savedMobilePhone = useRedirectStageStore((state) => state.aboutYouPayload?.mobile_phone);
+    const savedResidentialStatus = useRedirectStageStore((state) => state.aboutYouPayload?.residential_status);
+    const savedDob = useRedirectStageStore((state) => state.aboutYouPayload?.dob);
+    const savedMaritalStatus = useRedirectStageStore((state) => state.aboutYouPayload?.marital_status);
+    const savedNumberOfDependents = useRedirectStageStore((state) => state.aboutYouPayload?.number_of_dependents);
+    const savedDependentAges = useRedirectStageStore((state) => state.aboutYouPayload?.dependent_ages);
 
-    const setCurrentStage = useStageStore((state) => state.setCurrentStage)
-    const setAboutYouPayload = useStageStore((state) => state.setAboutYouPayload)
+    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
+    const setAboutYouPayload = useRedirectStageStore((state) => state.setAboutYouPayload)
 
-    const [formData, setFormData] = useState<AboutYouPayload>({
+    const [formData, setFormData] = useState<RedirectAboutYouPayload>({
         title: savedTitle ?? Title.Mr,
         forename: savedForename ?? "John",
         surname: savedSurname ?? "Doe",
@@ -104,7 +110,7 @@ const AboutYouStage = () => {
         }
     ]
 
-    const validate = (formData: AboutYouPayload) => {
+    const validate = (formData: RedirectAboutYouPayload) => {
         const formErrors = {} as any
 
         if (!formData.forename) {

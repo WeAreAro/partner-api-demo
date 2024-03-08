@@ -1,25 +1,25 @@
 'use client';
 
-import {LoanPayload, LoanPurpose, useStageStore} from '@/app/state/stages';
+import {LoanPurpose, RedirectLoanPayload, useRedirectStageStore} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, Field, getPossibleValues, InputType} from '../InputField';
-import {StageForm} from '../StageForm';
+import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
+import {StageForm} from '../../StageForm';
 
 const LoanStage = () => {
 
-    const savedStage = useStageStore((state) => state.currentStage);
+    const savedStage = useRedirectStageStore((state) => state.currentStage);
 
-    const savedLoanPayload = useStageStore((state) => state.quotePayload) as LoanPayload;
+    const savedLoanPayload = useRedirectStageStore((state) => state.quotePayload) as RedirectLoanPayload;
 
     const savedLoanAmount = savedLoanPayload.loan_amount;
     const savedLoanTerm = savedLoanPayload.loan_term;
     const savedLoanPurpose = savedLoanPayload.loan_purpose;
 
-    const setCurrentStage = useStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
 
-    const setPayload = useStageStore((state) => state.setQuotePayload)
+    const setPayload = useRedirectStageStore((state) => state.setQuotePayload)
 
-    const [formData, setFormData] = useState<LoanPayload>({
+    const [formData, setFormData] = useState<RedirectLoanPayload>({
         loan_amount: savedLoanAmount ?? 10000,
         loan_term: savedLoanTerm ?? 24,
         loan_purpose: savedLoanPurpose ?? LoanPurpose['Debt Consolidation']
@@ -50,7 +50,7 @@ const LoanStage = () => {
         },
     ]
 
-    const validate = (formData: LoanPayload) => {
+    const validate = (formData: RedirectLoanPayload) => {
         const formErrors = {} as any
 
         if (isNaN(formData.loan_amount)) {

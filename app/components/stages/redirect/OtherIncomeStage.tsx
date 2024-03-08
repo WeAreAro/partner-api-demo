@@ -1,24 +1,29 @@
 'use client';
 
-import {OtherIncomeDescription, OtherIncomePayload, OtherIncomePeriod, useStageStore} from '@/app/state/stages';
+import {
+    OtherIncomeDescription,
+    OtherIncomePeriod,
+    RedirectOtherIncomePayload,
+    useRedirectStageStore
+} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, Field, getPossibleValues, InputType} from '../InputField';
-import {StageForm} from '../StageForm';
+import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
+import {StageForm} from '../../StageForm';
 
 const OtherIncomeStage = () => {
 
-    const savedStage = useStageStore((state) => state.currentStage);
+    const savedStage = useRedirectStageStore((state) => state.currentStage);
 
-    const savedIncomeOne = useStageStore((state) => state.otherIncomePayload?.income_1);
-    const savedIncomeDescriptionOne = useStageStore((state) => state.otherIncomePayload?.description_1);
+    const savedIncomeOne = useRedirectStageStore((state) => state.otherIncomePayload?.income_1);
+    const savedIncomeDescriptionOne = useRedirectStageStore((state) => state.otherIncomePayload?.description_1);
 
-    const savedIncomeTwo = useStageStore((state) => state.otherIncomePayload?.income_2);
-    const savedIncomeDescriptionTwo = useStageStore((state) => state.otherIncomePayload?.description_2);
+    const savedIncomeTwo = useRedirectStageStore((state) => state.otherIncomePayload?.income_2);
+    const savedIncomeDescriptionTwo = useRedirectStageStore((state) => state.otherIncomePayload?.description_2);
 
-    const setCurrentStage = useStageStore((state) => state.setCurrentStage)
-    const setPayload = useStageStore((state) => state.setOtherIncomePayload)
+    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
+    const setPayload = useRedirectStageStore((state) => state.setOtherIncomePayload)
 
-    const [formData, setFormData] = useState<OtherIncomePayload>({
+    const [formData, setFormData] = useState<RedirectOtherIncomePayload>({
         income_1: savedIncomeOne ?? 800,
         description_1: savedIncomeDescriptionOne ?? OtherIncomeDescription['Adoption Allowance'],
         period_1: OtherIncomePeriod.Monthly,
@@ -56,7 +61,7 @@ const OtherIncomeStage = () => {
         },
     ]
 
-    const validate = (formData: OtherIncomePayload) => {
+    const validate = (formData: RedirectOtherIncomePayload) => {
         const formErrors = {} as any
 
         // Don't care if it's left blank.

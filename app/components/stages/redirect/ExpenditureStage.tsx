@@ -1,21 +1,21 @@
 'use client';
 
-import {ExpenditurePayload, useStageStore} from '@/app/state/stages';
+import {RedirectExpenditurePayload, useRedirectStageStore} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, Field, InputType} from '../InputField';
-import {StageForm} from '../StageForm';
+import {createInputFields, Field, InputType} from '../../InputField';
+import {StageForm} from '../../StageForm';
 
 const ExpenditureStage = () => {
 
-    const savedStage = useStageStore((state) => state.currentStage);
+    const savedStage = useRedirectStageStore((state) => state.currentStage);
 
-    const savedMonthlyRent = useStageStore((state) => state.expenditurePayload?.monthly_mortgage_rent);
-    const savedMonthlyMortgageRentShare = useStageStore((state) => state.expenditurePayload?.monthly_mortgage_rent_share);
+    const savedMonthlyRent = useRedirectStageStore((state) => state.expenditurePayload?.monthly_mortgage_rent);
+    const savedMonthlyMortgageRentShare = useRedirectStageStore((state) => state.expenditurePayload?.monthly_mortgage_rent_share);
 
-    const setCurrentStage = useStageStore((state) => state.setCurrentStage)
-    const setPayload = useStageStore((state) => state.setExpenditurePayload)
+    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
+    const setPayload = useRedirectStageStore((state) => state.setExpenditurePayload)
 
-    const [formData, setFormData] = useState<ExpenditurePayload>({
+    const [formData, setFormData] = useState<RedirectExpenditurePayload>({
         monthly_mortgage_rent: savedMonthlyRent ?? 850,
         monthly_mortgage_rent_share: savedMonthlyMortgageRentShare,
     })
@@ -36,7 +36,7 @@ const ExpenditureStage = () => {
 
     const [errors, setErrors] = useState({} as any);
 
-    const validate = (formData: ExpenditurePayload) => {
+    const validate = (formData: RedirectExpenditurePayload) => {
         const formErrors = {} as any
 
         if (isNaN(formData.monthly_mortgage_rent) || formData?.monthly_mortgage_rent > 1000000) {

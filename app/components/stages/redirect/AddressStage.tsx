@@ -1,60 +1,60 @@
 'use client';
 
 import {
-    AddressPayload,
-    CardFormStage,
-    FormType,
-    StageState,
-    UnsecuredLoanFormStage,
-    useStageStore
+    RedirectAddressPayload,
+    RedirectCardFormStage,
+    RedirectFormType,
+    RedirectStageState,
+    RedirectUnsecuredLoanFormStage,
+    useRedirectStageStore
 } from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, Field, InputType} from '../InputField';
-import {StageForm} from '../StageForm';
+import {createInputFields, Field, InputType} from '../../InputField';
+import {StageForm} from '../../StageForm';
 
 interface Props {
     title: string,
-    addressPayloadName: keyof StageState,
-    addressPayloadSetter: keyof StageState,
+    addressPayloadName: keyof RedirectStageState,
+    addressPayloadSetter: keyof RedirectStageState,
 }
 
 const AddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) => {
 
-    const savedFormType = useStageStore((state) => state.formType)
+    const savedFormType = useRedirectStageStore((state) => state.formType)
 
-    const savedStage = useStageStore((state) => state.currentStage);
+    const savedStage = useRedirectStageStore((state) => state.currentStage);
 
-    const savedFlat = useStageStore((state) => (state[addressPayloadName] as AddressPayload)?.flat);
-    const savedHouseNumber = useStageStore((state) => (state[addressPayloadName] as AddressPayload)?.house_number);
-    const savedHouseName = useStageStore((state) => (state[addressPayloadName] as AddressPayload)?.house_name);
-    const savedStreet = useStageStore((state) => (state[addressPayloadName] as AddressPayload)?.street);
-    const savedPostTown = useStageStore((state) => (state[addressPayloadName] as AddressPayload)?.posttown);
-    const savedLocality = useStageStore((state) => (state[addressPayloadName] as AddressPayload)?.locality);
-    const savedCountry = useStageStore((state) => (state[addressPayloadName] as AddressPayload)?.country);
-    const savedPostcode = useStageStore((state) => (state[addressPayloadName] as AddressPayload)?.postcode);
+    const savedFlat = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.flat);
+    const savedHouseNumber = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.house_number);
+    const savedHouseName = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.house_name);
+    const savedStreet = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.street);
+    const savedPostTown = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.posttown);
+    const savedLocality = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.locality);
+    const savedCountry = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.country);
+    const savedPostcode = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.postcode);
 
-    const savedYearsLived = useStageStore((state) => (state[addressPayloadName] as AddressPayload)?.years_lived);
-    const savedMonthsLived = useStageStore((state) => (state[addressPayloadName] as AddressPayload)?.months_lived);
+    const savedYearsLived = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.years_lived);
+    const savedMonthsLived = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.months_lived);
 
-    const savedYearsLivedAtFirstPreviousAddress = useStageStore((state) => state.firstPreviousAddressPayload?.years_lived) ?? 0;
-    const savedMonthsLivedAtFirstPreviousAddress = useStageStore((state) => state.firstPreviousAddressPayload?.months_lived) ?? 0;
+    const savedYearsLivedAtFirstPreviousAddress = useRedirectStageStore((state) => state.firstPreviousAddressPayload?.years_lived) ?? 0;
+    const savedMonthsLivedAtFirstPreviousAddress = useRedirectStageStore((state) => state.firstPreviousAddressPayload?.months_lived) ?? 0;
 
-    const savedYearsLivedAtSecondPreviousAddress = useStageStore((state) => state.secondPreviousAddressPayload?.years_lived) ?? 0;
-    const savedMonthsLivedAtSecondPreviousAddress = useStageStore((state) => state.secondPreviousAddressPayload?.months_lived) ?? 0;
+    const savedYearsLivedAtSecondPreviousAddress = useRedirectStageStore((state) => state.secondPreviousAddressPayload?.years_lived) ?? 0;
+    const savedMonthsLivedAtSecondPreviousAddress = useRedirectStageStore((state) => state.secondPreviousAddressPayload?.months_lived) ?? 0;
 
 
     const firstPreviousAddressTotalMonths = (savedYearsLivedAtFirstPreviousAddress * 12) + savedMonthsLivedAtFirstPreviousAddress
     const secondPreviousAddressTotalMonths = (savedYearsLivedAtSecondPreviousAddress * 12) + savedMonthsLivedAtSecondPreviousAddress
 
-    const setCurrentStage = useStageStore((state) => state.setCurrentStage)
-    const setPreviousStage = useStageStore((state) => state.setPreviousStage)
+    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
+    const setPreviousStage = useRedirectStageStore((state) => state.setPreviousStage)
 
-    const setPayload = useStageStore((state) => state[addressPayloadSetter] as Function)
+    const setPayload = useRedirectStageStore((state) => state[addressPayloadSetter] as Function)
 
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [errors, setErrors] = useState({} as any);
 
-    const [formData, setFormData] = useState<AddressPayload>({
+    const [formData, setFormData] = useState<RedirectAddressPayload>({
         flat: savedFlat,
         house_number: savedHouseNumber ?? "400",
         house_name: savedHouseName,
@@ -120,7 +120,7 @@ const AddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) 
     ]
 
 
-    const validate = (formData: AddressPayload) => {
+    const validate = (formData: RedirectAddressPayload) => {
         const formErrors = {} as any
 
         if (!formData.street) {
@@ -171,31 +171,31 @@ const AddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) 
             // We should also show the stage if it's already been filled in, in case they want to go backwards and then forwards.
             setPreviousStage(savedStage)
 
-            if (savedFormType === FormType.UNSECURED_LOAN) {
+            if (savedFormType === RedirectFormType.UNSECURED_LOAN) {
                 switch (savedStage) {
-                    case UnsecuredLoanFormStage.CurrentAddressStage:
+                    case RedirectUnsecuredLoanFormStage.CurrentAddressStage:
                         if (firstPreviousAddressTotalMonths > 0 || shouldShowAnotherAddressStage()) {
-                            setCurrentStage(UnsecuredLoanFormStage.FirstPreviousAddressStage)
+                            setCurrentStage(RedirectUnsecuredLoanFormStage.FirstPreviousAddressStage)
                         } else {
-                            setCurrentStage(UnsecuredLoanFormStage.SecondPreviousAddressStage + 1)
+                            setCurrentStage(RedirectUnsecuredLoanFormStage.SecondPreviousAddressStage + 1)
                         }
                         break;
-                    case UnsecuredLoanFormStage.FirstPreviousAddressStage:
+                    case RedirectUnsecuredLoanFormStage.FirstPreviousAddressStage:
                         if (secondPreviousAddressTotalMonths > 0 || shouldShowAnotherAddressStage()) {
-                            setCurrentStage(UnsecuredLoanFormStage.SecondPreviousAddressStage)
+                            setCurrentStage(RedirectUnsecuredLoanFormStage.SecondPreviousAddressStage)
                         } else {
-                            setCurrentStage(UnsecuredLoanFormStage.SecondPreviousAddressStage + 1)
+                            setCurrentStage(RedirectUnsecuredLoanFormStage.SecondPreviousAddressStage + 1)
                         }
                         break;
                     default:
-                        setCurrentStage(UnsecuredLoanFormStage.SecondPreviousAddressStage + 1)
+                        setCurrentStage(RedirectUnsecuredLoanFormStage.SecondPreviousAddressStage + 1)
                         break;
                 }
-            } else if (savedFormType === FormType.CARD) {
+            } else if (savedFormType === RedirectFormType.CARD) {
                 if (firstPreviousAddressTotalMonths > 0 || shouldShowAnotherAddressStage()) {
-                    setCurrentStage(CardFormStage.FirstPreviousAddressStage)
+                    setCurrentStage(RedirectCardFormStage.FirstPreviousAddressStage)
                 } else {
-                    setCurrentStage(CardFormStage.FirstPreviousAddressStage + 1)
+                    setCurrentStage(RedirectCardFormStage.FirstPreviousAddressStage + 1)
                 }
             }
         }

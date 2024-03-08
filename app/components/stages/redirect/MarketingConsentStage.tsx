@@ -1,21 +1,21 @@
 'use client';
 
-import {MarketingConsentPayload, useStageStore, YesNoValue} from '@/app/state/stages';
+import {RedirectMarketingConsentPayload, useRedirectStageStore, YesNoValue} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, Field, getPossibleValues, InputType} from '../InputField';
-import {StageForm} from '../StageForm';
+import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
+import {StageForm} from '../../StageForm';
 
 const MarketingConsentStage = () => {
 
-    const savedStage = useStageStore((state) => state.currentStage);
+    const savedStage = useRedirectStageStore((state) => state.currentStage);
 
-    const savedEmailOptIn = useStageStore((state) => state.marketingConsentPayload?.email_opt_in);
-    const savedTextOptIn = useStageStore((state) => state.marketingConsentPayload?.text_opt_in);
+    const savedEmailOptIn = useRedirectStageStore((state) => state.marketingConsentPayload?.email_opt_in);
+    const savedTextOptIn = useRedirectStageStore((state) => state.marketingConsentPayload?.text_opt_in);
 
-    const setCurrentStage = useStageStore((state) => state.setCurrentStage)
-    const setPayload = useStageStore((state) => state.setMarketingConsentPayload)
+    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
+    const setPayload = useRedirectStageStore((state) => state.setMarketingConsentPayload)
 
-    const [formData, setFormData] = useState<MarketingConsentPayload>({
+    const [formData, setFormData] = useState<RedirectMarketingConsentPayload>({
         email_opt_in: savedEmailOptIn ?? YesNoValue.Yes,
         text_opt_in: savedTextOptIn ?? YesNoValue.Yes
     })
@@ -37,7 +37,7 @@ const MarketingConsentStage = () => {
 
     const [errors, setErrors] = useState({} as any);
 
-    const validate = (formData: MarketingConsentPayload) => {
+    const validate = (formData: RedirectMarketingConsentPayload) => {
         const formErrors = {} as any
 
         return formErrors
