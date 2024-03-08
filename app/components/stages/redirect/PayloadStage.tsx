@@ -203,22 +203,45 @@ const PayloadStage = () => {
         const requestOptions = {
             method: 'POST',
             headers: myHeaders,
-            body: payload,
+            body: payload
         };
 
         const url = savedFormType === RedirectFormType.UNSECURED_LOAN ?
             "/ff-api/partner/v1/quote" :
             "/ff-api/partner/v1/quote/card"
 
-        await fetch(url, requestOptions)
+        await fetchWithTimeout(url, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result?.url) {
                     window.open(result.url, '_blank')?.focus();
                 }
-                setResult(JSON.stringify(result, null, 2))
+                if (result?.toString().startsWith("Internal Server Error")) {
+                    setResult("Request timed out.");
+                } else {
+                    setResult(JSON.stringify(result, null, 2));
+                }
             })
-            .catch(error => console.log('error', error));
+            .catch(error => {
+                console.log('error', error);
+                setResult(error && error.toString().startsWith("AbortError") ? "Request timed out." : error);
+            });
+    }
+
+    async function fetchWithTimeout(resource: string, options = {}) {
+        // @ts-ignore
+        const {timeout = 30000} = options;
+
+        const controller = new AbortController();
+        const id = setTimeout(() => controller.abort(), timeout);
+
+        const response = await fetch(resource, {
+            ...options,
+            signal: controller.signal
+        });
+        clearTimeout(id);
+
+        return response;
     }
 
     const isUsingMocks = (): boolean => {
