@@ -1,6 +1,6 @@
 'use client';
 
-import {RedirectCardPayload, useRedirectStageStore} from '@/app/state/stages';
+import {RedirectCardPayload, useRedirectStageStore} from '@/app/state/redirect_stages';
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {StageForm} from './StageForm';

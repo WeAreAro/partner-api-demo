@@ -1,4 +1,4 @@
-import {REDIRECT_TOTAL_CARD_STAGES, REDIRECT_TOTAL_UNSECURED_STAGES, RedirectFormType} from "../state/stages"
+import {REDIRECT_TOTAL_CARD_STAGES, REDIRECT_TOTAL_UNSECURED_STAGES, RedirectFormType} from "../state/redirect_stages"
 
 const ProgressBar = ({currentStage, formType}: any) => {
 

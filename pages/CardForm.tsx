@@ -7,7 +7,7 @@ import {
     RedirectCardFormStage,
     RedirectFormType,
     useRedirectStageStore
-} from "@/app/state/stages";
+} from "@/app/state/redirect_stages";
 import AddressStage from "@/app/components/stages/redirect/AddressStage";
 import CurrentEmploymentStage from "@/app/components/stages/redirect/CurrentEmploymentStage";
 import ExpenditureStage from "@/app/components/stages/redirect/ExpenditureStage";

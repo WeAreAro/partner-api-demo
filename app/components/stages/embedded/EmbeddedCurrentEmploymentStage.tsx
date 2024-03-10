@@ -1,6 +1,6 @@
 'use client';
 
-import {EmploymentIndustry} from '@/app/state/stages';
+import {EmploymentIndustry} from '@/app/state/redirect_stages';
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {EmploymentStatus} from "@/app/state/enum/Common";

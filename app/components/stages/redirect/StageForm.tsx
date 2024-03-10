@@ -1,6 +1,6 @@
 'use client';
 
-import {useRedirectStageStore} from "../../../state/stages";
+import {useRedirectStageStore} from "../../../state/redirect_stages";
 import ProgressBar from "../../ProgressBar";
 import StageNav from "./StageNav";
 import BearerTokenHeader from "@/app/components/BearerTokenHeader";

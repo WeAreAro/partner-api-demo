@@ -1,4 +1,4 @@
-import {RedirectFormType, RedirectOtherIncome, useRedirectStageStore} from '@/app/state/stages';
+import {RedirectFormType, RedirectOtherIncome, useRedirectStageStore} from '@/app/state/redirect_stages';
 import React, {useEffect, useRef, useState} from 'react';
 import {hasTokenDefinedInEnv, isValidJwtBearerToken} from "@/app/utils/BearerUtils";
 import {useGeneralStageStore} from "@/app/state/general_stages";
