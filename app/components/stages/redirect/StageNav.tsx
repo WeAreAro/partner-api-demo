@@ -1,4 +1,4 @@
-import {RedirectUnsecuredLoanFormStage, useRedirectStageStore} from "../state/stages";
+import {RedirectUnsecuredLoanFormStage, useRedirectStageStore} from "../../../state/stages";
 import {useEffect, useRef} from "react";
 
 const StageNav = ({canGoBack}: any) => {

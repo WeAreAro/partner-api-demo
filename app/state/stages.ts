@@ -1,5 +1,15 @@
 import {create,} from "zustand";
 import {EmploymentIndustry} from "./enum/EmploymentIndustry";
+import {
+    EmploymentStatus,
+    LoanPurpose,
+    MaritalStatus,
+    OtherIncomeDescription,
+    OtherIncomePeriod,
+    ResidentialStatus,
+    Title,
+    YesNoValue
+} from "@/app/state/enum/Common";
 
 export enum RedirectFormType {
     UNSECURED_LOAN,
@@ -35,125 +45,6 @@ export enum RedirectCardFormStage {
 export const REDIRECT_TOTAL_UNSECURED_STAGES = Object.keys(RedirectUnsecuredLoanFormStage).length / 2;
 
 export const REDIRECT_TOTAL_CARD_STAGES = Object.keys(RedirectCardFormStage).length / 2;
-
-export enum Title {
-    "Mr" = "Mr",
-    "Mrs" = "Mrs",
-    "Ms" = "Ms",
-    "Miss" = "Miss",
-    "Dr" = "Dr",
-    "Other" = "Other",
-}
-
-export enum ResidentialStatus {
-    "Homeowner without a mortgage" = "H",
-    "Homeowner with a mortgage" = "M",
-    "Homeowner in a shared ownership scheme" = "S",
-    "Homeowner who doesn't reside in the property they own" = "N",
-    "Tenant who has to buy their own furniture" = "U",
-    "Tenant who even has furniture provided for them" = "T",
-    "Council tenant" = "C",
-    "Still living with their parents or another relative" = "R",
-}
-
-
-export enum MaritalStatus {
-    "Single" = "S",
-    "Married" = "M",
-    "Seperated" = "P",
-    "Divorced" = "D",
-    "Living with Partner - Civil Partnership" = "C",
-    "Widowed" = "W",
-    "Living Together" = "L",
-}
-
-export enum LoanPurpose {
-    "Debt Consolidation" = "CON",
-    "Home Improvement" = "BTL",
-    "Home Furnishings" = "HMF",
-    "Additional Property" = "HH",
-    "Mortgage shortfall/Pay off Mortgage" = "MSP",
-    "Car Loan" = "CA1",
-    "Caravan or Motorhome" = "CAN",
-    "Business Loan" = "BL1",
-    "Holiday" = "CN1",
-    "Medical Bill" = "MED",
-    "Wedding" = "NTM",
-    "Business Vehicle" = "BEV",
-    "Buy out Ex Partner" = "PAR",
-    "Timeshare" = "TIM",
-    "Purchase Freehold" = "PFH",
-    "Income Tax Bill" = "TAX",
-    "Other" = "*",
-}
-
-export enum EmploymentStatus {
-    "Self Employed" = "S",
-    "Full time" = "E",
-    "Part time" = "P",
-
-    "Retired" = "R",
-    "Homemaker" = "H",
-    "Student" = "F",
-    "Part time Self-employed" = "M",
-    "Unemployed" = "U",
-}
-
-export enum YesNoValue {
-    "Yes" = "Y",
-    "No" = "N",
-}
-
-export enum OtherIncomeDescription {
-    "Adoption Allowance" = "ADA",
-    "Agency" = "AGE",
-    "Attendance Allowance" = "ATT",
-    "Bank Nursing" = "BAN",
-    "Bonus" = "BON",
-    "Bursary" = "BUR",
-    "Car Allowance" = "CRA",
-    "Carers Allowance" = "CAR",
-    "Child Benefit" = "CHB",
-    "Child Support Agency" = "CSA",
-    "Child Tax Credit" = "CTC",
-    "Personal Independent Payment (PIP) / DLA" = "DLA",
-    "Dividends" = "DIV",
-    "Employment and Support Allowance" = "ESA",
-    "Foster Care Allowance" = "FOS",
-    "Incapacity Benefit" = "INC",
-    "Income Support" = "INO",
-    "Industrial Injuries Benefit" = "IND",
-    "Insurance Policies" = "INS",
-    "Invalidity" = "INV",
-    "Investment" = "IVT",
-    "Job Seekers Allowance" = "JSA",
-    "Lodgers" = "LOD",
-    "Maintenance" = "MAI",
-    "Maternity" = "MAT",
-    "Mobility" = "MOB",
-    "Money From Family" = "FAM",
-    "Overtime" = "OVT",
-    "Part-time Job" = "PTE",
-    "Part-time Self-employment" = "PSE",
-    "Pension Credit" = "PEN",
-    "Private Pension" = "PIP",
-    "Rental Income (Total)" = "REN",
-    "Self Employed Salary" = "SES",
-    "Severe Disability Living Allowance" = "SEV",
-    "State Pension" = "STP",
-    "Statutory Sick Pay" = "SSP",
-    "War Pension" = "WAR",
-    "Private Widows Pension" = "WD2",
-    "State Widows Pension" = "WD1",
-    "Working Tax Credit" = "WTC",
-    "Other" = "OTH",
-}
-
-export enum OtherIncomePeriod {
-    "Yearly" = "Y",
-    "Monthly" = "M",
-    "Weekly" = "W",
-}
 
 export interface RedirectAboutYouPayload {
     title: Title,
@@ -267,8 +158,6 @@ export interface RedirectStageState {
     expenditurePayload: RedirectExpenditurePayload
     marketingConsentPayload: RedirectMarketingConsentPayload
 
-    jwtBearerToken: string
-
     // --------------------------------
 
     setFormType: (formType: RedirectFormType) => void
@@ -289,8 +178,6 @@ export interface RedirectStageState {
     setExpenditurePayload: (payload: RedirectExpenditurePayload) => void
     setMarketingConsentPayload: (payload: RedirectMarketingConsentPayload) => void
 
-    setJwtBearerToken: (jwtBearerToken: string) => void
-
 }
 
 export const useRedirectStageStore = create<RedirectStageState>()((set) => ({
@@ -298,6 +185,8 @@ export const useRedirectStageStore = create<RedirectStageState>()((set) => ({
 
     currentStage: RedirectUnsecuredLoanFormStage.LoanStage,
     previousStage: RedirectUnsecuredLoanFormStage.LoanStage,
+
+    // ------------------------------------------------
 
     quotePayload: {} as RedirectQuotePayload,
     aboutYouPayload: {} as RedirectAboutYouPayload,
@@ -312,12 +201,14 @@ export const useRedirectStageStore = create<RedirectStageState>()((set) => ({
     expenditurePayload: {} as RedirectExpenditurePayload,
     marketingConsentPayload: {} as RedirectMarketingConsentPayload,
 
-    jwtBearerToken: "",
+    // ------------------------------------------------
 
     setFormType: (formType) => set((state) => ({formType})),
 
     setCurrentStage: (currentStage) => set((state) => ({currentStage})),
     setPreviousStage: (previousStage) => set((state) => ({previousStage})),
+
+    // ------------------------------------------------
 
     setAboutYouPayload: (aboutYouPayload) => set((state) => ({aboutYouPayload})),
     setQuotePayload: (quotePayload) => set((state) => ({quotePayload})),
@@ -331,8 +222,7 @@ export const useRedirectStageStore = create<RedirectStageState>()((set) => ({
     setCurrentEmploymentPayload: (currentEmploymentPayload) => set((state) => ({currentEmploymentPayload})),
     setExpenditurePayload: (expenditurePayload) => set((state) => ({expenditurePayload})),
     setMarketingConsentPayload: (marketingConsentPayload) => set((state) => ({marketingConsentPayload})),
-
-    setJwtBearerToken: (jwtBearerToken: string) => set((state) => ({jwtBearerToken})),
 }))
 
 export {EmploymentIndustry};
+

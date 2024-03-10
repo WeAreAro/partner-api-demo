@@ -1,21 +1,21 @@
 'use client';
 
-import {RedirectExpenditurePayload, useRedirectStageStore} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, InputType} from '../../InputField';
-import {StageForm} from './StageForm';
+import {EmbeddedExpenditurePayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
 
-const ExpenditureStage = () => {
+const EmbeddedExpenditureStage = () => {
 
-    const savedStage = useRedirectStageStore((state) => state.currentStage);
+    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
 
-    const savedMonthlyRent = useRedirectStageStore((state) => state.expenditurePayload?.monthly_mortgage_rent);
-    const savedMonthlyMortgageRentShare = useRedirectStageStore((state) => state.expenditurePayload?.monthly_mortgage_rent_share);
+    const savedMonthlyRent = useEmbeddedStageStore((state) => state.expenditurePayload?.monthly_mortgage_rent);
+    const savedMonthlyMortgageRentShare = useEmbeddedStageStore((state) => state.expenditurePayload?.monthly_mortgage_rent_share);
 
-    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
-    const setPayload = useRedirectStageStore((state) => state.setExpenditurePayload)
+    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
+    const setPayload = useEmbeddedStageStore((state) => state.setExpenditurePayload)
 
-    const [formData, setFormData] = useState<RedirectExpenditurePayload>({
+    const [formData, setFormData] = useState<EmbeddedExpenditurePayload>({
         monthly_mortgage_rent: savedMonthlyRent ?? 850,
         monthly_mortgage_rent_share: savedMonthlyMortgageRentShare,
     })
@@ -36,7 +36,7 @@ const ExpenditureStage = () => {
 
     const [errors, setErrors] = useState({} as any);
 
-    const validate = (formData: RedirectExpenditurePayload) => {
+    const validate = (formData: EmbeddedExpenditurePayload) => {
         const formErrors = {} as any
 
         if (isNaN(formData.monthly_mortgage_rent) || formData?.monthly_mortgage_rent > 1000000) {
@@ -64,8 +64,8 @@ const ExpenditureStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <StageForm title={"Expenditure Details"} canGoBack={true} inputFields={inputFields}
-                   submitFormData={submitFormData}/>
+        <EmbeddedStageForm title={"Expenditure Details"} canGoBack={true} inputFields={inputFields}
+                           submitFormData={submitFormData}/>
     )
 }
-export default ExpenditureStage
+export default EmbeddedExpenditureStage

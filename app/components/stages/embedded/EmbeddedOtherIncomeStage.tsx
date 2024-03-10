@@ -1,25 +1,25 @@
 'use client';
 
-import {RedirectOtherIncomePayload, useRedirectStageStore} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
-import {StageForm} from './StageForm';
 import {OtherIncomeDescription, OtherIncomePeriod} from "@/app/state/enum/Common";
+import {EmbeddedOtherIncomePayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
 
-const OtherIncomeStage = () => {
+const EmbeddedOtherIncomeStage = () => {
 
-    const savedStage = useRedirectStageStore((state) => state.currentStage);
+    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
 
-    const savedIncomeOne = useRedirectStageStore((state) => state.otherIncomePayload?.income_1);
-    const savedIncomeDescriptionOne = useRedirectStageStore((state) => state.otherIncomePayload?.description_1);
+    const savedIncomeOne = useEmbeddedStageStore((state) => state.otherIncomePayload?.income_1);
+    const savedIncomeDescriptionOne = useEmbeddedStageStore((state) => state.otherIncomePayload?.description_1);
 
-    const savedIncomeTwo = useRedirectStageStore((state) => state.otherIncomePayload?.income_2);
-    const savedIncomeDescriptionTwo = useRedirectStageStore((state) => state.otherIncomePayload?.description_2);
+    const savedIncomeTwo = useEmbeddedStageStore((state) => state.otherIncomePayload?.income_2);
+    const savedIncomeDescriptionTwo = useEmbeddedStageStore((state) => state.otherIncomePayload?.description_2);
 
-    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
-    const setPayload = useRedirectStageStore((state) => state.setOtherIncomePayload)
+    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
+    const setPayload = useEmbeddedStageStore((state) => state.setOtherIncomePayload)
 
-    const [formData, setFormData] = useState<RedirectOtherIncomePayload>({
+    const [formData, setFormData] = useState<EmbeddedOtherIncomePayload>({
         income_1: savedIncomeOne ?? 800,
         description_1: savedIncomeDescriptionOne ?? OtherIncomeDescription['Adoption Allowance'],
         period_1: OtherIncomePeriod.Monthly,
@@ -57,7 +57,7 @@ const OtherIncomeStage = () => {
         },
     ]
 
-    const validate = (formData: RedirectOtherIncomePayload) => {
+    const validate = (formData: EmbeddedOtherIncomePayload) => {
         const formErrors = {} as any
 
         // Don't care if it's left blank.
@@ -82,8 +82,8 @@ const OtherIncomeStage = () => {
         createInputFields(allFields, formData, errors, setFormData)
 
     return (
-        <StageForm title={"Other Monthly Incomes"} canGoBack={true} inputFields={inputFields}
-                   submitFormData={submitFormData}/>
+        <EmbeddedStageForm title={"Other Monthly Incomes"} canGoBack={true} inputFields={inputFields}
+                           submitFormData={submitFormData}/>
     )
 }
-export default OtherIncomeStage
+export default EmbeddedOtherIncomeStage

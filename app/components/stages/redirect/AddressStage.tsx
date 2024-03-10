@@ -10,7 +10,7 @@ import {
 } from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, InputType} from '../../InputField';
-import {StageForm} from '../../StageForm';
+import {StageForm} from './StageForm';
 
 interface Props {
     title: string,

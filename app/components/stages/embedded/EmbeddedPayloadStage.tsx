@@ -1,27 +1,31 @@
-import {RedirectFormType, RedirectOtherIncome, useRedirectStageStore} from '@/app/state/stages';
 import React, {useEffect, useRef, useState} from 'react';
 import {hasTokenDefinedInEnv, isValidJwtBearerToken} from "@/app/utils/BearerUtils";
+import {
+    EmbeddedAboutYouPayload,
+    EmbeddedAboutYouPayloadWithDependentsAsList,
+    EmbeddedOtherIncome,
+    EmbeddedPanelType,
+    useEmbeddedStageStore
+} from "@/app/state/embedded_stages";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 
-const PayloadStage = () => {
+const EmbeddedPayloadStage = () => {
 
-    const savedFormType = useRedirectStageStore((state) => state.formType)
+    const savedPanelType = useEmbeddedStageStore((state) => state.panelType)
+    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
 
-    const savedStage = useRedirectStageStore((state) => state.currentStage);
+    const loanPayload = useEmbeddedStageStore((state) => state.loanPayload);
+    const cardPayload = useEmbeddedStageStore((state) => state.cardPayload);
 
-    const quotePayload = useRedirectStageStore((state) => state.quotePayload);
-    const aboutYouPayload = useRedirectStageStore((state) => state.aboutYouPayload);
+    const aboutYouPayload = useEmbeddedStageStore((state) => state.aboutYouPayload);
+    const currentAddressPayload = useEmbeddedStageStore((state) => state.currentAddressPayload);
+    const firstPreviousAddressPayload = useEmbeddedStageStore((state) => state.firstPreviousAddressPayload);
+    const secondPreviousAddressPayload = useEmbeddedStageStore((state) => state.secondPreviousAddressPayload);
+    const currentEmploymentPayload = useEmbeddedStageStore((state) => state.currentEmploymentPayload);
+    const expenditurePayload = useEmbeddedStageStore((state) => state.expenditurePayload);
+    const otherIncomePayload = useEmbeddedStageStore((state) => state.otherIncomePayload);
 
-    const currentAddressPayload = useRedirectStageStore((state) => state.currentAddressPayload);
-    const firstPreviousAddressPayload = useRedirectStageStore((state) => state.firstPreviousAddressPayload);
-    const secondPreviousAddressPayload = useRedirectStageStore((state) => state.secondPreviousAddressPayload);
-
-    const currentEmploymentPayload = useRedirectStageStore((state) => state.currentEmploymentPayload);
-    const expenditurePayload = useRedirectStageStore((state) => state.expenditurePayload);
-
-    const otherIncomePayload = useRedirectStageStore((state) => state.otherIncomePayload);
-
-    const marketingConsentPayload = useRedirectStageStore((state) => state.marketingConsentPayload);
+    const marketingConsentPayload = useEmbeddedStageStore((state) => state.marketingConsentPayload);
 
     const savedJwtBearerToken = useGeneralStageStore((state) => state.jwtBearerToken);
 
@@ -31,23 +35,51 @@ const PayloadStage = () => {
 
     const backRef = useRef(null);
 
-    // Unsecured loan specific.
-    let unsecuredLoanOtherIncomePayload = [] as RedirectOtherIncome[];
+    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
 
-    // Card specific.
-    let cardAboutYouPayload = {}
-    let cardCurrentEmploymentPayload = {}
+    let mappedOtherIncomePayload = [] as EmbeddedOtherIncome[];
 
-    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
+    const mapOtherIncomePayload = () => {
+        const otherIncome = [] as EmbeddedOtherIncome[]
+
+        if (otherIncomePayload.income_1 > 0) {
+            otherIncome.push({
+                income: otherIncomePayload.income_1,
+                income_description: otherIncomePayload.description_1,
+            })
+        }
+
+        if (otherIncomePayload.income_2 > 0) {
+            otherIncome.push({
+                income: otherIncomePayload.income_2,
+                income_description: otherIncomePayload.description_2,
+            })
+        }
+
+        return otherIncome
+    }
+
+    const shouldSendFirstPreviousAddress = () => {
+        return currentAddressPayload?.years_lived * 12 + currentAddressPayload?.months_lived < 36
+    }
+
+    const shouldSendSecondPreviousAddress = () => {
+        return ((currentAddressPayload?.years_lived * 12 + currentAddressPayload?.months_lived)
+                + ((firstPreviousAddressPayload?.years_lived * 12) + firstPreviousAddressPayload?.months_lived)
+                < 36)
+            && !isNaN(secondPreviousAddressPayload.years_lived) && !isNaN(secondPreviousAddressPayload.months_lived)
+    }
 
     useEffect(() => {
-        if (savedFormType === RedirectFormType.UNSECURED_LOAN) {
-            unsecuredLoanOtherIncomePayload = mapUnsecuredLoanOtherIncomePayload();
-        } else if (savedFormType === RedirectFormType.CARD) {
-            cardAboutYouPayload = mapCardAboutYouPayload();
-            cardCurrentEmploymentPayload = mapCardCurrentEmploymentDetailsPayload();
+        if (savedPanelType === EmbeddedPanelType.ALL) {
+            mappedOtherIncomePayload = mapOtherIncomePayload();
         }
-        setPayload(generatePayload());
+
+        const payload = generatePayload();
+
+        console.log('Payload', payload);
+
+        setPayload(payload);
     }, [])
 
     useEffect(() => {
@@ -76,96 +108,69 @@ const PayloadStage = () => {
         };
     }, []);
 
-    const mapCardCurrentEmploymentDetailsPayload = () => {
-        const copy = Object.assign({}, currentEmploymentPayload);
-        return {...copy, gross_income_all: currentEmploymentPayload.gross_income}
-    }
-
-    const mapCardAboutYouPayload = () => {
-        const copy = Object.assign({}, aboutYouPayload);
-        return {...copy, first_name: aboutYouPayload.forename}
-    }
-
-    const mapUnsecuredLoanOtherIncomePayload = () => {
-        const otherIncome = [] as RedirectOtherIncome[]
-
-        if (otherIncomePayload.income_1 > 0) {
-            otherIncome.push({
-                income: otherIncomePayload.income_1,
-                income_description: otherIncomePayload.description_1,
-                period: otherIncomePayload.period_1
-            })
+    function stringToNumberArray(input: string | undefined): number[] {
+        if (!input || input.trim() === "") {
+            return [];
         }
 
-        if (otherIncomePayload.income_2 > 0) {
-            otherIncome.push({
-                income: otherIncomePayload.income_2,
-                income_description: otherIncomePayload.description_2,
-                period: otherIncomePayload.period_2
-            })
-        }
-
-        return otherIncome
+        return input.split(",").map(numString => parseInt(numString.trim(), 10));
     }
 
-    const shouldSendFirstPreviousAddress = () => {
-        return currentAddressPayload?.years_lived * 12 + currentAddressPayload?.months_lived < 36
-    }
+    function mapAboutYou(aboutYouPayload: EmbeddedAboutYouPayload): EmbeddedAboutYouPayloadWithDependentsAsList {
+        let asList: EmbeddedAboutYouPayloadWithDependentsAsList = {
+            ...aboutYouPayload,
+            dependant_ages: stringToNumberArray(aboutYouPayload?.dependant_ages_comma_sep)
+        };
 
-    const shouldSendSecondPreviousAddress = () => {
-        return ((currentAddressPayload?.years_lived * 12 + currentAddressPayload?.months_lived)
-                + ((firstPreviousAddressPayload?.years_lived * 12) + firstPreviousAddressPayload?.months_lived)
-                < 36)
-            && !isNaN(secondPreviousAddressPayload.years_lived) && !isNaN(secondPreviousAddressPayload.months_lived)
+        asList.dependant_ages_comma_sep = undefined;
+
+        return asList;
     }
 
     const generatePayload = () => {
+        console.log("saved panel type", EmbeddedPanelType.ALL, savedPanelType, loanPayload);
+
         const payload = {
             "Partner": {
                 "partner_code": "FFW-TEST",
                 "reference": "1234567",
-                "agree_terms": "Y"
+                "agree_terms": "Y",
+                ...(({"panel_type": EmbeddedPanelType[savedPanelType]}))
             },
 
-            // Journey specific.
-            ...(savedFormType === RedirectFormType.UNSECURED_LOAN && {"Loan": {...quotePayload}}),
-            ...(savedFormType === RedirectFormType.CARD && {"Quote": {...quotePayload}}),
+            ...(savedPanelType === EmbeddedPanelType.ALL && {"Loan": {...loanPayload}}),
+
+            ...(savedPanelType === EmbeddedPanelType.CREDITCARD && {"Credit_Card": {...cardPayload}}),
 
             "Primary_Applicant": {
-                // About you / Applicant details are standard.
-                ...(savedFormType === RedirectFormType.UNSECURED_LOAN && {...aboutYouPayload}),
-                ...(savedFormType === RedirectFormType.CARD && {...cardAboutYouPayload}),
+                "Personal_Details": {
+                    ...({...mapAboutYou(aboutYouPayload)}),
+                },
 
-                // Current address is standard.
                 "Current_Address": {
                     ...currentAddressPayload
                 },
 
-                // First address is standard.
                 ...(shouldSendFirstPreviousAddress() && {"First_Previous_Address": {...firstPreviousAddressPayload}}),
 
-                // Second address is specific to unsecured loan.
-                ...(savedFormType === RedirectFormType.UNSECURED_LOAN && shouldSendSecondPreviousAddress() && {"Second_Previous_Address": {...secondPreviousAddressPayload}}),
+                ...(shouldSendSecondPreviousAddress() && {"Second_Previous_Address": {...secondPreviousAddressPayload}}),
 
-                // Employment differs.
-                ...(savedFormType === RedirectFormType.UNSECURED_LOAN && {"Current_Employment": {...currentEmploymentPayload}}),
-                ...(savedFormType === RedirectFormType.CARD && {"Current_Employment": {...cardCurrentEmploymentPayload}}),
+                "Current_Employment": {
+                    ...currentEmploymentPayload
+                },
 
-                // Expenditure is standard.
                 "Expenditure": {
                     ...expenditurePayload
                 },
 
-                // Other income is unsecured loan specific.
-                ...(savedFormType === RedirectFormType.UNSECURED_LOAN && unsecuredLoanOtherIncomePayload.length > 0 && {
-                    "Other_Income": unsecuredLoanOtherIncomePayload
+                ...(savedPanelType === EmbeddedPanelType.ALL && mappedOtherIncomePayload.length > 0 && {
+                    "Other_Income": mappedOtherIncomePayload
                 }),
 
-                // Marketing consent is standard.
                 "Marketing_Consent": {
                     ...marketingConsentPayload
                 }
-            }
+            },
         }
 
         return JSON.stringify(payload, null, 2);
@@ -188,9 +193,11 @@ const PayloadStage = () => {
             useJwtToken = savedJwtBearerToken;
         }
 
+        console.log('JWT', useJwtToken);
+
         if (!useJwtToken) {
             const mockedResponses = await fetchMockedResponses();
-            setResult(JSON.stringify(mockedResponses["REDIRECT_" + RedirectFormType[savedFormType]], null, 2));
+            setResult(JSON.stringify(mockedResponses["EMBEDDED_" + EmbeddedPanelType[savedPanelType]], null, 2));
 
             setUsingMocks(true);
             return;
@@ -207,9 +214,7 @@ const PayloadStage = () => {
             body: payload
         };
 
-        const url = savedFormType === RedirectFormType.UNSECURED_LOAN ?
-            "/ff-api/partner/v1/quote" :
-            "/ff-api/partner/v1/quote/card"
+        const url = "/ff-api/partner/v1/quote/all-offers";
 
         await fetchWithTimeout(url, requestOptions)
             .then(response => response.json())
@@ -281,4 +286,4 @@ const PayloadStage = () => {
         </div>
     );
 }
-export default PayloadStage
+export default EmbeddedPayloadStage

@@ -1,22 +1,23 @@
 'use client';
 
-import {RedirectMarketingConsentPayload, useRedirectStageStore} from '@/app/state/stages';
+
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
-import {StageForm} from './StageForm';
 import {YesNoValue} from "@/app/state/enum/Common";
+import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {EmbeddedMarketingConsentPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 
-const MarketingConsentStage = () => {
+const EmbeddedMarketingConsentStage = () => {
 
-    const savedStage = useRedirectStageStore((state) => state.currentStage);
+    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
 
-    const savedEmailOptIn = useRedirectStageStore((state) => state.marketingConsentPayload?.email_opt_in);
-    const savedTextOptIn = useRedirectStageStore((state) => state.marketingConsentPayload?.text_opt_in);
+    const savedEmailOptIn = useEmbeddedStageStore((state) => state.marketingConsentPayload?.email_opt_in);
+    const savedTextOptIn = useEmbeddedStageStore((state) => state.marketingConsentPayload?.text_opt_in);
 
-    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
-    const setPayload = useRedirectStageStore((state) => state.setMarketingConsentPayload)
+    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
+    const setPayload = useEmbeddedStageStore((state) => state.setMarketingConsentPayload)
 
-    const [formData, setFormData] = useState<RedirectMarketingConsentPayload>({
+    const [formData, setFormData] = useState<EmbeddedMarketingConsentPayload>({
         email_opt_in: savedEmailOptIn ?? YesNoValue.Yes,
         text_opt_in: savedTextOptIn ?? YesNoValue.Yes
     })
@@ -38,7 +39,7 @@ const MarketingConsentStage = () => {
 
     const [errors, setErrors] = useState({} as any);
 
-    const validate = (formData: RedirectMarketingConsentPayload) => {
+    const validate = (formData: EmbeddedMarketingConsentPayload) => {
         const formErrors = {} as any
 
         return formErrors
@@ -63,8 +64,8 @@ const MarketingConsentStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <StageForm title={"Marketing Consent"} canGoBack={true} inputFields={inputFields}
-                   submitFormData={submitFormData}/>
+        <EmbeddedStageForm title={"Marketing Consent"} canGoBack={true} inputFields={inputFields}
+                           submitFormData={submitFormData}/>
     )
 }
-export default MarketingConsentStage
+export default EmbeddedMarketingConsentStage

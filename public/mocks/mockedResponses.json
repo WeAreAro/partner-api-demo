@@ -1,5 +1,5 @@
 {
-  "UNSECURED_LOAN": {
+  "REDIRECT_UNSECURED_LOAN": {
     "partner_reference": "1234567",
     "freedom_reference": "113752a8-20ec-4055-ac9c-4310171bf1df",
     "status": "SUCCESS",
@@ -17,7 +17,7 @@
     },
     "total_offers_available": 3
   },
-  "CARD": {
+  "REDIRECT_CARD": {
     "partner_reference": "1234567",
     "freedom_reference": "9877d9a4-50b8-4b95-9d61-9ec7ba255412",
     "status": "SUCCESS",
@@ -30,5 +30,17 @@
       "card_limit": 2000.00
     },
     "total_offers_available": 3
+  },
+  "EMBEDDED_ALL": {
+    "embedded": "all"
+  },
+  "EMBEDDED_CREDITCARD": {
+    "embedded": "creditcard"
+  },
+  "EMBEDDED_AUTOFINANCE": {
+    "embedded": "autofinance"
+  },
+  "EMBEDDED_SECURED": {
+    "embedded": "secured"
   }
 }

@@ -1,26 +1,26 @@
 'use client';
 
-import {RedirectLoanPayload, useRedirectStageStore} from '@/app/state/stages';
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
-import {StageForm} from './StageForm';
+import {EmbeddedLoanPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {LoanPurpose} from "@/app/state/enum/Common";
+import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
 
-const LoanStage = () => {
+const EmbeddedLoanStage = () => {
 
-    const savedStage = useRedirectStageStore((state) => state.currentStage);
+    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
 
-    const savedLoanPayload = useRedirectStageStore((state) => state.quotePayload) as RedirectLoanPayload;
+    const savedLoanPayload = useEmbeddedStageStore((state) => state.loanPayload) as EmbeddedLoanPayload;
 
     const savedLoanAmount = savedLoanPayload.loan_amount;
     const savedLoanTerm = savedLoanPayload.loan_term;
     const savedLoanPurpose = savedLoanPayload.loan_purpose;
 
-    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
 
-    const setPayload = useRedirectStageStore((state) => state.setQuotePayload)
+    const setPayload = useEmbeddedStageStore((state) => state.setLoanPayload)
 
-    const [formData, setFormData] = useState<RedirectLoanPayload>({
+    const [formData, setFormData] = useState<EmbeddedLoanPayload>({
         loan_amount: savedLoanAmount ?? 10000,
         loan_term: savedLoanTerm ?? 24,
         loan_purpose: savedLoanPurpose ?? LoanPurpose['Debt Consolidation']
@@ -51,7 +51,7 @@ const LoanStage = () => {
         },
     ]
 
-    const validate = (formData: RedirectLoanPayload) => {
+    const validate = (formData: EmbeddedLoanPayload) => {
         const formErrors = {} as any
 
         if (isNaN(formData.loan_amount)) {
@@ -89,7 +89,8 @@ const LoanStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <StageForm title="Loan Details" canGoBack={false} inputFields={inputFields} submitFormData={submitFormData}/>
+        <EmbeddedStageForm title="Loan Details" canGoBack={false} inputFields={inputFields}
+                           submitFormData={submitFormData}/>
     )
 }
-export default LoanStage
+export default EmbeddedLoanStage
