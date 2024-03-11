@@ -20,6 +20,7 @@ import OtherIncomeStage from "@/app/components/stages/redirect/OtherIncomeStage"
 import LoanStage from "@/app/components/stages/redirect/LoanStage";
 import {useEffect} from "react";
 import AboutYouStage from "@/app/components/stages/redirect/AboutYouStage";
+import PartnerDetailsStage from "@/app/components/stages/redirect/PartnerDetailsStage";
 
 const UnsecuredForm = () => {
     const formStage = useRedirectStageStore((state) => state.currentStage);
@@ -34,6 +35,11 @@ const UnsecuredForm = () => {
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
             <Header showNav={false}/>
+            {
+                formStage === RedirectUnsecuredLoanFormStage.PartnerDetailsStage && (
+                    <PartnerDetailsStage/>
+                )
+            }
             {
                 formStage === RedirectUnsecuredLoanFormStage.LoanStage && (
                     <LoanStage/>

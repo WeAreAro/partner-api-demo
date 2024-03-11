@@ -19,6 +19,7 @@ import EmbeddedCurrentEmploymentStage from "@/app/components/stages/embedded/Emb
 import EmbeddedExpenditureStage from "@/app/components/stages/embedded/EmbeddedExpenditureStage";
 import EmbeddedOtherIncomeStage from "@/app/components/stages/embedded/EmbeddedOtherIncomeStage";
 import EmbeddedPrimaryAddressStage from "@/app/components/stages/embedded/EmbeddedPrimaryAddressStage";
+import EmbeddedPartnerDetailsStage from "@/app/components/stages/embedded/EmbeddedPartnerDetailsStage";
 
 const EmbeddedCard = () => {
     const formStage = useEmbeddedStageStore((state) => state.currentStage);
@@ -33,6 +34,11 @@ const EmbeddedCard = () => {
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
             <Header showNav={false} headerBackgroundColor={"black"}/>
+            {
+                formStage === EmbeddedCardFormStage.PartnerDetailsStage && (
+                    <EmbeddedPartnerDetailsStage/>
+                )
+            }
             {
                 formStage === EmbeddedCardFormStage.CardStage && (
                     <EmbeddedCardStage/>

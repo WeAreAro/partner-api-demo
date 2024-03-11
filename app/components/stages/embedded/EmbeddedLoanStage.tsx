@@ -89,7 +89,7 @@ const EmbeddedLoanStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title="Loan Details" canGoBack={false} inputFields={inputFields}
+        <EmbeddedStageForm title="Loan Details" canGoBack={true} inputFields={inputFields}
                            submitFormData={submitFormData}/>
     )
 }

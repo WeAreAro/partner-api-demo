@@ -19,32 +19,40 @@ export enum RedirectFormType {
 export type RedirectFormStageType = | RedirectUnsecuredLoanFormStage | RedirectCardFormStage;
 
 export enum RedirectUnsecuredLoanFormStage {
-    LoanStage = 1,
-    AboutYouStage = 2,
-    CurrentAddressStage = 3,
-    FirstPreviousAddressStage = 4,
-    SecondPreviousAddressStage = 5,
-    EmploymentStage = 6,
-    ExpenditureStage = 7,
-    OtherIncomeStage = 8,
-    MarketingConsentStage = 9,
-    PayloadStage = 10,
+    PartnerDetailsStage = 1,
+    LoanStage = 2,
+    AboutYouStage = 3,
+    CurrentAddressStage = 4,
+    FirstPreviousAddressStage = 5,
+    SecondPreviousAddressStage = 6,
+    EmploymentStage = 7,
+    ExpenditureStage = 8,
+    OtherIncomeStage = 9,
+    MarketingConsentStage = 10,
+    PayloadStage = 11,
 }
 
 export enum RedirectCardFormStage {
-    CardStage = 1,
-    AboutYouStage = 2,
-    CurrentAddressStage = 3,
-    FirstPreviousAddressStage = 4,
-    EmploymentStage = 5,
-    ExpenditureStage = 6,
-    MarketingConsentStage = 7,
-    PayloadStage = 8
+    PartnerDetailsStage = 1,
+    CardStage = 2,
+    AboutYouStage = 3,
+    CurrentAddressStage = 4,
+    FirstPreviousAddressStage = 5,
+    EmploymentStage = 6,
+    ExpenditureStage = 7,
+    MarketingConsentStage = 8,
+    PayloadStage = 9
 }
 
 export const REDIRECT_TOTAL_UNSECURED_STAGES = Object.keys(RedirectUnsecuredLoanFormStage).length / 2;
 
 export const REDIRECT_TOTAL_CARD_STAGES = Object.keys(RedirectCardFormStage).length / 2;
+
+export interface RedirectPartnerDetails {
+    partner_code: string,
+    partner_reference?: string,
+    campaign_code?: string
+}
 
 export interface RedirectAboutYouPayload {
     title: Title,
@@ -148,6 +156,7 @@ export interface RedirectStageState {
     currentStage: RedirectFormStageType
     previousStage: RedirectFormStageType
 
+    partnerDetailsPayload: RedirectPartnerDetails
     quotePayload: RedirectQuotePayload
     aboutYouPayload: RedirectAboutYouPayload
     currentAddressPayload: RedirectAddressPayload
@@ -165,6 +174,7 @@ export interface RedirectStageState {
     setCurrentStage: (currentStage: number) => void
     setPreviousStage: (previousStage: number) => void
 
+    setPartnerDetailsPayload: (payload: RedirectPartnerDetails) => void
     setAboutYouPayload: (payload: RedirectAboutYouPayload) => void
     setQuotePayload: (payload: RedirectQuotePayload) => void
 
@@ -183,11 +193,12 @@ export interface RedirectStageState {
 export const useRedirectStageStore = create<RedirectStageState>()((set) => ({
     formType: RedirectFormType.UNSECURED_LOAN,
 
-    currentStage: RedirectUnsecuredLoanFormStage.LoanStage,
-    previousStage: RedirectUnsecuredLoanFormStage.LoanStage,
+    currentStage: RedirectUnsecuredLoanFormStage.PartnerDetailsStage,
+    previousStage: RedirectUnsecuredLoanFormStage.PartnerDetailsStage,
 
     // ------------------------------------------------
 
+    partnerDetailsPayload: {} as RedirectPartnerDetails,
     quotePayload: {} as RedirectQuotePayload,
     aboutYouPayload: {} as RedirectAboutYouPayload,
 
@@ -210,6 +221,7 @@ export const useRedirectStageStore = create<RedirectStageState>()((set) => ({
 
     // ------------------------------------------------
 
+    setPartnerDetailsPayload: (partnerDetailsPayload) => set((state) => ({partnerDetailsPayload})),
     setAboutYouPayload: (aboutYouPayload) => set((state) => ({aboutYouPayload})),
     setQuotePayload: (quotePayload) => set((state) => ({quotePayload})),
 

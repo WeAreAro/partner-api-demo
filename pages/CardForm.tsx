@@ -19,6 +19,7 @@ import Header from "@/app/components/Header";
 import {useEffect} from "react";
 import AboutYouStage from "@/app/components/stages/redirect/AboutYouStage";
 import CardStage from "@/app/components/stages/redirect/CardStage";
+import PartnerDetailsStage from "@/app/components/stages/redirect/PartnerDetailsStage";
 
 const CardForm = () => {
     const formStage = useRedirectStageStore((state) => state.currentStage) as RedirectCardFormStage;
@@ -33,6 +34,11 @@ const CardForm = () => {
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
             <Header showNav={false}/>
+            {
+                formStage === RedirectCardFormStage.PartnerDetailsStage && (
+                    <PartnerDetailsStage/>
+                )
+            }
             {
                 formStage === RedirectCardFormStage.CardStage && (
                     <CardStage/>

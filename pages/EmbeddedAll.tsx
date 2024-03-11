@@ -19,6 +19,7 @@ import EmbeddedCurrentEmploymentStage from "@/app/components/stages/embedded/Emb
 import EmbeddedExpenditureStage from "@/app/components/stages/embedded/EmbeddedExpenditureStage";
 import EmbeddedOtherIncomeStage from "@/app/components/stages/embedded/EmbeddedOtherIncomeStage";
 import EmbeddedPrimaryAddressStage from "@/app/components/stages/embedded/EmbeddedPrimaryAddressStage";
+import EmbeddedPartnerDetailsStage from "@/app/components/stages/embedded/EmbeddedPartnerDetailsStage";
 
 const EmbeddedAll = () => {
     const formStage = useEmbeddedStageStore((state) => state.currentStage);
@@ -34,6 +35,11 @@ const EmbeddedAll = () => {
         </Head>
             <Header showNav={false} headerBackgroundColor={"black"}/>
             <span style={{display: "none"}}>{formStage}</span>
+            {
+                formStage === EmbeddedLoanFormStage.PartnerDetailsStage && (
+                    <EmbeddedPartnerDetailsStage/>
+                )
+            }
             {
                 formStage === EmbeddedLoanFormStage.LoanStage && (
                     <EmbeddedLoanStage/>

@@ -74,7 +74,7 @@ const EmbeddedCardStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title="Credit Card details" canGoBack={false} inputFields={inputFields}
+        <EmbeddedStageForm title="Credit Card details" canGoBack={true} inputFields={inputFields}
                            submitFormData={submitFormData}/>
     )
 }

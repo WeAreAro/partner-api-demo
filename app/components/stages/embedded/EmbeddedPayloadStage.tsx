@@ -14,6 +14,8 @@ const EmbeddedPayloadStage = () => {
     const savedPanelType = useEmbeddedStageStore((state) => state.panelType)
     const savedStage = useEmbeddedStageStore((state) => state.currentStage);
 
+    const partnerDetailsPayload = useEmbeddedStageStore((state) => state.partnerDetailsPayload);
+
     const loanPayload = useEmbeddedStageStore((state) => state.loanPayload);
     const cardPayload = useEmbeddedStageStore((state) => state.cardPayload);
 
@@ -132,8 +134,9 @@ const EmbeddedPayloadStage = () => {
 
         const payload = {
             "Partner": {
-                "partner_code": "FFW-TEST",
-                "reference": "1234567",
+                "partner_code": partnerDetailsPayload.partner_code ? partnerDetailsPayload.partner_code : undefined,
+                "reference": partnerDetailsPayload.partner_reference ? partnerDetailsPayload.partner_reference : undefined,
+                "campaign_code": partnerDetailsPayload.campaign_code ? partnerDetailsPayload.campaign_code : undefined,
                 "agree_terms": "Y",
                 ...(({"panel_type": EmbeddedPanelType[savedPanelType]}))
             },

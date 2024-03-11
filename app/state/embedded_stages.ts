@@ -20,30 +20,39 @@ export enum EmbeddedPanelType {
 
 export type EmbeddedFormStageType = | EmbeddedLoanFormStage | EmbeddedCardFormStage;
 
+export interface EmbeddedPartnerDetails {
+    partner_code: string,
+    partner_reference?: string,
+    campaign_code?: string
+}
+
+
 export enum EmbeddedLoanFormStage {
-    LoanStage = 1,
-    AboutYouStage = 2,
-    CurrentAddressStage = 3,
-    FirstPreviousAddressStage = 4,
-    SecondPreviousAddressStage = 5,
-    EmploymentStage = 6,
-    ExpenditureStage = 7,
-    OtherIncomeStage = 8,
-    MarketingConsentStage = 9,
-    PayloadStage = 10
+    PartnerDetailsStage = 1,
+    LoanStage = 2,
+    AboutYouStage = 3,
+    CurrentAddressStage = 4,
+    FirstPreviousAddressStage = 5,
+    SecondPreviousAddressStage = 6,
+    EmploymentStage = 7,
+    ExpenditureStage = 8,
+    OtherIncomeStage = 9,
+    MarketingConsentStage = 10,
+    PayloadStage = 11
 }
 
 export enum EmbeddedCardFormStage {
-    CardStage = 1,
-    AboutYouStage = 2,
-    CurrentAddressStage = 3,
-    FirstPreviousAddressStage = 4,
-    SecondPreviousAddressStage = 5,
-    EmploymentStage = 6,
-    ExpenditureStage = 7,
-    OtherIncomeStage = 8,
-    MarketingConsentStage = 9,
-    PayloadStage = 10
+    PartnerDetailsStage = 1,
+    CardStage = 2,
+    AboutYouStage = 3,
+    CurrentAddressStage = 4,
+    FirstPreviousAddressStage = 5,
+    SecondPreviousAddressStage = 6,
+    EmploymentStage = 7,
+    ExpenditureStage = 8,
+    OtherIncomeStage = 9,
+    MarketingConsentStage = 10,
+    PayloadStage = 11
 }
 
 export const EMBEDDED_TOTAL_STAGES = (panelType: EmbeddedPanelType) => {
@@ -160,6 +169,8 @@ export interface EmbeddedStageState {
 
     // --------------------------------
 
+    partnerDetailsPayload: EmbeddedPartnerDetails
+
     loanPayload: EmbeddedLoanPayload
     cardPayload: EmbeddedCardPayload
 
@@ -179,6 +190,8 @@ export interface EmbeddedStageState {
     setCurrentStage: (currentStage: number) => void
     setPreviousStage: (previousStage: number) => void
 
+    setPartnerDetailsPayload: (payload: EmbeddedPartnerDetails) => void
+
     /* payloads */
     setLoanPayload: (payload: EmbeddedLoanPayload) => void
     setCardPayload: (payload: EmbeddedCardPayload) => void
@@ -196,10 +209,12 @@ export interface EmbeddedStageState {
 export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
     panelType: EmbeddedPanelType.ALL,
 
-    currentStage: EmbeddedLoanFormStage.LoanStage,
-    previousStage: EmbeddedLoanFormStage.LoanStage,
+    currentStage: EmbeddedLoanFormStage.PartnerDetailsStage,
+    previousStage: EmbeddedLoanFormStage.PartnerDetailsStage,
 
     // --------------------------------
+
+    partnerDetailsPayload: {} as EmbeddedPartnerDetails,
 
     loanPayload: {} as EmbeddedLoanPayload,
     cardPayload: {} as EmbeddedCardPayload,
@@ -221,6 +236,8 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
     setPreviousStage: (previousStage) => set((state) => ({previousStage})),
 
     // --------------------------------
+
+    setPartnerDetailsPayload: (partnerDetailsPayload) => set((state) => ({partnerDetailsPayload})),
 
     setLoanPayload: (loanPayload) => set((state) => ({loanPayload})),
     setCardPayload: (cardPayload) => set((state) => ({cardPayload})),

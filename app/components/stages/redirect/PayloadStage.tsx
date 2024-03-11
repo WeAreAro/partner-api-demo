@@ -9,6 +9,7 @@ const PayloadStage = () => {
 
     const savedStage = useRedirectStageStore((state) => state.currentStage);
 
+    const partnerDetailsPayload = useRedirectStageStore((state) => state.partnerDetailsPayload);
     const quotePayload = useRedirectStageStore((state) => state.quotePayload);
     const aboutYouPayload = useRedirectStageStore((state) => state.aboutYouPayload);
 
@@ -122,8 +123,9 @@ const PayloadStage = () => {
     const generatePayload = () => {
         const payload = {
             "Partner": {
-                "partner_code": "FFW-TEST",
-                "reference": "1234567",
+                "partner_code": partnerDetailsPayload.partner_code ? partnerDetailsPayload.partner_code : undefined,
+                "reference": partnerDetailsPayload.partner_reference ? partnerDetailsPayload.partner_reference : undefined,
+                "campaign_code": partnerDetailsPayload.campaign_code ? partnerDetailsPayload.campaign_code : undefined,
                 "agree_terms": "Y"
             },
 

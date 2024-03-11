@@ -74,7 +74,7 @@ const CardStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <StageForm title="Quote details" canGoBack={false} inputFields={inputFields} submitFormData={submitFormData}/>
+        <StageForm title="Quote details" canGoBack={true} inputFields={inputFields} submitFormData={submitFormData}/>
     )
 }
 export default CardStage

@@ -89,7 +89,7 @@ const LoanStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <StageForm title="Loan Details" canGoBack={false} inputFields={inputFields} submitFormData={submitFormData}/>
+        <StageForm title="Loan Details" canGoBack={true} inputFields={inputFields} submitFormData={submitFormData}/>
     )
 }
 export default LoanStage
