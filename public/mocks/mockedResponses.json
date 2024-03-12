@@ -288,20 +288,20 @@
               "additional_info_1": "Credit limits and APRs offered vary person to person",
               "balance_transfer_2": "0.11% fee",
               "additional_info_2": "There is a £3 per transaction cash withdrawal fee",
-              "purchases_3": "34.9%",
+              "purchases_3": "38.2%",
               "balance_transfer_1": "Balance transfer",
               "additional_info_3": "You’ll need the NovaCard mobile app to manage your account",
-              "balance_transfer_4": "(then 34.9%)",
+              "balance_transfer_4": "(then 38.2%)",
               "additional_info_4": "Your APR is linked to the Bank of England base rate and could fluctuate",
               "purchases_1": "Purchases",
               "balance_transfer_3": "34.7% for 6 months",
               "additional_info_5": "You’ll need to make at least the minimum monthly payment",
               "additional_info_6": "If you only make the minimum payment each month, it will take you longer and cost you more to clear your balance",
               "feature_statement_hover": "If you transfer a balance onto this card, you won’t have to pay interest on it for the card’s 0% period. However, once the 0% period ends, the card’s usual APR will be charged on the remaining balance.\r",
-              "rep_example": "34.9% representative APR variable based on an assumed credit limit of £1,200. 34.9% p.a. variable purchase rate.",
+              "rep_example": "38.2% representative APR variable based on an assumed credit limit of £1,200. 38.2% p.a. variable purchase rate.",
               "credit_limit_min": 200,
               "credit_limit_max": 1500,
-              "apr": 34.9
+              "apr": 38.2
             }
           },
           {

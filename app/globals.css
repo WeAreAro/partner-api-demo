@@ -2,6 +2,8 @@
     --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 214, 219, 220;
     --background-end-rgb: 255, 255, 255;
+
+    --offer-tile-border-color: grey;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -73,20 +75,22 @@
 }
 
 .offerTile {
-    border: 3px solid black;
+    border: 3px solid var(--offer-tile-border-color);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    box-shadow: 0px 12px 12px rgba(0, 0, 0, 0.4);
 }
 
 .offerTileRepExample {
     border-width: 0 3px 3px 3px;
     border-style: none solid solid solid;
-    border-color: black;
+    border-color: var(--offer-tile-border-color);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 10px;
     font-size: 14px;
-    background-color: rgba(248, 242, 240, 0.44);
+    background-color: rgb(245, 245, 245);
+    box-shadow: 0px 12px 12px rgba(0, 0, 0, 0.4);
 }
 
 .offerTileColumnInnerPadding {
@@ -120,15 +124,19 @@
 }
 
 .flexColumnBorder {
-    border-right: 3px solid black;
+    border-right: 3px solid var(--offer-tile-border-color);
 }
 
 .flexColumnBorderThird {
-    border-right: 3px solid black;
+    border-right: 3px solid var(--offer-tile-border-color);
 }
 
 .flexColumnSplit {
     flex: 1;
+}
+
+.flexColumnSplitBorder {
+    border: 2px solid var(--offer-tile-border-color);
 }
 
 @media screen and (max-width: 945px) {
@@ -147,7 +155,7 @@
 
     .flexColumnBorder {
         border-right: unset;
-        border-bottom: 3px solid black;
+        border-bottom: 3px solid var(--offer-tile-border-color);
     }
 
     .flexColumnBorderThird {
@@ -177,6 +185,6 @@
     }
 
     .offerTilePerMonth {
-        border-top: 3px solid black;
+        border-top: 3px solid var(--offer-tile-border-color);
     }
 }

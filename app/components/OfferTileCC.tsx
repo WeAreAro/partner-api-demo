@@ -26,7 +26,7 @@ const OfferTileCC = (props: Props) => {
                             </div>
                         </div>
                     </div>
-                    <div style={{border: "1px solid black"}}></div>
+                    <div className="flexColumnSplitBorder"></div>
                     <div className="flexColumnSplit">
                         <div className={"offerTileColumnInnerPadding"}>
                             <div style={{display: "block"}}>
@@ -49,7 +49,7 @@ const OfferTileCC = (props: Props) => {
                             </div>
                         </div>
                     </div>
-                    <div style={{border: "1px solid black"}}></div>
+                    <div className="flexColumnSplitBorder"></div>
                     <div className="flexColumnSplit">
                         <div className={"offerTileColumnInnerPadding"}>
                             <div style={{display: "block"}}>

@@ -25,7 +25,7 @@ const OfferTileLoan = (props: Props) => {
                             </div>
                         </div>
                     </div>
-                    <div style={{border: "1px solid black"}}></div>
+                    <div className="flexColumnSplitBorder"></div>
                     <div className="flexColumnSplit">
                         <div className={"offerTileColumnInnerPadding"}>
                             <div style={{display: "block"}}>
@@ -47,7 +47,7 @@ const OfferTileLoan = (props: Props) => {
                             </div>
                         </div>
                     </div>
-                    <div style={{border: "1px solid black"}}></div>
+                    <div className="flexColumnSplitBorder"></div>
                     <div className="flexColumnSplit" style={{backgroundColor: "#9c9bf8"}}>
                         <div className={"offerTileColumnInnerPadding"}>
                             <div style={{display: "block"}}>
@@ -69,7 +69,7 @@ const OfferTileLoan = (props: Props) => {
                             </div>
                         </div>
                     </div>
-                    <div style={{border: "1px solid black"}}></div>
+                    <div className="flexColumnSplitBorder"></div>
                     <div className="flexColumnSplit">
                         <div className={"offerTileColumnInnerPadding"}>
                             <div style={{display: "block"}}>
