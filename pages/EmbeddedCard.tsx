@@ -11,7 +11,7 @@ import {
     useEmbeddedStageStore
 } from "@/app/state/embedded_stages";
 import '../app/globals.css'
-import EmbeddedPayloadStage from "@/app/components/stages/embedded/EmbeddedPayloadStage";
+import EmbeddedAllOffersPayloadStage from "@/app/components/stages/embedded/EmbeddedAllOffersPayloadStage";
 import EmbeddedAboutYouStage from "@/app/components/stages/embedded/EmbeddedAboutYouStage";
 import EmbeddedCardStage from "@/app/components/stages/embedded/EmbeddedCardStage";
 import EmbeddedMarketingConsentStage from "@/app/components/stages/embedded/EmbeddedMarketingConsentStage";
@@ -20,6 +20,7 @@ import EmbeddedExpenditureStage from "@/app/components/stages/embedded/EmbeddedE
 import EmbeddedOtherIncomeStage from "@/app/components/stages/embedded/EmbeddedOtherIncomeStage";
 import EmbeddedPrimaryAddressStage from "@/app/components/stages/embedded/EmbeddedPrimaryAddressStage";
 import EmbeddedPartnerDetailsStage from "@/app/components/stages/embedded/EmbeddedPartnerDetailsStage";
+import EmbeddedOfferTilesStage from "@/app/components/stages/embedded/EmbeddedOfferTilesStage";
 
 const EmbeddedCard = () => {
     const formStage = useEmbeddedStageStore((state) => state.currentStage);
@@ -94,10 +95,14 @@ const EmbeddedCard = () => {
             }
             {
                 formStage === EmbeddedCardFormStage.PayloadStage && (
-                    <EmbeddedPayloadStage/>
+                    <EmbeddedAllOffersPayloadStage/>
                 )
             }
-
+            {
+                formStage === EmbeddedCardFormStage.OfferTilesStage && (
+                    <EmbeddedOfferTilesStage/>
+                )
+            }
         </>
     );
 }

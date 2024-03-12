@@ -5,6 +5,7 @@ import {
     MaritalStatus,
     OtherIncomeDescription,
     OtherIncomePeriod,
+    PropertyType,
     ResidentialStatus,
     Title,
     YesNoValue
@@ -18,7 +19,7 @@ export enum EmbeddedPanelType {
     SECURED
 }
 
-export type EmbeddedFormStageType = | EmbeddedLoanFormStage | EmbeddedCardFormStage;
+export type EmbeddedFormStageType = | EmbeddedLoanFormStage | EmbeddedCardFormStage | EmbeddedSecuredFormStage;
 
 export interface EmbeddedPartnerDetails {
     partner_code: string,
@@ -38,7 +39,8 @@ export enum EmbeddedLoanFormStage {
     ExpenditureStage = 8,
     OtherIncomeStage = 9,
     MarketingConsentStage = 10,
-    PayloadStage = 11
+    PayloadStage = 11,
+    OfferTilesStage = 12,
 }
 
 export enum EmbeddedCardFormStage {
@@ -52,7 +54,24 @@ export enum EmbeddedCardFormStage {
     ExpenditureStage = 8,
     OtherIncomeStage = 9,
     MarketingConsentStage = 10,
-    PayloadStage = 11
+    PayloadStage = 11,
+    OfferTilesStage = 12,
+}
+
+export enum EmbeddedSecuredFormStage {
+    PartnerDetailsStage = 1,
+    LoanStage = 2,
+    PropertyDetailsStage = 3,
+    AboutYouStage = 4,
+    CurrentAddressStage = 5,
+    FirstPreviousAddressStage = 6,
+    SecondPreviousAddressStage = 7,
+    EmploymentStage = 8,
+    ExpenditureStage = 9,
+    OtherIncomeStage = 10,
+    MarketingConsentStage = 11,
+    PayloadStage = 12,
+    OfferTilesStage = 13,
 }
 
 export const EMBEDDED_TOTAL_STAGES = (panelType: EmbeddedPanelType) => {
@@ -61,6 +80,8 @@ export const EMBEDDED_TOTAL_STAGES = (panelType: EmbeddedPanelType) => {
             return Object.keys(EmbeddedLoanFormStage).length / 2;
         case EmbeddedPanelType.CREDITCARD:
             return Object.keys(EmbeddedCardFormStage).length / 2;
+        case EmbeddedPanelType.SECURED:
+            return Object.keys(EmbeddedSecuredFormStage).length / 2;
         default:
             return 99;
     }
@@ -156,9 +177,32 @@ export interface EmbeddedOtherIncome {
     income_description: OtherIncomeDescription;
 }
 
+export interface EmbeddedPropertyDetailsPayload {
+    estimated_value: number,
+    mortgage_outstanding: number,
+    mortgage_lender: string,
+    purchase_date: string,
+    has_other_owners: YesNoValue,
+    property_type: PropertyType,
+    number_of_bedrooms: number,
+    number_of_floors_in_building: number,
+    council_purchase: YesNoValue,
+    previously_council?: YesNoValue,
+    recently_council?: YesNoValue,
+    council_discount_amount?: number,
+    help_to_buy_scheme?: YesNoValue,
+    help_to_buy_settled?: YesNoValue,
+    has_other_properties: YesNoValue
+}
+
 export interface EmbeddedMarketingConsentPayload {
     email_opt_in: YesNoValue,
     text_opt_in: YesNoValue,
+}
+
+export interface EmbeddedAllOffersResponse {
+    response_json_as_object: string,
+    mocked: boolean
 }
 
 export interface EmbeddedStageState {
@@ -173,6 +217,7 @@ export interface EmbeddedStageState {
 
     loanPayload: EmbeddedLoanPayload
     cardPayload: EmbeddedCardPayload
+    propertyDetailsPayload: EmbeddedPropertyDetailsPayload
 
     aboutYouPayload: EmbeddedAboutYouPayload
     currentAddressPayload: EmbeddedAddressPayload
@@ -182,6 +227,8 @@ export interface EmbeddedStageState {
     otherIncomePayload: EmbeddedOtherIncomePayload
     expenditurePayload: EmbeddedExpenditurePayload
     marketingConsentPayload: EmbeddedMarketingConsentPayload
+
+    allOffersResponse: EmbeddedAllOffersResponse
 
     // --------------------------------
 
@@ -195,6 +242,7 @@ export interface EmbeddedStageState {
     /* payloads */
     setLoanPayload: (payload: EmbeddedLoanPayload) => void
     setCardPayload: (payload: EmbeddedCardPayload) => void
+    setPropertyDetailsPayload: (payload: EmbeddedPropertyDetailsPayload) => void
 
     setAboutYouPayload: (payload: EmbeddedAboutYouPayload) => void
     setCurrentAddressPayload: (payload: EmbeddedAddressPayload) => void
@@ -204,6 +252,8 @@ export interface EmbeddedStageState {
     setOtherIncomePayload: (payload: EmbeddedOtherIncomePayload) => void
     setExpenditurePayload: (payload: EmbeddedExpenditurePayload) => void
     setMarketingConsentPayload: (payload: EmbeddedMarketingConsentPayload) => void
+
+    setAllOffersResponse: (response: EmbeddedAllOffersResponse) => void
 }
 
 export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
@@ -218,6 +268,7 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
 
     loanPayload: {} as EmbeddedLoanPayload,
     cardPayload: {} as EmbeddedCardPayload,
+    propertyDetailsPayload: {} as EmbeddedPropertyDetailsPayload,
 
     aboutYouPayload: {} as EmbeddedAboutYouPayload,
     currentAddressPayload: {} as EmbeddedAddressPayload,
@@ -227,6 +278,8 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
     otherIncomePayload: {} as EmbeddedOtherIncomePayload,
     expenditurePayload: {} as EmbeddedExpenditurePayload,
     marketingConsentPayload: {} as EmbeddedMarketingConsentPayload,
+
+    allOffersResponse: {} as EmbeddedAllOffersResponse,
 
     // --------------------------------
 
@@ -241,6 +294,7 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
 
     setLoanPayload: (loanPayload) => set((state) => ({loanPayload})),
     setCardPayload: (cardPayload) => set((state) => ({cardPayload})),
+    setPropertyDetailsPayload: (propertyDetailsPayload) => set((state) => ({propertyDetailsPayload})),
 
     setAboutYouPayload: (aboutYouPayload) => set((state) => ({aboutYouPayload})),
     setCurrentAddressPayload: (currentAddressPayload) => set((state) => ({currentAddressPayload})),
@@ -251,4 +305,5 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
     setExpenditurePayload: (expenditurePayload) => set((state) => ({expenditurePayload})),
     setMarketingConsentPayload: (marketingConsentPayload) => set((state) => ({marketingConsentPayload})),
 
+    setAllOffersResponse: (allOffersResponse) => set((state) => ({allOffersResponse})),
 }))

@@ -4,7 +4,10 @@ import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, InputType} from '../../InputField';
 import {
     EmbeddedAddressPayload,
+    EmbeddedCardFormStage,
     EmbeddedLoanFormStage,
+    EmbeddedPanelType,
+    EmbeddedSecuredFormStage,
     EmbeddedStageState,
     useEmbeddedStageStore
 } from "@/app/state/embedded_stages";
@@ -19,6 +22,7 @@ interface Props {
 const EmbeddedPrimaryAddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) => {
 
     const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedPanelType = useEmbeddedStageStore((state) => state.panelType)
 
     const savedFlat = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.flat);
     const savedHouseNumber = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.house_number);
@@ -37,7 +41,7 @@ const EmbeddedPrimaryAddressStage = ({title, addressPayloadName, addressPayloadS
 
     const savedYearsLivedAtSecondPreviousAddress = useEmbeddedStageStore((state) => state.secondPreviousAddressPayload?.years_lived) ?? 0;
     const savedMonthsLivedAtSecondPreviousAddress = useEmbeddedStageStore((state) => state.secondPreviousAddressPayload?.months_lived) ?? 0;
-    
+
     const firstPreviousAddressTotalMonths = (savedYearsLivedAtFirstPreviousAddress * 12) + savedMonthsLivedAtFirstPreviousAddress
     const secondPreviousAddressTotalMonths = (savedYearsLivedAtSecondPreviousAddress * 12) + savedMonthsLivedAtSecondPreviousAddress
 
@@ -164,25 +168,48 @@ const EmbeddedPrimaryAddressStage = ({title, addressPayloadName, addressPayloadS
         if (Object.keys(errors).length === 0 && isSubmitted) {
 
             // We should also show the stage if it's already been filled in, in case they want to go backwards and then forwards.
-            setPreviousStage(savedStage)
+            setPreviousStage(savedStage);
+
+            console.log("Saved stage: ", savedStage);
+
+            let currentIdx = 0;
+            let fpaIdx = 0;
+            let spaIdx = 0;
+
+            // Determine the indexes that we care about
+            if (savedPanelType === EmbeddedPanelType.ALL) {
+                currentIdx = EmbeddedLoanFormStage.CurrentAddressStage;
+                fpaIdx = EmbeddedLoanFormStage.FirstPreviousAddressStage;
+                spaIdx = EmbeddedLoanFormStage.SecondPreviousAddressStage;
+            } else if (savedPanelType === EmbeddedPanelType.CREDITCARD) {
+                currentIdx = EmbeddedCardFormStage.CurrentAddressStage;
+                fpaIdx = EmbeddedCardFormStage.FirstPreviousAddressStage;
+                spaIdx = EmbeddedCardFormStage.SecondPreviousAddressStage;
+            } else if (savedPanelType === EmbeddedPanelType.SECURED) {
+                currentIdx = EmbeddedSecuredFormStage.CurrentAddressStage;
+                fpaIdx = EmbeddedSecuredFormStage.FirstPreviousAddressStage;
+                spaIdx = EmbeddedSecuredFormStage.SecondPreviousAddressStage;
+            }
+
+            console.log("Address - saved stage: ", savedStage, "current : ", currentIdx, "fpa: ", fpaIdx, "spa: ", spaIdx);
 
             switch (savedStage) {
-                case EmbeddedLoanFormStage.CurrentAddressStage:
+                case currentIdx:
                     if (firstPreviousAddressTotalMonths > 0 || shouldShowAnotherAddressStage()) {
-                        setCurrentStage(EmbeddedLoanFormStage.FirstPreviousAddressStage)
+                        setCurrentStage(fpaIdx)
                     } else {
-                        setCurrentStage(EmbeddedLoanFormStage.SecondPreviousAddressStage + 1)
+                        setCurrentStage(spaIdx + 1)
                     }
                     break;
-                case EmbeddedLoanFormStage.FirstPreviousAddressStage:
+                case fpaIdx:
                     if (secondPreviousAddressTotalMonths > 0 || shouldShowAnotherAddressStage()) {
-                        setCurrentStage(EmbeddedLoanFormStage.SecondPreviousAddressStage)
+                        setCurrentStage(spaIdx)
                     } else {
-                        setCurrentStage(EmbeddedLoanFormStage.SecondPreviousAddressStage + 1)
+                        setCurrentStage(spaIdx + 1)
                     }
                     break;
                 default:
-                    setCurrentStage(EmbeddedLoanFormStage.SecondPreviousAddressStage + 1)
+                    setCurrentStage(spaIdx + 1)
                     break;
             }
         }

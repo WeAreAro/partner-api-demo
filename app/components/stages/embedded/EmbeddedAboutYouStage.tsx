@@ -32,7 +32,7 @@ const EmbeddedAboutYouStage = () => {
         email: savedEmail ?? "johndoe@example.com",
         home_phone: savedHomePhone ?? "01914207700",
         mobile_phone: savedMobilePhone ?? "071234567891",
-        marital_status: savedMaritalStatus ?? MaritalStatus.Married,
+        marital_status: savedMaritalStatus ?? MaritalStatus.Single,
         residential_status: savedResidentialStatus ?? ResidentialStatus['Homeowner with a mortgage'],
         dob: savedDob ?? "04/04/1972",
         number_of_dependants: savedNumberOfDependants ?? 3,

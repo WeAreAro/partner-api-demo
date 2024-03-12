@@ -4,14 +4,13 @@ import {useEffect} from "react";
 import Head from "next/head";
 import Header from "@/app/components/Header";
 import {
-    EmbeddedLoanFormStage,
     EmbeddedPanelType,
     EmbeddedPrimaryAddressPayloadSetters,
     EmbeddedPrimaryAddressStages,
+    EmbeddedSecuredFormStage,
     useEmbeddedStageStore
 } from "@/app/state/embedded_stages";
 import '../app/globals.css'
-import EmbeddedLoanStage from "@/app/components/stages/embedded/EmbeddedLoanStage";
 import EmbeddedAllOffersPayloadStage from "@/app/components/stages/embedded/EmbeddedAllOffersPayloadStage";
 import EmbeddedAboutYouStage from "@/app/components/stages/embedded/EmbeddedAboutYouStage";
 import EmbeddedMarketingConsentStage from "@/app/components/stages/embedded/EmbeddedMarketingConsentStage";
@@ -20,46 +19,52 @@ import EmbeddedExpenditureStage from "@/app/components/stages/embedded/EmbeddedE
 import EmbeddedOtherIncomeStage from "@/app/components/stages/embedded/EmbeddedOtherIncomeStage";
 import EmbeddedPrimaryAddressStage from "@/app/components/stages/embedded/EmbeddedPrimaryAddressStage";
 import EmbeddedPartnerDetailsStage from "@/app/components/stages/embedded/EmbeddedPartnerDetailsStage";
+import EmbeddedPropertyDetails from "@/app/components/stages/embedded/EmbeddedPropertyDetails";
+import EmbeddedLoanStage from "@/app/components/stages/embedded/EmbeddedLoanStage";
 import EmbeddedOfferTilesStage from "@/app/components/stages/embedded/EmbeddedOfferTilesStage";
 
-const EmbeddedAll = () => {
+const EmbeddedSecured = () => {
     const formStage = useEmbeddedStageStore((state) => state.currentStage);
 
     const setPanelType = useEmbeddedStageStore((state) => state.setPanelType)
 
-    useEffect(() => setPanelType(EmbeddedPanelType.ALL))
+    useEffect(() => setPanelType(EmbeddedPanelType.SECURED))
 
     return (
         <><Head>
-            <title>Apply for loan</title>
+            <title>Apply for a secured loan</title>
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
             <Header showNav={false} headerBackgroundColor={"black"}/>
-            <span style={{display: "none"}}>{formStage}</span>
             {
-                formStage === EmbeddedLoanFormStage.PartnerDetailsStage && (
+                formStage === EmbeddedSecuredFormStage.PartnerDetailsStage && (
                     <EmbeddedPartnerDetailsStage/>
                 )
             }
             {
-                formStage === EmbeddedLoanFormStage.LoanStage && (
+                formStage === EmbeddedSecuredFormStage.LoanStage && (
                     <EmbeddedLoanStage/>
                 )
             }
             {
-                formStage === EmbeddedLoanFormStage.AboutYouStage && (
+                formStage === EmbeddedSecuredFormStage.PropertyDetailsStage && (
+                    <EmbeddedPropertyDetails/>
+                )
+            }
+            {
+                formStage === EmbeddedSecuredFormStage.AboutYouStage && (
                     <EmbeddedAboutYouStage/>
                 )
             }
             {
-                formStage === EmbeddedLoanFormStage.CurrentAddressStage && (
+                formStage === EmbeddedSecuredFormStage.CurrentAddressStage && (
                     <EmbeddedPrimaryAddressStage title={"Current Address"}
                                                  addressPayloadName={EmbeddedPrimaryAddressStages.CURRENT_ADDRESS}
                                                  addressPayloadSetter={EmbeddedPrimaryAddressPayloadSetters.CURRENT_ADDRESS}/>
                 )
             }
             {
-                formStage === EmbeddedLoanFormStage.FirstPreviousAddressStage && (
+                formStage === EmbeddedSecuredFormStage.FirstPreviousAddressStage && (
                     <EmbeddedPrimaryAddressStage
                         title={"Due to living at your current address for under three years, you must provide your last previous address."}
                         addressPayloadName={EmbeddedPrimaryAddressStages.FIRST_PREVIOUS_ADDRESS}
@@ -67,7 +72,7 @@ const EmbeddedAll = () => {
                 )
             }
             {
-                formStage === EmbeddedLoanFormStage.SecondPreviousAddressStage && (
+                formStage === EmbeddedSecuredFormStage.SecondPreviousAddressStage && (
                     <EmbeddedPrimaryAddressStage
                         title={"Due to living at your current and previous address for under three years, you must provide your second to last address."}
                         addressPayloadName={EmbeddedPrimaryAddressStages.SECOND_PREVIOUS_ADDRESS}
@@ -75,32 +80,32 @@ const EmbeddedAll = () => {
                 )
             }
             {
-                formStage === EmbeddedLoanFormStage.EmploymentStage && (
+                formStage === EmbeddedSecuredFormStage.EmploymentStage && (
                     <EmbeddedCurrentEmploymentStage/>
                 )
             }
             {
-                formStage === EmbeddedLoanFormStage.ExpenditureStage && (
+                formStage === EmbeddedSecuredFormStage.ExpenditureStage && (
                     <EmbeddedExpenditureStage/>
                 )
             }
             {
-                formStage === EmbeddedLoanFormStage.OtherIncomeStage && (
+                formStage === EmbeddedSecuredFormStage.OtherIncomeStage && (
                     <EmbeddedOtherIncomeStage/>
                 )
             }
             {
-                formStage === EmbeddedLoanFormStage.MarketingConsentStage && (
+                formStage === EmbeddedSecuredFormStage.MarketingConsentStage && (
                     <EmbeddedMarketingConsentStage/>
                 )
             }
             {
-                formStage === EmbeddedLoanFormStage.PayloadStage && (
+                formStage === EmbeddedSecuredFormStage.PayloadStage && (
                     <EmbeddedAllOffersPayloadStage/>
                 )
             }
             {
-                formStage === EmbeddedLoanFormStage.OfferTilesStage && (
+                formStage === EmbeddedSecuredFormStage.OfferTilesStage && (
                     <EmbeddedOfferTilesStage/>
                 )
             }
@@ -108,4 +113,4 @@ const EmbeddedAll = () => {
     );
 }
 
-export default EmbeddedAll;
+export default EmbeddedSecured;

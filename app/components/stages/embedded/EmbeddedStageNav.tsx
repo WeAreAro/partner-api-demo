@@ -1,5 +1,10 @@
 import {useEffect, useRef} from "react";
-import {EmbeddedCardFormStage, EmbeddedLoanFormStage, useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {
+    EmbeddedCardFormStage,
+    EmbeddedLoanFormStage,
+    EmbeddedSecuredFormStage,
+    useEmbeddedStageStore
+} from "@/app/state/embedded_stages";
 
 const EmbeddedStageNav = ({canGoBack}: any) => {
     const savedStage = useEmbeddedStageStore((state) => state.currentStage);
@@ -7,7 +12,9 @@ const EmbeddedStageNav = ({canGoBack}: any) => {
     const previousStage = useEmbeddedStageStore((state) => state.previousStage);
     const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
 
-    const backStage = (savedStage === EmbeddedCardFormStage.EmploymentStage || savedStage === EmbeddedLoanFormStage.EmploymentStage) ? previousStage : savedStage - 1
+    const backStage = (savedStage === EmbeddedCardFormStage.EmploymentStage
+        || savedStage === EmbeddedLoanFormStage.EmploymentStage
+        || savedStage === EmbeddedSecuredFormStage.EmploymentStage) ? previousStage : savedStage - 1
     //const backStage = savedStage - 1
 
     const continueRef = useRef(null);
@@ -19,7 +26,7 @@ const EmbeddedStageNav = ({canGoBack}: any) => {
 
             if (!isFormControlFocused) {
                 if (event.key === 'ArrowRight') {
-                    continueRef?.current.click();
+                    continueRef?.current?.click();
                 } else if (event.key === 'ArrowLeft') {
                     backRef?.current?.click();
                 }

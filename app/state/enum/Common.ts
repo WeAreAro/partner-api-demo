@@ -116,3 +116,7 @@ export enum OtherIncomePeriod {
     "Monthly" = "M",
     "Weekly" = "W",
 }
+
+export enum PropertyType {
+    "Detached" = "D"
+}

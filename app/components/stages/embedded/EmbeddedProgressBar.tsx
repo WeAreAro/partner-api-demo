@@ -27,7 +27,7 @@ const EmbeddedProgressBar = ({currentStage, panelType}: any) => {
         }
 
         const className = PROGRESS_BAR_CLASS_NAMES[stage]
-        return (<span className={className} key={progressStage}/>)
+        return (<span className={className} key={stage}/>)
     }
 
     const renderProgressBar = () => {

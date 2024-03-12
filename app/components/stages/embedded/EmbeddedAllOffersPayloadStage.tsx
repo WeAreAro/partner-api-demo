@@ -9,7 +9,7 @@ import {
 } from "@/app/state/embedded_stages";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 
-const EmbeddedPayloadStage = () => {
+const EmbeddedAllOffersPayloadStage = () => {
 
     const savedPanelType = useEmbeddedStageStore((state) => state.panelType)
     const savedStage = useEmbeddedStageStore((state) => state.currentStage);
@@ -18,6 +18,7 @@ const EmbeddedPayloadStage = () => {
 
     const loanPayload = useEmbeddedStageStore((state) => state.loanPayload);
     const cardPayload = useEmbeddedStageStore((state) => state.cardPayload);
+    const securedPayload = useEmbeddedStageStore((state) => state.propertyDetailsPayload);
 
     const aboutYouPayload = useEmbeddedStageStore((state) => state.aboutYouPayload);
     const currentAddressPayload = useEmbeddedStageStore((state) => state.currentAddressPayload);
@@ -29,13 +30,18 @@ const EmbeddedPayloadStage = () => {
 
     const marketingConsentPayload = useEmbeddedStageStore((state) => state.marketingConsentPayload);
 
+    const setAllOffersResponse = useEmbeddedStageStore((state) => state.setAllOffersResponse)
+    const allOffersResponse = useEmbeddedStageStore((state) => state.allOffersResponse);
+
     const savedJwtBearerToken = useGeneralStageStore((state) => state.jwtBearerToken);
 
     const [payload, setPayload] = useState("");
-    const [result, setResult] = useState(undefined as {});
+    const [result, setResult] = useState("");
     const [usingMocks, setUsingMocks] = useState(false);
+    const [allOffersResponseObject, setAllOffersResponseObject] = useState(undefined);
 
     const backRef = useRef(null);
+    const continueRef = useRef(null);
 
     const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
 
@@ -95,7 +101,9 @@ const EmbeddedPayloadStage = () => {
             const isFormControlFocused = document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA';
 
             if (!isFormControlFocused) {
-                if (event.key === 'ArrowLeft') {
+                if (event.key === 'ArrowRight') {
+                    continueRef?.current?.click();
+                } else if (event.key === 'ArrowLeft') {
                     backRef?.current?.click();
                 }
             }
@@ -109,6 +117,16 @@ const EmbeddedPayloadStage = () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, []);
+
+    useEffect(() => {
+
+        console.log(allOffersResponse)
+
+        if (allOffersResponse && allOffersResponse.response_json_as_object) {
+            setAllOffersResponseObject(allOffersResponse.response_json_as_object);
+        }
+
+    }, [allOffersResponse]);
 
     function stringToNumberArray(input: string | undefined): number[] {
         if (!input || input.trim() === "") {
@@ -141,9 +159,11 @@ const EmbeddedPayloadStage = () => {
                 ...(({"panel_type": EmbeddedPanelType[savedPanelType]}))
             },
 
-            ...(savedPanelType === EmbeddedPanelType.ALL && {"Loan": {...loanPayload}}),
+            ...((savedPanelType === EmbeddedPanelType.ALL || savedPanelType === EmbeddedPanelType.SECURED) && {"Loan": {...loanPayload}}),
 
             ...(savedPanelType === EmbeddedPanelType.CREDITCARD && {"Credit_Card": {...cardPayload}}),
+
+            ...(savedPanelType === EmbeddedPanelType.SECURED && {"Property": {...securedPayload}}),
 
             "Primary_Applicant": {
                 "Personal_Details": {
@@ -200,9 +220,16 @@ const EmbeddedPayloadStage = () => {
 
         if (!useJwtToken) {
             const mockedResponses = await fetchMockedResponses();
-            setResult(JSON.stringify(mockedResponses["EMBEDDED_" + EmbeddedPanelType[savedPanelType]], null, 2));
 
+            let resultJson = JSON.stringify(mockedResponses["EMBEDDED_" + EmbeddedPanelType[savedPanelType]], null, 2);
+
+            setResult(resultJson);
+            setAllOffersResponse({
+                mocked: true,
+                response_json_as_object: mockedResponses["EMBEDDED_" + EmbeddedPanelType[savedPanelType]]
+            });
             setUsingMocks(true);
+
             return;
         }
 
@@ -227,13 +254,18 @@ const EmbeddedPayloadStage = () => {
                 }
                 if (result?.toString().startsWith("Internal Server Error")) {
                     setResult("Request timed out.");
+                    setAllOffersResponse({mocked: true, response_json_as_object: undefined});
                 } else {
-                    setResult(JSON.stringify(result, null, 2));
+                    let json = JSON.stringify(result, null, 2);
+                    setResult(json);
+                    setAllOffersResponse({mocked: false, response_json_as_object: result});
                 }
             })
             .catch(error => {
                 console.log('error', error);
+
                 setResult(error && error.toString().startsWith("AbortError") ? "Request timed out." : error);
+                setAllOffersResponse({mocked: true, response_json_as_object: undefined});
             });
     }
 
@@ -257,6 +289,30 @@ const EmbeddedPayloadStage = () => {
         return usingMocks;
     }
 
+    const getNavButtons = () => {
+        return (
+            <>
+                <input
+                    ref={backRef}
+                    className="mx-8 bg-amber-700 hover:bg-lime-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                    style={{marginLeft: 0}}
+                    type="submit"
+                    value="Back"
+                    onClick={() => setCurrentStage(savedStage - 1)}
+                />
+                {(allOffersResponseObject && allOffersResponseObject["offers"] && allOffersResponseObject["offers"].length > 0) &&
+                    <input
+                        ref={continueRef}
+                        className="bg-lime-600 hover:bg-lime-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                        type="submit"
+                        value="Continue"
+                        onClick={() => setCurrentStage(savedStage + 1)}
+                    />
+                }
+            </>
+        )
+    }
+
     return (
         <div className="m-auto text-center">
 
@@ -264,6 +320,12 @@ const EmbeddedPayloadStage = () => {
                 <br/>
                 <h4 className="text-2xl">{isUsingMocks() ? "Mocked " : ""}API
                     Response</h4>
+
+                <br/>
+                {getNavButtons()}
+                <br/><br/>
+
+                <h4 style={{fontSize: "18px"}}>Response JSON</h4>
                 <div className={"jsonContainer"}>
                     <pre>{`${result ?? "Loading... Please wait."}`}</pre>
                 </div>
@@ -271,22 +333,16 @@ const EmbeddedPayloadStage = () => {
 
             <div>
                 <br/>
-                <h4 className="text-2xl">API Request Payload</h4>
+                <h4 style={{fontSize: "18px"}}>Request JSON</h4>
                 <div className={"jsonContainer"}>
                     <pre>{`${payload}`}</pre>
                 </div>
             </div>
 
             <br/>
-            <input
-                ref={backRef}
-                className="mx-8 bg-amber-700 hover:bg-lime-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                type="submit"
-                value="Back"
-                onClick={() => setCurrentStage(savedStage - 1)}
-            />
+            {getNavButtons()}
             <br/><br/>
         </div>
     );
 }
-export default EmbeddedPayloadStage
+export default EmbeddedAllOffersPayloadStage
