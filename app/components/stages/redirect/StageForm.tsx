@@ -1,10 +1,10 @@
 'use client';
 
 import {useRedirectStageStore} from "../../../state/redirect_stages";
-import ProgressBar from "../../ProgressBar";
 import StageNav from "./StageNav";
 import BearerTokenHeader from "@/app/components/BearerTokenHeader";
 import {hasTokenDefinedInEnv} from "@/app/utils/BearerUtils";
+import RedirectProgressBar from "@/app/components/stages/redirect/RedirectProgressBar";
 
 export const StageForm = ({title, canGoBack, inputFields, submitFormData}: any) => {
 
@@ -20,7 +20,7 @@ export const StageForm = ({title, canGoBack, inputFields, submitFormData}: any) 
             <form className="shadow-md rounded px-8 pt-6 pb-8 mb-4"
                   onSubmit={submitFormData}>
 
-                <ProgressBar formType={savedFormType} currentStage={savedStage}/>
+                <RedirectProgressBar formType={savedFormType} currentStage={savedStage}/>
 
                 <h2 className="text-center text-lg text-gray-900 font-bold">{title}</h2>
                 <br></br>

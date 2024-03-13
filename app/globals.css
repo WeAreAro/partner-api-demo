@@ -188,3 +188,14 @@
         border-top: 3px solid var(--offer-tile-border-color);
     }
 }
+
+/* Progress Bar */
+
+.container {
+    background-color: pink;
+}
+
+.barCompleted {
+    background-color: lightblue;
+    width: 80%;
+}

@@ -1,4 +1,5 @@
 import {EMBEDDED_TOTAL_STAGES} from "@/app/state/embedded_stages";
+import ProgressBar from "@ramonak/react-progress-bar";
 
 const EmbeddedProgressBar = ({currentStage, panelType}: any) => {
 
@@ -45,10 +46,15 @@ const EmbeddedProgressBar = ({currentStage, panelType}: any) => {
 
             <h2 className="m-auto text-gray-700">Progress</h2>
             <br></br>
+            {/*}
             <div className="mb-2 flex gap-2">
                 {...renderProgressBar()}
             </div>
-            <small className="m-auto text-gray-600">{EMBEDDED_TOTAL_STAGES(panelType) - currentStage} remaining steps to
+            */}
+            <ProgressBar completed={currentStage} maxCompleted={TOTAL_STAGES - 2} isLabelVisible={false}
+                         bgColor={"#65A20C"}/>
+            <small className="m-auto text-gray-600">{EMBEDDED_TOTAL_STAGES(panelType) - currentStage - 1} remaining
+                steps to
                 complete</small>
         </div>)
 }
