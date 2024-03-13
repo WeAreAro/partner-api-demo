@@ -1,0 +1,42 @@
+{
+  "EMBEDDED_ALL": {
+    "status_messages": {
+      "error_messages": [],
+      "warning_messages": [],
+      "info_messages": []
+    },
+    "aro_reference": "042b0593-7c16-48b4-a589-502687102b87",
+    "offer_uuid": "e88cae5c-0d15-4bfd-9071-54af40b1bf70",
+    "resume_url": "https://general-loans-to-go.com/offer.php"
+  },
+  "EMBEDDED_CREDITCARD": {
+    "status_messages": {
+      "error_messages": [],
+      "warning_messages": [],
+      "info_messages": []
+    },
+    "aro_reference": "042b0593-7c16-48b4-a589-502687102b87",
+    "offer_uuid": "e88cae5c-0d15-4bfd-9071-54af40b1bf70",
+    "resume_url": "https://cards-to-go.com/offer.php"
+  },
+  "EMBEDDED_AUTOFINANCE": {
+    "status_messages": {
+      "error_messages": [],
+      "warning_messages": [],
+      "info_messages": []
+    },
+    "aro_reference": "042b0593-7c16-48b4-a589-502687102b87",
+    "offer_uuid": "e88cae5c-0d15-4bfd-9071-54af40b1bf70",
+    "resume_url": "https://autofinance-to-go.com/offer.php"
+  },
+  "EMBEDDED_SECURED": {
+    "status_messages": {
+      "error_messages": [],
+      "warning_messages": [],
+      "info_messages": []
+    },
+    "aro_reference": "042b0593-7c16-48b4-a589-502687102b87",
+    "offer_uuid": "e88cae5c-0d15-4bfd-9071-54af40b1bf70",
+    "resume_url": "https://secured-loans-to-go.com/offer.php"
+  }
+}

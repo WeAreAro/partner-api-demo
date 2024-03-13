@@ -3,6 +3,7 @@ import {formatNumber} from "@/app/utils/FormatUtils";
 
 interface Props {
     offer: Offer
+    onProceed?: () => void
 }
 
 const OfferTileCC = (props: Props) => {
@@ -67,6 +68,7 @@ const OfferTileCC = (props: Props) => {
                             className="offerColumnVerticalMargin bg-lime-600 hover:bg-lime-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                             type="submit"
                             value={"Choose Offer"}
+                            onClick={props?.onProceed}
                         />
                     </div>
                 </div>

@@ -8,6 +8,7 @@ import {
     useEmbeddedStageStore
 } from "@/app/state/embedded_stages";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {fetchWithTimeout} from "@/app/utils/HttpUtils";
 
 const EmbeddedAllOffersPayloadStage = () => {
 
@@ -36,6 +37,7 @@ const EmbeddedAllOffersPayloadStage = () => {
 
     const savedJwtBearerToken = useGeneralStageStore((state) => state.jwtBearerToken);
 
+    const [allOffersUrl, setAllOffersUrl] = useState("");
     const [payload, setPayload] = useState("");
     const [result, setResult] = useState("");
     const [usingMocks, setUsingMocks] = useState(false);
@@ -206,7 +208,7 @@ const EmbeddedAllOffersPayloadStage = () => {
     }
 
     async function fetchMockedResponses() {
-        const response = await fetch('/mocks/mockedResponses.json');
+        const response = await fetch('/mocks/mockedAllOffersResponses.json');
         return await response.json();
     }
 
@@ -221,6 +223,9 @@ const EmbeddedAllOffersPayloadStage = () => {
         } else if (isValidJwtBearerToken(savedJwtBearerToken)) {
             useJwtToken = savedJwtBearerToken;
         }
+
+        const url = "/ff-api/partner/v1/quote/all-offers";
+        setAllOffersUrl(url);
 
         console.log('JWT', useJwtToken);
 
@@ -250,8 +255,6 @@ const EmbeddedAllOffersPayloadStage = () => {
             body: payload
         };
 
-        const url = "/ff-api/partner/v1/quote/all-offers";
-
         await fetchWithTimeout(url, requestOptions)
             .then(response => response.json())
             .then(result => {
@@ -273,22 +276,6 @@ const EmbeddedAllOffersPayloadStage = () => {
                 setResult(error && error.toString().startsWith("AbortError") ? "Request timed out." : error);
                 setAllOffersResponse({mocked: true, response_json_as_object: undefined});
             });
-    }
-
-    async function fetchWithTimeout(resource: string, options = {}) {
-        // @ts-ignore
-        const {timeout = 30000} = options;
-
-        const controller = new AbortController();
-        const id = setTimeout(() => controller.abort(), timeout);
-
-        const response = await fetch(resource, {
-            ...options,
-            signal: controller.signal
-        });
-        clearTimeout(id);
-
-        return response;
     }
 
     const isUsingMocks = (): boolean => {
@@ -325,6 +312,10 @@ const EmbeddedAllOffersPayloadStage = () => {
             <br/>
             {getNavButtons()}
             <br/>
+
+            <div className={"urlDetails"}>
+                POST {allOffersUrl.replaceAll("/ff-api", "")}
+            </div>
 
             <div>
                 <br/>

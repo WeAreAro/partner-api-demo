@@ -21,6 +21,7 @@ import EmbeddedOtherIncomeStage from "@/app/components/stages/embedded/EmbeddedO
 import EmbeddedPrimaryAddressStage from "@/app/components/stages/embedded/EmbeddedPrimaryAddressStage";
 import EmbeddedPartnerDetailsStage from "@/app/components/stages/embedded/EmbeddedPartnerDetailsStage";
 import EmbeddedOfferTilesStage from "@/app/components/stages/embedded/EmbeddedOfferTilesStage";
+import EmbeddedProceedPayloadStage from "@/app/components/stages/embedded/EmbeddedProceedPayloadStage";
 
 const EmbeddedCard = () => {
     const formStage = useEmbeddedStageStore((state) => state.currentStage);
@@ -101,6 +102,11 @@ const EmbeddedCard = () => {
             {
                 formStage === EmbeddedCardFormStage.OfferTilesStage && (
                     <EmbeddedOfferTilesStage/>
+                )
+            }
+            {
+                formStage === EmbeddedCardFormStage.ProceedOfferStage && (
+                    <EmbeddedProceedPayloadStage/>
                 )
             }
         </>

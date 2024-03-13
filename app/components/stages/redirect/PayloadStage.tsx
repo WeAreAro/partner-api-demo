@@ -2,6 +2,7 @@ import {RedirectFormType, RedirectOtherIncome, useRedirectStageStore} from '@/ap
 import React, {useEffect, useRef, useState} from 'react';
 import {hasTokenDefinedInEnv, isValidJwtBearerToken} from "@/app/utils/BearerUtils";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {fetchWithTimeout} from "@/app/utils/HttpUtils";
 
 const PayloadStage = () => {
 
@@ -229,22 +230,6 @@ const PayloadStage = () => {
                 console.log('error', error);
                 setResult(error && error.toString().startsWith("AbortError") ? "Request timed out." : error);
             });
-    }
-
-    async function fetchWithTimeout(resource: string, options = {}) {
-        // @ts-ignore
-        const {timeout = 30000} = options;
-
-        const controller = new AbortController();
-        const id = setTimeout(() => controller.abort(), timeout);
-
-        const response = await fetch(resource, {
-            ...options,
-            signal: controller.signal
-        });
-        clearTimeout(id);
-
-        return response;
     }
 
     const isUsingMocks = (): boolean => {

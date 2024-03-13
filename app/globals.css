@@ -20,6 +20,13 @@
 
 /* Payload JSON */
 
+.urlDetails {
+    margin: 20px 20px 0 20px;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: lightblue;
+}
+
 .jsonContainer {
     margin: 10px 20px 10px 20px;
     padding: 10px;
@@ -30,6 +37,7 @@
 .jsonContainer > pre {
     text-align: left;
     white-space: pre-wrap;
+    word-break: break-word;
 }
 
 /* Enum Dropdown spacing */

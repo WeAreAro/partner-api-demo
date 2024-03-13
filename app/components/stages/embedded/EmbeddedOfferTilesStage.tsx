@@ -17,7 +17,8 @@ const EmbeddedOfferTilesStage = () => {
     const backRef = useRef(null);
     const continueRef = useRef(null);
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage);
+    const setOfferToProceed = useEmbeddedStageStore((state) => state.setOfferToProceed);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -59,6 +60,17 @@ const EmbeddedOfferTilesStage = () => {
         return sortedOffers;
     }
 
+    const proceedWithOffer = (offer: Offer) => {
+        setOfferToProceed({
+            offer: offer,
+            aro_reference: allOffersResponse.response_json_as_object["freedom_reference"]
+        });
+        setCurrentStage(savedStage + 1);
+
+        console.log('Proceed with offer:', offer);
+        console.log('New stage : ', savedStage);
+    }
+
     return (
         <div className="m-auto text-center">
 
@@ -75,11 +87,11 @@ const EmbeddedOfferTilesStage = () => {
                     .map((offer) => {
                         if (offer.product_type === "CreditCard") {
                             return (<div key={offer["uuid"]}>
-                                <OfferTileCC offer={offer}></OfferTileCC>
+                                <OfferTileCC offer={offer} onProceed={() => proceedWithOffer(offer)}></OfferTileCC>
                             </div>)
                         } else {
                             return (<div key={offer["uuid"]}>
-                                <OfferTileLoan offer={offer}></OfferTileLoan>
+                                <OfferTileLoan offer={offer} onProceed={() => proceedWithOffer(offer)}></OfferTileLoan>
                             </div>)
                         }
                     })}

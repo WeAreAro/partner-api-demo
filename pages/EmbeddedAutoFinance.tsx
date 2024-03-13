@@ -22,6 +22,7 @@ import EmbeddedPartnerDetailsStage from "@/app/components/stages/embedded/Embedd
 import EmbeddedOfferTilesStage from "@/app/components/stages/embedded/EmbeddedOfferTilesStage";
 import EmbeddedVehicleDetailsStage from "@/app/components/stages/embedded/EmbeddedVehicleDetailsStage";
 import EmbeddedLoanStage from "@/app/components/stages/embedded/EmbeddedLoanStage";
+import EmbeddedProceedPayloadStage from "@/app/components/stages/embedded/EmbeddedProceedPayloadStage";
 
 const EmbeddedAutoFinance = () => {
     const formStage = useEmbeddedStageStore((state) => state.currentStage);
@@ -107,6 +108,11 @@ const EmbeddedAutoFinance = () => {
             {
                 formStage === EmbeddedAutoFinanceFormStage.OfferTilesStage && (
                     <EmbeddedOfferTilesStage/>
+                )
+            }
+            {
+                formStage === EmbeddedAutoFinanceFormStage.ProceedOfferStage && (
+                    <EmbeddedProceedPayloadStage/>
                 )
             }
         </>

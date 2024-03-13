@@ -21,6 +21,7 @@ import EmbeddedOtherIncomeStage from "@/app/components/stages/embedded/EmbeddedO
 import EmbeddedPrimaryAddressStage from "@/app/components/stages/embedded/EmbeddedPrimaryAddressStage";
 import EmbeddedPartnerDetailsStage from "@/app/components/stages/embedded/EmbeddedPartnerDetailsStage";
 import EmbeddedOfferTilesStage from "@/app/components/stages/embedded/EmbeddedOfferTilesStage";
+import EmbeddedProceedPayloadStage from "@/app/components/stages/embedded/EmbeddedProceedPayloadStage";
 
 const EmbeddedAll = () => {
     const formStage = useEmbeddedStageStore((state) => state.currentStage);
@@ -102,6 +103,11 @@ const EmbeddedAll = () => {
             {
                 formStage === EmbeddedLoanFormStage.OfferTilesStage && (
                     <EmbeddedOfferTilesStage/>
+                )
+            }
+            {
+                formStage === EmbeddedLoanFormStage.ProceedOfferStage && (
+                    <EmbeddedProceedPayloadStage/>
                 )
             }
         </>

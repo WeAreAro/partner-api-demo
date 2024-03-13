@@ -11,6 +11,7 @@ import {
     YesNoValue
 } from "@/app/state/enum/Common";
 import {EmploymentIndustry} from "@/app/state/enum/EmploymentIndustry";
+import {Offer} from "@/app/state/offer_model";
 
 export enum EmbeddedPanelType {
     ALL,
@@ -45,6 +46,7 @@ export enum EmbeddedLoanFormStage {
     MarketingConsentStage = 10,
     PayloadStage = 11,
     OfferTilesStage = 12,
+    ProceedOfferStage = 13,
 }
 
 export enum EmbeddedCardFormStage {
@@ -60,6 +62,7 @@ export enum EmbeddedCardFormStage {
     MarketingConsentStage = 10,
     PayloadStage = 11,
     OfferTilesStage = 12,
+    ProceedOfferStage = 13,
 }
 
 export enum EmbeddedAutoFinanceFormStage {
@@ -76,6 +79,7 @@ export enum EmbeddedAutoFinanceFormStage {
     MarketingConsentStage = 11,
     PayloadStage = 12,
     OfferTilesStage = 13,
+    ProceedOfferStage = 14,
 }
 
 export enum EmbeddedSecuredFormStage {
@@ -92,6 +96,7 @@ export enum EmbeddedSecuredFormStage {
     MarketingConsentStage = 11,
     PayloadStage = 12,
     OfferTilesStage = 13,
+    ProceedOfferStage = 14,
 }
 
 export const EMBEDDED_TOTAL_STAGES = (panelType: EmbeddedPanelType) => {
@@ -237,6 +242,16 @@ export interface EmbeddedAllOffersResponse {
     mocked: boolean
 }
 
+export interface EmbeddedOfferToProceed {
+    offer: Offer,
+    aro_reference: string
+}
+
+export interface EmbeddedProceedResponse {
+    response_json_as_object: string,
+    mocked: boolean
+}
+
 export interface EmbeddedStageState {
     panelType: EmbeddedPanelType
 
@@ -262,6 +277,8 @@ export interface EmbeddedStageState {
     marketingConsentPayload: EmbeddedMarketingConsentPayload
 
     allOffersResponse: EmbeddedAllOffersResponse
+    offerToProceed: EmbeddedOfferToProceed
+    proceedResponse: EmbeddedProceedResponse
 
     // --------------------------------
 
@@ -288,6 +305,8 @@ export interface EmbeddedStageState {
     setMarketingConsentPayload: (payload: EmbeddedMarketingConsentPayload) => void
 
     setAllOffersResponse: (response: EmbeddedAllOffersResponse) => void
+    setOfferToProceed: (offerToProceed: EmbeddedOfferToProceed) => void
+    setProceedResponse: (response: EmbeddedProceedResponse) => void
 }
 
 export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
@@ -315,6 +334,8 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
     marketingConsentPayload: {} as EmbeddedMarketingConsentPayload,
 
     allOffersResponse: {} as EmbeddedAllOffersResponse,
+    offerToProceed: {} as EmbeddedOfferToProceed,
+    proceedResponse: {} as EmbeddedProceedResponse,
 
     // --------------------------------
 
@@ -342,4 +363,6 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
     setMarketingConsentPayload: (marketingConsentPayload) => set((state) => ({marketingConsentPayload})),
 
     setAllOffersResponse: (allOffersResponse) => set((state) => ({allOffersResponse})),
+    setOfferToProceed: (offerToProceed) => set((state) => ({offerToProceed})),
+    setProceedResponse: (proceedResponse) => set((state) => ({proceedResponse})),
 }))
