@@ -48,7 +48,15 @@ const EmbeddedOfferTilesStage = () => {
             ret.push(...offer.product_offers);
         }
 
-        return ret.sort((a, b) => a.offer_display_rank - b.offer_display_rank);
+        const sortedOffers = ret.filter(offer => offer.offer_display_rank !== null)
+            .sort((a, b) => (a.offer_display_rank! - b.offer_display_rank!))
+            .concat(ret.filter(offer => offer.offer_display_rank === null)
+                .sort((a, b) => (a.apr || 0) - (b.apr || 0))
+            );
+
+        console.log(sortedOffers);
+
+        return sortedOffers;
     }
 
     return (
