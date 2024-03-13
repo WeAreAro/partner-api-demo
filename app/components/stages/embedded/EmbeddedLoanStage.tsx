@@ -2,13 +2,14 @@
 
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
-import {EmbeddedLoanPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {EmbeddedLoanPayload, EmbeddedPanelType, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {LoanPurpose} from "@/app/state/enum/Common";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
 
 const EmbeddedLoanStage = () => {
 
     const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedPanelType = useEmbeddedStageStore((state) => state.panelType);
 
     const savedLoanPayload = useEmbeddedStageStore((state) => state.loanPayload) as EmbeddedLoanPayload;
 
@@ -47,7 +48,8 @@ const EmbeddedLoanStage = () => {
             title: "Loan Purpose",
             type: InputType.Enum,
             possibleValues: getPossibleValues(LoanPurpose),
-            required: true
+            required: true,
+            readonly: savedPanelType === EmbeddedPanelType.AUTOFINANCE,
         },
     ]
 
@@ -85,6 +87,12 @@ const EmbeddedLoanStage = () => {
         }
         setPayload({...formData})
     }, [formData, isSubmitted, errors])
+
+    useEffect(() => {
+        if (savedPanelType === EmbeddedPanelType.AUTOFINANCE) {
+            formData["loan_purpose"] = LoanPurpose["Car Loan"];
+        }
+    }, [savedPanelType]);
 
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 

@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, InputType} from '../../InputField';
 import {
     EmbeddedAddressPayload,
+    EmbeddedAutoFinanceFormStage,
     EmbeddedCardFormStage,
     EmbeddedLoanFormStage,
     EmbeddedPanelType,
@@ -185,6 +186,10 @@ const EmbeddedPrimaryAddressStage = ({title, addressPayloadName, addressPayloadS
                 currentIdx = EmbeddedCardFormStage.CurrentAddressStage;
                 fpaIdx = EmbeddedCardFormStage.FirstPreviousAddressStage;
                 spaIdx = EmbeddedCardFormStage.SecondPreviousAddressStage;
+            } else if (savedPanelType === EmbeddedPanelType.AUTOFINANCE) {
+                currentIdx = EmbeddedAutoFinanceFormStage.CurrentAddressStage;
+                fpaIdx = EmbeddedAutoFinanceFormStage.FirstPreviousAddressStage;
+                spaIdx = EmbeddedAutoFinanceFormStage.SecondPreviousAddressStage;
             } else if (savedPanelType === EmbeddedPanelType.SECURED) {
                 currentIdx = EmbeddedSecuredFormStage.CurrentAddressStage;
                 fpaIdx = EmbeddedSecuredFormStage.FirstPreviousAddressStage;

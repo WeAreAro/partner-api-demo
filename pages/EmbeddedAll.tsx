@@ -31,7 +31,7 @@ const EmbeddedAll = () => {
 
     return (
         <><Head>
-            <title>Apply for loan</title>
+            <title>Apply for a Loan</title>
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
             <Header showNav={false} headerBackgroundColor={"black"}/>

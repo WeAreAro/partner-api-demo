@@ -251,27 +251,8 @@ const PayloadStage = () => {
         return usingMocks;
     }
 
-    return (
-        <div className="m-auto text-center">
-
-            <div>
-                <br/>
-                <h4 className="text-2xl">{isUsingMocks() ? "Mocked " : ""}API
-                    Response</h4>
-                <div className={"jsonContainer"}>
-                    <pre>{`${result ?? "Loading... Please wait."}`}</pre>
-                </div>
-            </div>
-
-            <div>
-                <br/>
-                <h4 className="text-2xl">API Request Payload</h4>
-                <div className={"jsonContainer"}>
-                    <pre>{`${payload}`}</pre>
-                </div>
-            </div>
-
-            <br/>
+    const getNavButtons = () => {
+        return (<>
             <input
                 ref={backRef}
                 className="mx-8 bg-amber-700 hover:bg-lime-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
@@ -279,6 +260,34 @@ const PayloadStage = () => {
                 value="Back"
                 onClick={() => setCurrentStage(savedStage - 1)}
             />
+        </>)
+    }
+
+    return (
+        <div className="m-auto text-center">
+
+            <br/>
+            {getNavButtons()}
+            <br/>
+
+            <div>
+                <br/>
+                <h4 style={{fontSize: "18px"}}>Request JSON</h4>
+                <div className={"jsonContainer"}>
+                    <pre>{`${payload}`}</pre>
+                </div>
+            </div>
+
+            <div>
+                <br/>
+                <h4 style={{fontSize: "18px"}}>{isUsingMocks() ? "Mocked " : ""}Response JSON</h4>
+                <div className={"jsonContainer"}>
+                    <pre>{`${result ?? "Loading... Please wait."}`}</pre>
+                </div>
+            </div>
+
+            <br/>
+            {getNavButtons()}
             <br/><br/>
         </div>
     );

@@ -32,7 +32,7 @@ const EmbeddedSecured = () => {
 
     return (
         <><Head>
-            <title>Apply for a secured loan</title>
+            <title>Apply for a Secured loan</title>
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
             <Header showNav={false} headerBackgroundColor={"black"}/>

@@ -4,7 +4,7 @@ import {useEffect} from "react";
 import Head from "next/head";
 import Header from "@/app/components/Header";
 import {
-    EmbeddedCardFormStage,
+    EmbeddedAutoFinanceFormStage,
     EmbeddedPanelType,
     EmbeddedPrimaryAddressPayloadSetters,
     EmbeddedPrimaryAddressStages,
@@ -13,7 +13,6 @@ import {
 import '../app/globals.css'
 import EmbeddedAllOffersPayloadStage from "@/app/components/stages/embedded/EmbeddedAllOffersPayloadStage";
 import EmbeddedAboutYouStage from "@/app/components/stages/embedded/EmbeddedAboutYouStage";
-import EmbeddedCardStage from "@/app/components/stages/embedded/EmbeddedCardStage";
 import EmbeddedMarketingConsentStage from "@/app/components/stages/embedded/EmbeddedMarketingConsentStage";
 import EmbeddedCurrentEmploymentStage from "@/app/components/stages/embedded/EmbeddedCurrentEmploymentStage";
 import EmbeddedExpenditureStage from "@/app/components/stages/embedded/EmbeddedExpenditureStage";
@@ -21,44 +20,51 @@ import EmbeddedOtherIncomeStage from "@/app/components/stages/embedded/EmbeddedO
 import EmbeddedPrimaryAddressStage from "@/app/components/stages/embedded/EmbeddedPrimaryAddressStage";
 import EmbeddedPartnerDetailsStage from "@/app/components/stages/embedded/EmbeddedPartnerDetailsStage";
 import EmbeddedOfferTilesStage from "@/app/components/stages/embedded/EmbeddedOfferTilesStage";
+import EmbeddedVehicleDetailsStage from "@/app/components/stages/embedded/EmbeddedVehicleDetailsStage";
+import EmbeddedLoanStage from "@/app/components/stages/embedded/EmbeddedLoanStage";
 
-const EmbeddedCard = () => {
+const EmbeddedAutoFinance = () => {
     const formStage = useEmbeddedStageStore((state) => state.currentStage);
 
     const setPanelType = useEmbeddedStageStore((state) => state.setPanelType)
 
-    useEffect(() => setPanelType(EmbeddedPanelType.CREDITCARD))
+    useEffect(() => setPanelType(EmbeddedPanelType.AUTOFINANCE))
 
     return (
         <><Head>
-            <title>Apply for a Credit Card</title>
+            <title>Apply for Auto Finance</title>
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
             <Header showNav={false} headerBackgroundColor={"black"}/>
             {
-                formStage === EmbeddedCardFormStage.PartnerDetailsStage && (
+                formStage === EmbeddedAutoFinanceFormStage.PartnerDetailsStage && (
                     <EmbeddedPartnerDetailsStage/>
                 )
             }
             {
-                formStage === EmbeddedCardFormStage.CardStage && (
-                    <EmbeddedCardStage/>
+                formStage === EmbeddedAutoFinanceFormStage.LoanStage && (
+                    <EmbeddedLoanStage/>
                 )
             }
             {
-                formStage === EmbeddedCardFormStage.AboutYouStage && (
+                formStage === EmbeddedAutoFinanceFormStage.VehicleDetailsStage && (
+                    <EmbeddedVehicleDetailsStage/>
+                )
+            }
+            {
+                formStage === EmbeddedAutoFinanceFormStage.AboutYouStage && (
                     <EmbeddedAboutYouStage/>
                 )
             }
             {
-                formStage === EmbeddedCardFormStage.CurrentAddressStage && (
+                formStage === EmbeddedAutoFinanceFormStage.CurrentAddressStage && (
                     <EmbeddedPrimaryAddressStage title={"Current Address"}
                                                  addressPayloadName={EmbeddedPrimaryAddressStages.CURRENT_ADDRESS}
                                                  addressPayloadSetter={EmbeddedPrimaryAddressPayloadSetters.CURRENT_ADDRESS}/>
                 )
             }
             {
-                formStage === EmbeddedCardFormStage.FirstPreviousAddressStage && (
+                formStage === EmbeddedAutoFinanceFormStage.FirstPreviousAddressStage && (
                     <EmbeddedPrimaryAddressStage
                         title={"Due to living at your current address for under three years, you must provide your last previous address."}
                         addressPayloadName={EmbeddedPrimaryAddressStages.FIRST_PREVIOUS_ADDRESS}
@@ -66,7 +72,7 @@ const EmbeddedCard = () => {
                 )
             }
             {
-                formStage === EmbeddedCardFormStage.SecondPreviousAddressStage && (
+                formStage === EmbeddedAutoFinanceFormStage.SecondPreviousAddressStage && (
                     <EmbeddedPrimaryAddressStage
                         title={"Due to living at your current and previous address for under three years, you must provide your second to last address."}
                         addressPayloadName={EmbeddedPrimaryAddressStages.SECOND_PREVIOUS_ADDRESS}
@@ -74,32 +80,32 @@ const EmbeddedCard = () => {
                 )
             }
             {
-                formStage === EmbeddedCardFormStage.EmploymentStage && (
+                formStage === EmbeddedAutoFinanceFormStage.EmploymentStage && (
                     <EmbeddedCurrentEmploymentStage/>
                 )
             }
             {
-                formStage === EmbeddedCardFormStage.ExpenditureStage && (
+                formStage === EmbeddedAutoFinanceFormStage.ExpenditureStage && (
                     <EmbeddedExpenditureStage/>
                 )
             }
             {
-                formStage === EmbeddedCardFormStage.OtherIncomeStage && (
+                formStage === EmbeddedAutoFinanceFormStage.OtherIncomeStage && (
                     <EmbeddedOtherIncomeStage/>
                 )
             }
             {
-                formStage === EmbeddedCardFormStage.MarketingConsentStage && (
+                formStage === EmbeddedAutoFinanceFormStage.MarketingConsentStage && (
                     <EmbeddedMarketingConsentStage/>
                 )
             }
             {
-                formStage === EmbeddedCardFormStage.PayloadStage && (
+                formStage === EmbeddedAutoFinanceFormStage.PayloadStage && (
                     <EmbeddedAllOffersPayloadStage/>
                 )
             }
             {
-                formStage === EmbeddedCardFormStage.OfferTilesStage && (
+                formStage === EmbeddedAutoFinanceFormStage.OfferTilesStage && (
                     <EmbeddedOfferTilesStage/>
                 )
             }
@@ -107,4 +113,4 @@ const EmbeddedCard = () => {
     );
 }
 
-export default EmbeddedCard;
+export default EmbeddedAutoFinance;

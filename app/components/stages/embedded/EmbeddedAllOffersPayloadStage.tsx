@@ -18,6 +18,7 @@ const EmbeddedAllOffersPayloadStage = () => {
 
     const loanPayload = useEmbeddedStageStore((state) => state.loanPayload);
     const cardPayload = useEmbeddedStageStore((state) => state.cardPayload);
+    const vehicleDetailsPayload = useEmbeddedStageStore((state) => state.vehicleDetailsPayload);
     const securedPayload = useEmbeddedStageStore((state) => state.propertyDetailsPayload);
 
     const aboutYouPayload = useEmbeddedStageStore((state) => state.aboutYouPayload);
@@ -159,9 +160,14 @@ const EmbeddedAllOffersPayloadStage = () => {
                 ...(({"panel_type": EmbeddedPanelType[savedPanelType]}))
             },
 
-            ...((savedPanelType === EmbeddedPanelType.ALL || savedPanelType === EmbeddedPanelType.SECURED) && {"Loan": {...loanPayload}}),
+            ...((savedPanelType === EmbeddedPanelType.ALL
+                    || savedPanelType === EmbeddedPanelType.AUTOFINANCE
+                    || savedPanelType === EmbeddedPanelType.SECURED)
+                && {"Loan": {...loanPayload}}),
 
             ...(savedPanelType === EmbeddedPanelType.CREDITCARD && {"Credit_Card": {...cardPayload}}),
+
+            ...(savedPanelType === EmbeddedPanelType.AUTOFINANCE && {"Auto_Finance": {...vehicleDetailsPayload}}),
 
             ...(savedPanelType === EmbeddedPanelType.SECURED && {"Property": {...securedPayload}}),
 
@@ -316,26 +322,23 @@ const EmbeddedAllOffersPayloadStage = () => {
     return (
         <div className="m-auto text-center">
 
-            <div>
-                <br/>
-                <h4 className="text-2xl">{isUsingMocks() ? "Mocked " : ""}API
-                    Response</h4>
-
-                <br/>
-                {getNavButtons()}
-                <br/><br/>
-
-                <h4 style={{fontSize: "18px"}}>Response JSON</h4>
-                <div className={"jsonContainer"}>
-                    <pre>{`${result ?? "Loading... Please wait."}`}</pre>
-                </div>
-            </div>
+            <br/>
+            {getNavButtons()}
+            <br/>
 
             <div>
                 <br/>
                 <h4 style={{fontSize: "18px"}}>Request JSON</h4>
                 <div className={"jsonContainer"}>
                     <pre>{`${payload}`}</pre>
+                </div>
+            </div>
+
+            <div>
+                <br/>
+                <h4 style={{fontSize: "18px"}}>{isUsingMocks() ? "Mocked " : ""}Response JSON</h4>
+                <div className={"jsonContainer"}>
+                    <pre>{`${result ?? "Loading... Please wait."}`}</pre>
                 </div>
             </div>
 

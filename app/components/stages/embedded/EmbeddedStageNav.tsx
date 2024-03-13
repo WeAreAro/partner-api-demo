@@ -1,5 +1,6 @@
 import {useEffect, useRef} from "react";
 import {
+    EmbeddedAutoFinanceFormStage,
     EmbeddedCardFormStage,
     EmbeddedLoanFormStage,
     EmbeddedSecuredFormStage,
@@ -14,8 +15,8 @@ const EmbeddedStageNav = ({canGoBack}: any) => {
 
     const backStage = (savedStage === EmbeddedCardFormStage.EmploymentStage
         || savedStage === EmbeddedLoanFormStage.EmploymentStage
+        || savedStage === EmbeddedAutoFinanceFormStage.EmploymentStage
         || savedStage === EmbeddedSecuredFormStage.EmploymentStage) ? previousStage : savedStage - 1
-    //const backStage = savedStage - 1
 
     const continueRef = useRef(null);
     const backRef = useRef(null);
@@ -33,10 +34,8 @@ const EmbeddedStageNav = ({canGoBack}: any) => {
             }
         };
 
-        // Add event listener for keydown events
         window.addEventListener('keydown', handleKeyDown);
 
-        // Cleanup function to remove event listener
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };

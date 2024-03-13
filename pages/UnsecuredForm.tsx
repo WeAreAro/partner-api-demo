@@ -31,7 +31,7 @@ const UnsecuredForm = () => {
 
     return (
         <><Head>
-            <title>Apply for unsecured loan</title>
+            <title>Apply for an Unsecured Loan</title>
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
             <Header showNav={false}/>

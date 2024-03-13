@@ -5,6 +5,7 @@ export interface Field {
     type?: InputType,
     title?: string,
     possibleValues?: PossibleValues,
+    readonly?: boolean,
     required?: boolean
 }
 
@@ -24,7 +25,7 @@ interface Props {
     error?: string,
     value?: string | number,
     possibleValues?: PossibleValues,
-
+    readonly?: boolean,
     title: string,
     name: string,
     type: InputType,
@@ -67,6 +68,7 @@ export const createInputFields = (fields: Field[], formData: any, errors: any, s
         const title = field?.title ?? transformTitle(name);
         const type = field?.type ?? InputType.String;
         const requiredText = field?.required ? " *" : ""
+        const readOnly = field?.readonly ?? false;
 
         const value = formData[name]
         const error = errors[name]
@@ -77,8 +79,8 @@ export const createInputFields = (fields: Field[], formData: any, errors: any, s
                 name={name}
                 type={type}
                 key={title}
-
                 possibleValues={field?.possibleValues}
+                readonly={readOnly}
                 value={value}
                 error={error}
                 onChange={(e) => handleChange(e, type, formData, setFormData)}
@@ -111,6 +113,7 @@ export const InputField = (props: Props) => {
                     type={!numeric ? "text" : "number"}
                     name={props.name}
                     value={props.value}
+                    readOnly={props.readonly}
                     onChange={props.onChange}/>
                 {props.error && <span
                     className="text-red-500 text-xs italic">{props.error}</span>}
@@ -135,7 +138,8 @@ export const InputField = (props: Props) => {
                 id={props.name}
                 value={props.value}
                 name={props.name}
-                onChange={props.onChange}>
+                onChange={props.onChange}
+                disabled={props.readonly}>
                 {renderEnumOptions()}
             </select></div>)
     } else {

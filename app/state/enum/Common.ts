@@ -66,6 +66,12 @@ export enum YesNoValue {
     "No" = "N",
 }
 
+export enum VendorType {
+    "Dealer" = "DEALER",
+    "Private Seller" = "PRIVATE_SELLER",
+    "Unknown" = "UNKNOWN",
+}
+
 export enum OtherIncomeDescription {
     "Adoption Allowance" = "ADA",
     "Agency" = "AGE",
@@ -118,5 +124,10 @@ export enum OtherIncomePeriod {
 }
 
 export enum PropertyType {
-    "Detached" = "D"
+    "Bungalow" = "B",
+    "Detached" = "D",
+    "Semi-Detached" = "S",
+    "Flat" = "F",
+    "Maisonette" = "M",
+    "Terraced" = "T"
 }
