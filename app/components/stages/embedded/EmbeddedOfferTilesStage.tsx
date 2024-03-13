@@ -3,6 +3,7 @@ import {useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 import OfferTileLoan from "@/app/components/OfferTileLoan";
 import OfferTileCC from "@/app/components/OfferTileCC";
+import {Offer} from "@/app/state/offer_model";
 
 const EmbeddedOfferTilesStage = () => {
 
@@ -40,6 +41,16 @@ const EmbeddedOfferTilesStage = () => {
         };
     }, []);
 
+    const flattenAndSortOffers = (offers) => {
+        const ret = [] as Offer[];
+
+        for (const offer of offers) {
+            ret.push(...offer.product_offers);
+        }
+
+        return ret.sort((a, b) => a.offer_display_rank - b.offer_display_rank);
+    }
+
     return (
         <div className="m-auto text-center">
 
@@ -52,26 +63,18 @@ const EmbeddedOfferTilesStage = () => {
                     </div>
                 )}
                 <br/>
-                {allOffersResponse?.response_json_as_object?.["offers"]
-                    .filter(productTypeItem => productTypeItem["product_type"] !== "CreditCard")
-                    .map((productTypeItem) => (<div key={productTypeItem}>
-                            {productTypeItem["product_offers"].map((productOfferItem) => (
-                                <div key={productOfferItem["uuid"]}>
-                                    <OfferTileLoan offer={...productOfferItem}></OfferTileLoan>
-                                </div>
-                            ))}
-                        </div>
-                    ))}
-                {allOffersResponse?.response_json_as_object?.["offers"]
-                    .filter(productTypeItem => productTypeItem["product_type"] === "CreditCard")
-                    .map((productTypeItem) => (<div key={""}>
-                            {productTypeItem["product_offers"].map((productOfferItem) => (
-                                <div key={productOfferItem["uuid"]}>
-                                    <OfferTileCC offer={...productOfferItem}></OfferTileCC>
-                                </div>
-                            ))}
-                        </div>
-                    ))}
+                {flattenAndSortOffers(allOffersResponse?.response_json_as_object?.["offers"])
+                    .map((offer) => {
+                        if (offer.product_type === "CreditCard") {
+                            return (<div key={offer["uuid"]}>
+                                <OfferTileCC offer={offer}></OfferTileCC>
+                            </div>)
+                        } else {
+                            return (<div key={offer["uuid"]}>
+                                <OfferTileLoan offer={offer}></OfferTileLoan>
+                            </div>)
+                        }
+                    })}
             </div>
 
             <br/>

@@ -77,7 +77,7 @@ const OfferTileLoan = (props: Props) => {
                                 <input
                                     className="offerColumnVerticalMargin bg-lime-600 hover:bg-lime-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                                     type="submit"
-                                    value={"Continue with Offer"}
+                                    value={"Choose Offer"}
                                 />
                             </span>
                             </div>
