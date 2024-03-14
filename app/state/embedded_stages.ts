@@ -166,7 +166,7 @@ export interface EmbeddedAboutYouPayload {
     dob: string,
     number_of_dependants: number,
     dependant_ages_comma_sep?: string,
-    has_driving_license: string
+    has_driving_licence: string
 }
 
 export interface EmbeddedAboutYouPayloadWithDependentsAsList extends EmbeddedAboutYouPayload {

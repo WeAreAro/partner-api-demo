@@ -21,7 +21,7 @@ const EmbeddedAboutYouStage = () => {
     const savedMaritalStatus = useEmbeddedStageStore((state) => state.aboutYouPayload?.marital_status);
     const savedNumberOfDependants = useEmbeddedStageStore((state) => state.aboutYouPayload?.number_of_dependants);
     const savedDependantAges = useEmbeddedStageStore((state) => state.aboutYouPayload?.dependant_ages_comma_sep);
-    const savedHasDrivingLicence = useEmbeddedStageStore((state) => state.aboutYouPayload?.has_driving_license)
+    const savedHasDrivingLicence = useEmbeddedStageStore((state) => state.aboutYouPayload?.has_driving_licence)
 
     const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
     const setAboutYouPayload = useEmbeddedStageStore((state) => state.setAboutYouPayload)
@@ -38,7 +38,7 @@ const EmbeddedAboutYouStage = () => {
         dob: savedDob ?? "04/04/1972",
         number_of_dependants: savedNumberOfDependants ?? 3,
         dependant_ages_comma_sep: savedDependantAges ?? "8,10,14",
-        has_driving_license: savedHasDrivingLicence ?? UkDrivingLicenceType["Full UK license"]
+        has_driving_licence: savedHasDrivingLicence ?? UkDrivingLicenceType["Full UK licence"]
     })
 
     const [errors, setErrors] = useState({} as any);
@@ -106,8 +106,8 @@ const EmbeddedAboutYouStage = () => {
             title: "The ages of the dependants"
         },
         {
-            name: "has_driving_license",
-            title: "Do you have a driving license",
+            name: "has_driving_licence",
+            title: "Do you have a driving licence",
             type: InputType.Enum,
             possibleValues: getPossibleValues(UkDrivingLicenceType)
         },

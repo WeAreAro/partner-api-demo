@@ -67,11 +67,11 @@ export enum YesNoValue {
 }
 
 export enum UkDrivingLicenceType {
-    "Full UK license" = "Y",
-    " Provisional UK license" = "P",
-    "EU license" = "E",
-    "International license" = "I",
-    "No license" = "N",
+    "Full UK licence" = "Y",
+    " Provisional UK licence" = "P",
+    "EU licence" = "E",
+    "International licence" = "I",
+    "No licence" = "N",
 }
 
 export enum VendorType {
