@@ -32,6 +32,9 @@ const EmbeddedAllOffersPayloadStage = () => {
     const expenditurePayload = useEmbeddedStageStore((state) => state.expenditurePayload);
     const otherIncomePayload = useEmbeddedStageStore((state) => state.otherIncomePayload);
 
+    const jointAboutYouPayload = useEmbeddedStageStore((state) => state.jointAboutYouPayload);
+    const jointCurrentEmploymentPayload = useEmbeddedStageStore((state) => state.jointCurrentEmploymentPayload);
+
     const marketingConsentPayload = useEmbeddedStageStore((state) => state.marketingConsentPayload);
 
     const setAllOffersResponse = useEmbeddedStageStore((state) => state.setAllOffersResponse)
@@ -209,14 +212,7 @@ const EmbeddedAllOffersPayloadStage = () => {
 
             ...(savedPanelType === EmbeddedPanelType.SECURED && {
                 "Joint_Applicant": {
-                    "About_You": {
-                        "title": "Mrs",
-                        "first_name": "Jane",
-                        "surname": "Doe",
-                        "dob": "01/01/1971",
-                        "mobile_phone": "071234567892",
-                        "email": "janedoe@example.com"
-                    },
+                    "About_You": {...jointAboutYouPayload},
                     "Current_Address": {
                         "house_number": "400",
                         "street": "Old Durham Rd",
@@ -227,17 +223,7 @@ const EmbeddedAllOffersPayloadStage = () => {
                         "years_lived": 4,
                         "months_lived": 5
                     },
-                    "Current_Employment": {
-                        "occupation": "CEO",
-                        "employer_name": "Example Employer",
-                        "employment_industry": "COMPUTERS_SOFTWARE",
-                        "employment_status": "E",
-                        "gross_income": 100000,
-                        "emp_years": 2,
-                        "emp_months": 4,
-                        "gross_income_all": 100000,
-                        "has_other_income": "Y"
-                    },
+                    "Current_Employment": {...jointCurrentEmploymentPayload},
                     "Other_Income": [
                         {
                             "income": 5000,

@@ -93,10 +93,12 @@ export enum EmbeddedSecuredFormStage {
     EmploymentStage = 8,
     ExpenditureStage = 9,
     OtherIncomeStage = 10,
-    MarketingConsentStage = 11,
-    PayloadStage = 12,
-    OfferTilesStage = 13,
-    ProceedOfferStage = 14,
+    JointAboutYouStage = 11,
+    JointEmploymentStage = 12,
+    MarketingConsentStage = 13,
+    PayloadStage = 14,
+    OfferTilesStage = 15,
+    ProceedOfferStage = 16,
 }
 
 export const EMBEDDED_TOTAL_STAGES = (panelType: EmbeddedPanelType) => {
@@ -173,6 +175,15 @@ export interface EmbeddedAboutYouPayloadWithDependentsAsList extends EmbeddedAbo
     dependant_ages: number[]
 }
 
+export interface EmbeddedJointAboutYouPayload {
+    title: Title,
+    first_name: string,
+    surname: string,
+    email: string,
+    mobile_phone?: string,
+    dob: string,
+}
+
 export interface EmbeddedAddressPayload {
     flat?: string,
     house_number?: string,
@@ -211,6 +222,18 @@ export interface EmbeddedEmploymentPayload {
     emp_months: number,
 
     additional_household_income: number,
+}
+
+export interface EmbeddedJointEmploymentPayload {
+    occupation?: string,
+    employer_name?: string,
+    employment_industry?: EmploymentIndustry,
+
+    employment_status: EmploymentStatus,
+
+    gross_income: number,
+    emp_years: number,
+    emp_months: number,
 }
 
 export interface EmbeddedExpenditurePayload {
@@ -277,6 +300,9 @@ export interface EmbeddedStageState {
     expenditurePayload: EmbeddedExpenditurePayload
     marketingConsentPayload: EmbeddedMarketingConsentPayload
 
+    jointAboutYouPayload: EmbeddedJointAboutYouPayload
+    jointCurrentEmploymentPayload: EmbeddedJointEmploymentPayload
+
     allOffersResponse: EmbeddedAllOffersResponse
     offerToProceed: EmbeddedOfferToProceed
     proceedResponse: EmbeddedProceedResponse
@@ -290,7 +316,6 @@ export interface EmbeddedStageState {
 
     setPartnerDetailsPayload: (payload: EmbeddedPartnerDetails) => void
 
-    /* payloads */
     setLoanPayload: (payload: EmbeddedLoanPayload) => void
     setCardPayload: (payload: EmbeddedCardPayload) => void
     setVehicleDetailsPayload: (payload: EmbeddedVehicleDetailsPayload) => void
@@ -304,6 +329,9 @@ export interface EmbeddedStageState {
     setOtherIncomePayload: (payload: EmbeddedOtherIncomePayload) => void
     setExpenditurePayload: (payload: EmbeddedExpenditurePayload) => void
     setMarketingConsentPayload: (payload: EmbeddedMarketingConsentPayload) => void
+
+    setJointAboutYouPayload: (payload: EmbeddedJointAboutYouPayload) => void
+    setJointCurrentEmploymentPayload: (payload: EmbeddedJointEmploymentPayload) => void
 
     setAllOffersResponse: (response: EmbeddedAllOffersResponse) => void
     setOfferToProceed: (offerToProceed: EmbeddedOfferToProceed) => void
@@ -334,6 +362,9 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
     expenditurePayload: {} as EmbeddedExpenditurePayload,
     marketingConsentPayload: {} as EmbeddedMarketingConsentPayload,
 
+    jointAboutYouPayload: {} as EmbeddedJointAboutYouPayload,
+    jointCurrentEmploymentPayload: {} as EmbeddedJointEmploymentPayload,
+
     allOffersResponse: {} as EmbeddedAllOffersResponse,
     offerToProceed: {} as EmbeddedOfferToProceed,
     proceedResponse: {} as EmbeddedProceedResponse,
@@ -362,6 +393,9 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
     setOtherIncomePayload: (otherIncomePayload) => set((state) => ({otherIncomePayload})),
     setExpenditurePayload: (expenditurePayload) => set((state) => ({expenditurePayload})),
     setMarketingConsentPayload: (marketingConsentPayload) => set((state) => ({marketingConsentPayload})),
+
+    setJointAboutYouPayload: (jointAboutYouPayload) => set((state) => ({jointAboutYouPayload})),
+    setJointCurrentEmploymentPayload: (jointCurrentEmploymentPayload) => set((state) => ({jointCurrentEmploymentPayload})),
 
     setAllOffersResponse: (allOffersResponse) => set((state) => ({allOffersResponse})),
     setOfferToProceed: (offerToProceed) => set((state) => ({offerToProceed})),
