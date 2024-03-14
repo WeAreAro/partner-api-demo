@@ -2,16 +2,7 @@
 
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, InputType} from '../../InputField';
-import {
-    EmbeddedAddressPayload,
-    EmbeddedAutoFinanceFormStage,
-    EmbeddedCardFormStage,
-    EmbeddedLoanFormStage,
-    EmbeddedPanelType,
-    EmbeddedSecuredFormStage,
-    EmbeddedStageState,
-    useEmbeddedStageStore
-} from "@/app/state/embedded_stages";
+import {EmbeddedAddressPayload, EmbeddedStageState, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
 
 interface Props {
@@ -37,17 +28,7 @@ const EmbeddedPrimaryAddressStage = ({title, addressPayloadName, addressPayloadS
     const savedYearsLived = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.years_lived);
     const savedMonthsLived = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.months_lived);
 
-    const savedYearsLivedAtFirstPreviousAddress = useEmbeddedStageStore((state) => state.firstPreviousAddressPayload?.years_lived) ?? 0;
-    const savedMonthsLivedAtFirstPreviousAddress = useEmbeddedStageStore((state) => state.firstPreviousAddressPayload?.months_lived) ?? 0;
-
-    const savedYearsLivedAtSecondPreviousAddress = useEmbeddedStageStore((state) => state.secondPreviousAddressPayload?.years_lived) ?? 0;
-    const savedMonthsLivedAtSecondPreviousAddress = useEmbeddedStageStore((state) => state.secondPreviousAddressPayload?.months_lived) ?? 0;
-
-    const firstPreviousAddressTotalMonths = (savedYearsLivedAtFirstPreviousAddress * 12) + savedMonthsLivedAtFirstPreviousAddress
-    const secondPreviousAddressTotalMonths = (savedYearsLivedAtSecondPreviousAddress * 12) + savedMonthsLivedAtSecondPreviousAddress
-
     const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
-    const setPreviousStage = useEmbeddedStageStore((state) => state.setPreviousStage)
 
     const setPayload = useEmbeddedStageStore((state) => state[addressPayloadSetter] as Function)
 
@@ -150,14 +131,6 @@ const EmbeddedPrimaryAddressStage = ({title, addressPayloadName, addressPayloadS
         return formErrors
     }
 
-
-    const shouldShowAnotherAddressStage = () => {
-        const currentTotalMonths = (formData.years_lived * 12) + formData.months_lived
-
-        return ((currentTotalMonths + firstPreviousAddressTotalMonths) < 36)
-    }
-
-
     const submitFormData = (e: { preventDefault: () => void; }) => {
 
         e.preventDefault()
@@ -167,56 +140,7 @@ const EmbeddedPrimaryAddressStage = ({title, addressPayloadName, addressPayloadS
 
     useEffect(() => {
         if (Object.keys(errors).length === 0 && isSubmitted) {
-
-            // We should also show the stage if it's already been filled in, in case they want to go backwards and then forwards.
-            setPreviousStage(savedStage);
-
-            console.log("Saved stage: ", savedStage);
-
-            let currentIdx = 0;
-            let fpaIdx = 0;
-            let spaIdx = 0;
-
-            // Determine the indexes that we care about
-            if (savedPanelType === EmbeddedPanelType.ALL) {
-                currentIdx = EmbeddedLoanFormStage.CurrentAddressStage;
-                fpaIdx = EmbeddedLoanFormStage.FirstPreviousAddressStage;
-                spaIdx = EmbeddedLoanFormStage.SecondPreviousAddressStage;
-            } else if (savedPanelType === EmbeddedPanelType.CREDITCARD) {
-                currentIdx = EmbeddedCardFormStage.CurrentAddressStage;
-                fpaIdx = EmbeddedCardFormStage.FirstPreviousAddressStage;
-                spaIdx = EmbeddedCardFormStage.SecondPreviousAddressStage;
-            } else if (savedPanelType === EmbeddedPanelType.AUTOFINANCE) {
-                currentIdx = EmbeddedAutoFinanceFormStage.CurrentAddressStage;
-                fpaIdx = EmbeddedAutoFinanceFormStage.FirstPreviousAddressStage;
-                spaIdx = EmbeddedAutoFinanceFormStage.SecondPreviousAddressStage;
-            } else if (savedPanelType === EmbeddedPanelType.SECURED) {
-                currentIdx = EmbeddedSecuredFormStage.CurrentAddressStage;
-                fpaIdx = EmbeddedSecuredFormStage.FirstPreviousAddressStage;
-                spaIdx = EmbeddedSecuredFormStage.SecondPreviousAddressStage;
-            }
-
-            console.log("Address - saved stage: ", savedStage, "current : ", currentIdx, "fpa: ", fpaIdx, "spa: ", spaIdx);
-
-            switch (savedStage) {
-                case currentIdx:
-                    if (firstPreviousAddressTotalMonths > 0 || shouldShowAnotherAddressStage()) {
-                        setCurrentStage(fpaIdx)
-                    } else {
-                        setCurrentStage(spaIdx + 1)
-                    }
-                    break;
-                case fpaIdx:
-                    if (secondPreviousAddressTotalMonths > 0 || shouldShowAnotherAddressStage()) {
-                        setCurrentStage(spaIdx)
-                    } else {
-                        setCurrentStage(spaIdx + 1)
-                    }
-                    break;
-                default:
-                    setCurrentStage(spaIdx + 1)
-                    break;
-            }
+            setCurrentStage(savedStage + 1);
         }
 
         setPayload({...formData})

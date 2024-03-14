@@ -6,7 +6,7 @@ import BearerTokenHeader from "@/app/components/BearerTokenHeader";
 import {hasTokenDefinedInEnv} from "@/app/utils/BearerUtils";
 import RedirectProgressBar from "@/app/components/stages/redirect/RedirectProgressBar";
 
-export const StageForm = ({title, canGoBack, inputFields, submitFormData}: any) => {
+export const StageForm = ({title, canGoBack, inputFields, submitFormData, goBackCount = 1}: any) => {
 
     const savedFormType = useRedirectStageStore((state) => state.formType)
     const savedStage = useRedirectStageStore((state) => state.currentStage);
@@ -27,7 +27,7 @@ export const StageForm = ({title, canGoBack, inputFields, submitFormData}: any) 
 
                 {inputFields}
 
-                <StageNav canGoBack={canGoBack}/>
+                <StageNav canGoBack={canGoBack} goBackCount={goBackCount}/>
 
             </form>
         </div>)

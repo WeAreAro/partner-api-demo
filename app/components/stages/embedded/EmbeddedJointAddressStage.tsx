@@ -1,42 +1,41 @@
 'use client';
 
-import {RedirectAddressPayload, RedirectStageState, useRedirectStageStore} from '@/app/state/redirect_stages';
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, InputType} from '../../InputField';
-import {StageForm} from './StageForm';
+import {EmbeddedAddressPayload, EmbeddedStageState, useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
 
 interface Props {
     title: string,
-    addressPayloadName: keyof RedirectStageState,
-    addressPayloadSetter: keyof RedirectStageState,
+    addressPayloadName: keyof EmbeddedStageState,
+    addressPayloadSetter: keyof EmbeddedStageState,
 }
 
-const AddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) => {
+const EmbeddedJointAddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) => {
 
-    const savedFormType = useRedirectStageStore((state) => state.formType)
+    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedPanelType = useEmbeddedStageStore((state) => state.panelType)
 
-    const savedStage = useRedirectStageStore((state) => state.currentStage);
+    const savedFlat = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.flat);
+    const savedHouseNumber = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.house_number);
+    const savedHouseName = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.house_name);
+    const savedStreet = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.street);
+    const savedPostTown = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.posttown);
+    const savedLocality = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.locality);
+    const savedCountry = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.country);
+    const savedPostcode = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.postcode);
 
-    const savedFlat = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.flat);
-    const savedHouseNumber = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.house_number);
-    const savedHouseName = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.house_name);
-    const savedStreet = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.street);
-    const savedPostTown = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.posttown);
-    const savedLocality = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.locality);
-    const savedCountry = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.country);
-    const savedPostcode = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.postcode);
+    const savedYearsLived = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.years_lived);
+    const savedMonthsLived = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.months_lived);
 
-    const savedYearsLived = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.years_lived);
-    const savedMonthsLived = useRedirectStageStore((state) => (state[addressPayloadName] as RedirectAddressPayload)?.months_lived);
+    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
 
-    const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
-
-    const setPayload = useRedirectStageStore((state) => state[addressPayloadSetter] as Function)
+    const setPayload = useEmbeddedStageStore((state) => state[addressPayloadSetter] as Function)
 
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [errors, setErrors] = useState({} as any);
 
-    const [formData, setFormData] = useState<RedirectAddressPayload>({
+    const [formData, setFormData] = useState<EmbeddedAddressPayload>({
         flat: savedFlat,
         house_number: savedHouseNumber ?? "400",
         house_name: savedHouseName,
@@ -45,8 +44,8 @@ const AddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) 
         locality: savedLocality ?? "Tyne & Wear",
         country: savedCountry || "UK",
         postcode: savedPostcode ?? "NE9 5DQ",
-        years_lived: savedYearsLived ?? 4,
-        months_lived: savedMonthsLived ?? 5,
+        years_lived: savedYearsLived ?? 3,
+        months_lived: savedMonthsLived ?? 11,
     })
 
     const fields: Field[] = [
@@ -101,7 +100,8 @@ const AddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) 
         },
     ]
 
-    const validate = (formData: RedirectAddressPayload) => {
+
+    const validate = (formData: EmbeddedAddressPayload) => {
         const formErrors = {} as any
 
         if (!formData.street) {
@@ -149,8 +149,8 @@ const AddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) 
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <StageForm title={title ?? "Your current address"} canGoBack={true} inputFields={inputFields}
-                   submitFormData={submitFormData}/>
+        <EmbeddedStageForm title={title ?? "Your current address"} canGoBack={true} inputFields={inputFields}
+                           submitFormData={submitFormData}/>
     )
 }
-export default AddressStage
+export default EmbeddedJointAddressStage

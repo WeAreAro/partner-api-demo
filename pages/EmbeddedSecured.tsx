@@ -4,6 +4,8 @@ import {useEffect} from "react";
 import Head from "next/head";
 import Header from "@/app/components/Header";
 import {
+    EmbeddedJointAddressPayloadSetters,
+    EmbeddedJointAddressStages,
     EmbeddedPanelType,
     EmbeddedPrimaryAddressPayloadSetters,
     EmbeddedPrimaryAddressStages,
@@ -26,6 +28,7 @@ import EmbeddedProceedPayloadStage from "@/app/components/stages/embedded/Embedd
 import EmbeddedJointAboutYouStage from "@/app/components/stages/embedded/EmbeddedJointAboutYouStage";
 import EmbeddedJointCurrentEmploymentStage from "@/app/components/stages/embedded/EmbeddedJointCurrentEmploymentStage";
 import EmbeddedJointOtherIncomeStage from "@/app/components/stages/embedded/EmbeddedJointOtherIncomeStage";
+import EmbeddedJointAddressStage from "@/app/components/stages/embedded/EmbeddedJointAddressStage";
 
 const EmbeddedSecured = () => {
     const formStage = useEmbeddedStageStore((state) => state.currentStage);
@@ -68,22 +71,6 @@ const EmbeddedSecured = () => {
                 )
             }
             {
-                formStage === EmbeddedSecuredFormStage.FirstPreviousAddressStage && (
-                    <EmbeddedPrimaryAddressStage
-                        title={"Due to living at your current address for under three years, you must provide your last previous address."}
-                        addressPayloadName={EmbeddedPrimaryAddressStages.FIRST_PREVIOUS_ADDRESS}
-                        addressPayloadSetter={EmbeddedPrimaryAddressPayloadSetters.FIRST_PREVIOUS_ADDRESS}/>
-                )
-            }
-            {
-                formStage === EmbeddedSecuredFormStage.SecondPreviousAddressStage && (
-                    <EmbeddedPrimaryAddressStage
-                        title={"Due to living at your current and previous address for under three years, you must provide your second to last address."}
-                        addressPayloadName={EmbeddedPrimaryAddressStages.SECOND_PREVIOUS_ADDRESS}
-                        addressPayloadSetter={EmbeddedPrimaryAddressPayloadSetters.SECOND_PREVIOUS_ADDRESS}/>
-                )
-            }
-            {
                 formStage === EmbeddedSecuredFormStage.EmploymentStage && (
                     <EmbeddedCurrentEmploymentStage/>
                 )
@@ -101,6 +88,13 @@ const EmbeddedSecured = () => {
             {
                 formStage === EmbeddedSecuredFormStage.JointAboutYouStage && (
                     <EmbeddedJointAboutYouStage/>
+                )
+            }
+            {
+                formStage === EmbeddedSecuredFormStage.JointCurrentAddressStage && (
+                    <EmbeddedJointAddressStage title={"Joint Applicant - Current Address"}
+                                               addressPayloadName={EmbeddedJointAddressStages.CURRENT_ADDRESS}
+                                               addressPayloadSetter={EmbeddedJointAddressPayloadSetters.CURRENT_ADDRESS}/>
                 )
             }
             {

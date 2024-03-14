@@ -57,23 +57,6 @@ const UnsecuredForm = () => {
                 )
             }
             {
-                formStage === RedirectUnsecuredLoanFormStage.FirstPreviousAddressStage && (
-                    <AddressStage
-                        title={"Due to living at your current address for under three years, you must provide your last previous address."}
-                        addressPayloadName={RedirectAddressStages.FIRST_PREVIOUS_ADDRESS}
-                        addressPayloadSetter={RedirectAddressPayloadSetters.FIRST_PREVIOUS_ADDRESS}/>
-                )
-            }
-            {
-                formStage === RedirectUnsecuredLoanFormStage.SecondPreviousAddressStage && (
-                    <AddressStage
-                        title={"Due to living at your current and previous address for under three years, you must provide your second to last address."}
-                        addressPayloadName={RedirectAddressStages.SECOND_PREVIOUS_ADDRESS}
-                        addressPayloadSetter={RedirectAddressPayloadSetters.SECOND_PREVIOUS_ADDRESS}/>
-                )
-
-            }
-            {
                 formStage === RedirectUnsecuredLoanFormStage.EmploymentStage && (
                     <CurrentEmploymentStage/>
                 )

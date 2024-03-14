@@ -12,6 +12,7 @@ import {useGeneralStageStore} from "@/app/state/general_stages";
 import {fetchWithTimeout} from "@/app/utils/HttpUtils";
 import LoadingOverlayWrapper from "react-loading-overlay-ts";
 import {Accordion, AccordionItem as Item} from "@szhsin/react-accordion";
+import {requiresJointApplicant} from "@/app/utils/StageStepUtils";
 
 const EmbeddedAllOffersPayloadStage = () => {
 
@@ -27,13 +28,12 @@ const EmbeddedAllOffersPayloadStage = () => {
 
     const aboutYouPayload = useEmbeddedStageStore((state) => state.aboutYouPayload);
     const currentAddressPayload = useEmbeddedStageStore((state) => state.currentAddressPayload);
-    const firstPreviousAddressPayload = useEmbeddedStageStore((state) => state.firstPreviousAddressPayload);
-    const secondPreviousAddressPayload = useEmbeddedStageStore((state) => state.secondPreviousAddressPayload);
     const currentEmploymentPayload = useEmbeddedStageStore((state) => state.currentEmploymentPayload);
     const expenditurePayload = useEmbeddedStageStore((state) => state.expenditurePayload);
     const otherIncomePayload = useEmbeddedStageStore((state) => state.otherIncomePayload);
 
     const jointAboutYouPayload = useEmbeddedStageStore((state) => state.jointAboutYouPayload);
+    const jointCurrentAddressPayload = useEmbeddedStageStore((state) => state.jointCurrentAddressPayload);
     const jointCurrentEmploymentPayload = useEmbeddedStageStore((state) => state.jointCurrentEmploymentPayload);
     const jointOtherIncomePayload = useEmbeddedStageStore((state) => state.jointOtherIncomePayload);
 
@@ -99,17 +99,6 @@ const EmbeddedAllOffersPayloadStage = () => {
         }
 
         return jointOtherIncome
-    }
-
-    const shouldSendFirstPreviousAddress = () => {
-        return currentAddressPayload?.years_lived * 12 + currentAddressPayload?.months_lived < 36
-    }
-
-    const shouldSendSecondPreviousAddress = () => {
-        return ((currentAddressPayload?.years_lived * 12 + currentAddressPayload?.months_lived)
-                + ((firstPreviousAddressPayload?.years_lived * 12) + firstPreviousAddressPayload?.months_lived)
-                < 36)
-            && !isNaN(secondPreviousAddressPayload.years_lived) && !isNaN(secondPreviousAddressPayload.months_lived)
     }
 
     useEffect(() => {
@@ -217,10 +206,6 @@ const EmbeddedAllOffersPayloadStage = () => {
                     ...currentAddressPayload
                 },
 
-                ...(shouldSendFirstPreviousAddress() && {"First_Previous_Address": {...firstPreviousAddressPayload}}),
-
-                ...(shouldSendSecondPreviousAddress() && {"Second_Previous_Address": {...secondPreviousAddressPayload}}),
-
                 "Current_Employment": {
                     ...currentEmploymentPayload
                 },
@@ -238,19 +223,10 @@ const EmbeddedAllOffersPayloadStage = () => {
                 }
             },
 
-            ...(savedPanelType === EmbeddedPanelType.SECURED && {
+            ...(savedPanelType === EmbeddedPanelType.SECURED && requiresJointApplicant(aboutYouPayload) && {
                 "Joint_Applicant": {
                     "About_You": {...jointAboutYouPayload},
-                    "Current_Address": {
-                        "house_number": "400",
-                        "street": "Old Durham Rd",
-                        "posttown": "Gateshead",
-                        "locality": "Tyne & Wear",
-                        "country": "UK",
-                        "postcode": "NE9 5DQ",
-                        "years_lived": 4,
-                        "months_lived": 5
-                    },
+                    "Current_Address": {...jointCurrentAddressPayload},
                     "Current_Employment": {...jointCurrentEmploymentPayload},
                     ...(mappedJointOtherIncomePayload.length > 0 && {
                         "Other_Income": mappedJointOtherIncomePayload
@@ -412,13 +388,13 @@ const EmbeddedAllOffersPayloadStage = () => {
                 <div className={"payloadRequestResponseWrapper"}>
                     <Accordion allowMultiple={true}>
                         <AccordionItem header={"Request JSON"}>
-                            <div className={"jsonContainer"}>
+                            <div className={"jsonContainerRequest"}>
                                 <pre>{`${payload}`}</pre>
                             </div>
                         </AccordionItem>
                         <AccordionItem header={isUsingMocks() ? "Mocked Response JSON" : "Response JSON"}
                                        initialEntered>
-                            <div className={"jsonContainer"}>
+                            <div className={"jsonContainerResponse"}>
                                 <pre>{`${result}`}</pre>
                             </div>
                         </AccordionItem>

@@ -38,15 +38,13 @@ export enum EmbeddedLoanFormStage {
     LoanStage = 2,
     AboutYouStage = 3,
     CurrentAddressStage = 4,
-    FirstPreviousAddressStage = 5,
-    SecondPreviousAddressStage = 6,
-    EmploymentStage = 7,
-    ExpenditureStage = 8,
-    OtherIncomeStage = 9,
-    MarketingConsentStage = 10,
-    PayloadStage = 11,
-    OfferTilesStage = 12,
-    ProceedOfferStage = 13,
+    EmploymentStage = 5,
+    ExpenditureStage = 6,
+    OtherIncomeStage = 7,
+    MarketingConsentStage = 8,
+    PayloadStage = 9,
+    OfferTilesStage = 10,
+    ProceedOfferStage = 11,
 }
 
 export enum EmbeddedCardFormStage {
@@ -54,15 +52,13 @@ export enum EmbeddedCardFormStage {
     CardStage = 2,
     AboutYouStage = 3,
     CurrentAddressStage = 4,
-    FirstPreviousAddressStage = 5,
-    SecondPreviousAddressStage = 6,
-    EmploymentStage = 7,
-    ExpenditureStage = 8,
-    OtherIncomeStage = 9,
-    MarketingConsentStage = 10,
-    PayloadStage = 11,
-    OfferTilesStage = 12,
-    ProceedOfferStage = 13,
+    EmploymentStage = 5,
+    ExpenditureStage = 6,
+    OtherIncomeStage = 7,
+    MarketingConsentStage = 8,
+    PayloadStage = 9,
+    OfferTilesStage = 10,
+    ProceedOfferStage = 11,
 }
 
 export enum EmbeddedAutoFinanceFormStage {
@@ -71,16 +67,16 @@ export enum EmbeddedAutoFinanceFormStage {
     VehicleDetailsStage = 3,
     AboutYouStage = 4,
     CurrentAddressStage = 5,
-    FirstPreviousAddressStage = 6,
-    SecondPreviousAddressStage = 7,
-    EmploymentStage = 8,
-    ExpenditureStage = 9,
-    OtherIncomeStage = 10,
-    MarketingConsentStage = 11,
-    PayloadStage = 12,
-    OfferTilesStage = 13,
-    ProceedOfferStage = 14,
+    EmploymentStage = 6,
+    ExpenditureStage = 7,
+    OtherIncomeStage = 8,
+    MarketingConsentStage = 9,
+    PayloadStage = 10,
+    OfferTilesStage = 11,
+    ProceedOfferStage = 12,
 }
+
+export const EMBEDDED_JOINT_APPLICANT_STAGES = 4;
 
 export enum EmbeddedSecuredFormStage {
     PartnerDetailsStage = 1,
@@ -88,18 +84,17 @@ export enum EmbeddedSecuredFormStage {
     PropertyDetailsStage = 3,
     AboutYouStage = 4,
     CurrentAddressStage = 5,
-    FirstPreviousAddressStage = 6,
-    SecondPreviousAddressStage = 7,
-    EmploymentStage = 8,
-    ExpenditureStage = 9,
-    OtherIncomeStage = 10,
-    JointAboutYouStage = 11,
-    JointEmploymentStage = 12,
-    JointOtherIncomeStage = 13,
-    MarketingConsentStage = 14,
-    PayloadStage = 15,
-    OfferTilesStage = 16,
-    ProceedOfferStage = 17,
+    EmploymentStage = 6,
+    ExpenditureStage = 7,
+    OtherIncomeStage = 8,
+    JointAboutYouStage = 9,
+    JointCurrentAddressStage = 10,
+    JointEmploymentStage = 11,
+    JointOtherIncomeStage = 12,
+    MarketingConsentStage = 13,
+    PayloadStage = 14,
+    OfferTilesStage = 15,
+    ProceedOfferStage = 16,
 }
 
 export const EMBEDDED_TOTAL_STAGES = (panelType: EmbeddedPanelType) => {
@@ -201,14 +196,18 @@ export interface EmbeddedAddressPayload {
 
 export enum EmbeddedPrimaryAddressStages {
     CURRENT_ADDRESS = "currentAddressPayload",
-    FIRST_PREVIOUS_ADDRESS = "firstPreviousAddressPayload",
-    SECOND_PREVIOUS_ADDRESS = "secondPreviousAddressPayload"
 }
 
 export enum EmbeddedPrimaryAddressPayloadSetters {
     CURRENT_ADDRESS = "setCurrentAddressPayload",
-    FIRST_PREVIOUS_ADDRESS = "setFirstPreviousAddressPayload",
-    SECOND_PREVIOUS_ADDRESS = "setSecondPreviousAddressPayload",
+}
+
+export enum EmbeddedJointAddressStages {
+    CURRENT_ADDRESS = "jointCurrentAddressPayload",
+}
+
+export enum EmbeddedJointAddressPayloadSetters {
+    CURRENT_ADDRESS = "setJointCurrentAddressPayload",
 }
 
 export interface EmbeddedEmploymentPayload {
@@ -296,7 +295,7 @@ export interface EmbeddedStageState {
     panelType: EmbeddedPanelType
 
     currentStage: EmbeddedFormStageType
-    previousStage: EmbeddedFormStageType
+    // previousStage: EmbeddedFormStageType
 
     // --------------------------------
 
@@ -309,14 +308,13 @@ export interface EmbeddedStageState {
 
     aboutYouPayload: EmbeddedAboutYouPayload
     currentAddressPayload: EmbeddedAddressPayload
-    firstPreviousAddressPayload: EmbeddedAddressPayload
-    secondPreviousAddressPayload: EmbeddedAddressPayload
     currentEmploymentPayload: EmbeddedEmploymentPayload
     otherIncomePayload: EmbeddedOtherIncomePayload
     expenditurePayload: EmbeddedExpenditurePayload
     marketingConsentPayload: EmbeddedMarketingConsentPayload
 
     jointAboutYouPayload: EmbeddedJointAboutYouPayload
+    jointCurrentAddressPayload: EmbeddedAddressPayload
     jointCurrentEmploymentPayload: EmbeddedJointEmploymentPayload
     jointOtherIncomePayload: EmbeddedJointOtherIncomePayload
 
@@ -329,7 +327,7 @@ export interface EmbeddedStageState {
     setPanelType: (panelType: EmbeddedPanelType) => void
 
     setCurrentStage: (currentStage: number) => void
-    setPreviousStage: (previousStage: number) => void
+    // setPreviousStage: (previousStage: number) => void
 
     setPartnerDetailsPayload: (payload: EmbeddedPartnerDetails) => void
 
@@ -340,14 +338,13 @@ export interface EmbeddedStageState {
 
     setAboutYouPayload: (payload: EmbeddedAboutYouPayload) => void
     setCurrentAddressPayload: (payload: EmbeddedAddressPayload) => void
-    setFirstPreviousAddressPayload: (payload: EmbeddedAddressPayload) => void
-    setSecondPreviousAddressPayload: (payload: EmbeddedAddressPayload) => void
     setCurrentEmploymentPayload: (payload: EmbeddedEmploymentPayload) => void
     setOtherIncomePayload: (payload: EmbeddedOtherIncomePayload) => void
     setExpenditurePayload: (payload: EmbeddedExpenditurePayload) => void
     setMarketingConsentPayload: (payload: EmbeddedMarketingConsentPayload) => void
 
     setJointAboutYouPayload: (payload: EmbeddedJointAboutYouPayload) => void
+    setJointCurrentAddressPayload: (payload: EmbeddedAddressPayload) => void
     setJointCurrentEmploymentPayload: (payload: EmbeddedJointEmploymentPayload) => void
     setJointOtherIncomePayload: (payload: EmbeddedJointOtherIncomePayload) => void
 
@@ -360,7 +357,7 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
     panelType: EmbeddedPanelType.ALL,
 
     currentStage: EmbeddedLoanFormStage.PartnerDetailsStage,
-    previousStage: EmbeddedLoanFormStage.PartnerDetailsStage,
+    // previousStage: EmbeddedLoanFormStage.PartnerDetailsStage,
 
     // --------------------------------
 
@@ -373,14 +370,13 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
 
     aboutYouPayload: {} as EmbeddedAboutYouPayload,
     currentAddressPayload: {} as EmbeddedAddressPayload,
-    firstPreviousAddressPayload: {} as EmbeddedAddressPayload,
-    secondPreviousAddressPayload: {} as EmbeddedAddressPayload,
     currentEmploymentPayload: {} as EmbeddedEmploymentPayload,
     otherIncomePayload: {} as EmbeddedOtherIncomePayload,
     expenditurePayload: {} as EmbeddedExpenditurePayload,
     marketingConsentPayload: {} as EmbeddedMarketingConsentPayload,
 
     jointAboutYouPayload: {} as EmbeddedJointAboutYouPayload,
+    jointCurrentAddressPayload: {} as EmbeddedAddressPayload,
     jointCurrentEmploymentPayload: {} as EmbeddedJointEmploymentPayload,
     jointOtherIncomePayload: {} as EmbeddedJointOtherIncomePayload,
 
@@ -393,7 +389,7 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
     setPanelType: (panelType) => set((state) => ({panelType})),
 
     setCurrentStage: (currentStage) => set((state) => ({currentStage})),
-    setPreviousStage: (previousStage) => set((state) => ({previousStage})),
+    // setPreviousStage: (previousStage) => set((state) => ({previousStage})),
 
     // --------------------------------
 
@@ -406,14 +402,13 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
 
     setAboutYouPayload: (aboutYouPayload) => set((state) => ({aboutYouPayload})),
     setCurrentAddressPayload: (currentAddressPayload) => set((state) => ({currentAddressPayload})),
-    setFirstPreviousAddressPayload: (firstPreviousAddressPayload) => set((state) => ({firstPreviousAddressPayload})),
-    setSecondPreviousAddressPayload: (secondPreviousAddressPayload) => set((state) => ({secondPreviousAddressPayload})),
     setCurrentEmploymentPayload: (currentEmploymentPayload) => set((state) => ({currentEmploymentPayload})),
     setOtherIncomePayload: (otherIncomePayload) => set((state) => ({otherIncomePayload})),
     setExpenditurePayload: (expenditurePayload) => set((state) => ({expenditurePayload})),
     setMarketingConsentPayload: (marketingConsentPayload) => set((state) => ({marketingConsentPayload})),
 
     setJointAboutYouPayload: (jointAboutYouPayload) => set((state) => ({jointAboutYouPayload})),
+    setJointCurrentAddressPayload: (jointCurrentAddressPayload) => set((state) => ({jointCurrentAddressPayload})),
     setJointCurrentEmploymentPayload: (jointCurrentEmploymentPayload) => set((state) => ({jointCurrentEmploymentPayload})),
     setJointOtherIncomePayload: (jointOtherIncomePayload) => set((state) => ({jointOtherIncomePayload})),
 

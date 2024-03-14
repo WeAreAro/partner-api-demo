@@ -1,13 +1,10 @@
-import {RedirectUnsecuredLoanFormStage, useRedirectStageStore} from "../../../state/redirect_stages";
+import {useRedirectStageStore} from "../../../state/redirect_stages";
 import {useEffect, useRef} from "react";
 
-const StageNav = ({canGoBack}: any) => {
+const StageNav = ({canGoBack, goBackCount = 1}: { canGoBack: boolean, goBackCount?: number }) => {
     const savedStage = useRedirectStageStore((state) => state.currentStage);
 
-    const previousStage = useRedirectStageStore((state) => state.previousStage);
     const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
-
-    const backStage = savedStage === RedirectUnsecuredLoanFormStage.EmploymentStage ? previousStage : savedStage - 1
 
     const continueRef = useRef(null);
     const backRef = useRef(null);
@@ -41,7 +38,11 @@ const StageNav = ({canGoBack}: any) => {
                 className="bg-amber-700 hover:bg-lime-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="submit"
                 value="Back"
-                onClick={() => setCurrentStage(backStage)}
+                onClick={() => {
+                    // setCurrentStage(backStage);
+                    console.log('Go Back Count : ', goBackCount);
+                    setCurrentStage(savedStage - goBackCount);
+                }}
             />
         }
         <input

@@ -77,11 +77,6 @@ const EmbeddedOfferTilesStage = () => {
             <div>
                 <br/>
                 <h4 className="text-2xl">{allOffersResponse.mocked ? "Mocked " : ""}Offer Tiles</h4>
-                {(false) && (
-                    <div className={"jsonContainer"}>
-                        <pre>{JSON.stringify(allOffersResponse.response_json_as_object, null, 2)}</pre>
-                    </div>
-                )}
                 <br/>
                 {flattenAndSortOffers(allOffersResponse?.response_json_as_object?.["offers"])
                     .map((offer) => {

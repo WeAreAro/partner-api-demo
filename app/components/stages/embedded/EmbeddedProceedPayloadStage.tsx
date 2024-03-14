@@ -216,13 +216,13 @@ const EmbeddedProceedPayloadStage = () => {
                 <div className={"payloadRequestResponseWrapper"}>
                     <Accordion allowMultiple={true}>
                         <AccordionItem header={"Request JSON"}>
-                            <div className={"jsonContainer"}>
+                            <div className={"jsonContainerRequest"}>
                                 <pre>{`${payload}`}</pre>
                             </div>
                         </AccordionItem>
                         <AccordionItem header={isUsingMocks() ? "Mocked Response JSON" : "Response JSON"}
                                        initialEntered>
-                            <div className={"jsonContainer"}>
+                            <div className={"jsonContainerResponse"}>
                                 <pre>{`${result}`}</pre>
                             </div>
                         </AccordionItem>

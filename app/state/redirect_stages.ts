@@ -23,13 +23,11 @@ export enum RedirectUnsecuredLoanFormStage {
     LoanStage = 2,
     AboutYouStage = 3,
     CurrentAddressStage = 4,
-    FirstPreviousAddressStage = 5,
-    SecondPreviousAddressStage = 6,
-    EmploymentStage = 7,
-    ExpenditureStage = 8,
-    OtherIncomeStage = 9,
-    MarketingConsentStage = 10,
-    PayloadStage = 11,
+    EmploymentStage = 5,
+    ExpenditureStage = 6,
+    OtherIncomeStage = 7,
+    MarketingConsentStage = 8,
+    PayloadStage = 9,
 }
 
 export enum RedirectCardFormStage {
@@ -37,11 +35,10 @@ export enum RedirectCardFormStage {
     CardStage = 2,
     AboutYouStage = 3,
     CurrentAddressStage = 4,
-    FirstPreviousAddressStage = 5,
-    EmploymentStage = 6,
-    ExpenditureStage = 7,
-    MarketingConsentStage = 8,
-    PayloadStage = 9
+    EmploymentStage = 5,
+    ExpenditureStage = 6,
+    MarketingConsentStage = 7,
+    PayloadStage = 8
 }
 
 export const REDIRECT_TOTAL_UNSECURED_STAGES = Object.keys(RedirectUnsecuredLoanFormStage).length / 2;
@@ -154,14 +151,12 @@ export interface RedirectStageState {
     formType: RedirectFormType
 
     currentStage: RedirectFormStageType
-    previousStage: RedirectFormStageType
+    // previousStage: RedirectFormStageType
 
     partnerDetailsPayload: RedirectPartnerDetails
     quotePayload: RedirectQuotePayload
     aboutYouPayload: RedirectAboutYouPayload
     currentAddressPayload: RedirectAddressPayload
-    firstPreviousAddressPayload: RedirectAddressPayload
-    secondPreviousAddressPayload: RedirectAddressPayload
     currentEmploymentPayload: RedirectEmploymentPayload
     otherIncomePayload: RedirectOtherIncomePayload
     expenditurePayload: RedirectExpenditurePayload
@@ -172,15 +167,13 @@ export interface RedirectStageState {
     setFormType: (formType: RedirectFormType) => void
 
     setCurrentStage: (currentStage: number) => void
-    setPreviousStage: (previousStage: number) => void
+    // setPreviousStage: (previousStage: number) => void
 
     setPartnerDetailsPayload: (payload: RedirectPartnerDetails) => void
     setAboutYouPayload: (payload: RedirectAboutYouPayload) => void
     setQuotePayload: (payload: RedirectQuotePayload) => void
 
     setCurrentAddressPayload: (payload: RedirectAddressPayload) => void
-    setFirstPreviousAddressPayload: (payload: RedirectAddressPayload) => void
-    setSecondPreviousAddressPayload: (payload: RedirectAddressPayload) => void
 
     setCurrentEmploymentPayload: (payload: RedirectEmploymentPayload) => void
     setOtherIncomePayload: (payload: RedirectOtherIncomePayload) => void
@@ -194,7 +187,7 @@ export const useRedirectStageStore = create<RedirectStageState>()((set) => ({
     formType: RedirectFormType.UNSECURED_LOAN,
 
     currentStage: RedirectUnsecuredLoanFormStage.PartnerDetailsStage,
-    previousStage: RedirectUnsecuredLoanFormStage.PartnerDetailsStage,
+    // previousStage: RedirectUnsecuredLoanFormStage.PartnerDetailsStage,
 
     // ------------------------------------------------
 
@@ -203,8 +196,6 @@ export const useRedirectStageStore = create<RedirectStageState>()((set) => ({
     aboutYouPayload: {} as RedirectAboutYouPayload,
 
     currentAddressPayload: {} as RedirectAddressPayload,
-    firstPreviousAddressPayload: {} as RedirectAddressPayload,
-    secondPreviousAddressPayload: {} as RedirectAddressPayload,
 
     currentEmploymentPayload: {} as RedirectEmploymentPayload,
     otherIncomePayload: {} as RedirectOtherIncomePayload,
@@ -217,7 +208,7 @@ export const useRedirectStageStore = create<RedirectStageState>()((set) => ({
     setFormType: (formType) => set((state) => ({formType})),
 
     setCurrentStage: (currentStage) => set((state) => ({currentStage})),
-    setPreviousStage: (previousStage) => set((state) => ({previousStage})),
+    // setPreviousStage: (previousStage) => set((state) => ({previousStage})),
 
     // ------------------------------------------------
 
@@ -226,8 +217,6 @@ export const useRedirectStageStore = create<RedirectStageState>()((set) => ({
     setQuotePayload: (quotePayload) => set((state) => ({quotePayload})),
 
     setCurrentAddressPayload: (currentAddressPayload) => set((state) => ({currentAddressPayload})),
-    setFirstPreviousAddressPayload: (firstPreviousAddressPayload) => set((state) => ({firstPreviousAddressPayload})),
-    setSecondPreviousAddressPayload: (secondPreviousAddressPayload) => set((state) => ({secondPreviousAddressPayload})),
 
     setOtherIncomePayload: (otherIncomePayload) => set((state) => ({otherIncomePayload})),
 

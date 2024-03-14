@@ -17,8 +17,6 @@ const PayloadStage = () => {
     const aboutYouPayload = useRedirectStageStore((state) => state.aboutYouPayload);
 
     const currentAddressPayload = useRedirectStageStore((state) => state.currentAddressPayload);
-    const firstPreviousAddressPayload = useRedirectStageStore((state) => state.firstPreviousAddressPayload);
-    const secondPreviousAddressPayload = useRedirectStageStore((state) => state.secondPreviousAddressPayload);
 
     const currentEmploymentPayload = useRedirectStageStore((state) => state.currentEmploymentPayload);
     const expenditurePayload = useRedirectStageStore((state) => state.expenditurePayload);
@@ -114,17 +112,6 @@ const PayloadStage = () => {
         return otherIncome
     }
 
-    const shouldSendFirstPreviousAddress = () => {
-        return currentAddressPayload?.years_lived * 12 + currentAddressPayload?.months_lived < 36
-    }
-
-    const shouldSendSecondPreviousAddress = () => {
-        return ((currentAddressPayload?.years_lived * 12 + currentAddressPayload?.months_lived)
-                + ((firstPreviousAddressPayload?.years_lived * 12) + firstPreviousAddressPayload?.months_lived)
-                < 36)
-            && !isNaN(secondPreviousAddressPayload.years_lived) && !isNaN(secondPreviousAddressPayload.months_lived)
-    }
-
     const generatePayload = () => {
         const payload = {
             "Partner": {
@@ -147,13 +134,7 @@ const PayloadStage = () => {
                 "Current_Address": {
                     ...currentAddressPayload
                 },
-
-                // First address is standard.
-                ...(shouldSendFirstPreviousAddress() && {"First_Previous_Address": {...firstPreviousAddressPayload}}),
-
-                // Second address is specific to unsecured loan.
-                ...(savedFormType === RedirectFormType.UNSECURED_LOAN && shouldSendSecondPreviousAddress() && {"Second_Previous_Address": {...secondPreviousAddressPayload}}),
-
+                
                 // Employment differs.
                 ...(savedFormType === RedirectFormType.UNSECURED_LOAN && {"Current_Employment": {...currentEmploymentPayload}}),
                 ...(savedFormType === RedirectFormType.CARD && {"Current_Employment": {...cardCurrentEmploymentPayload}}),
@@ -295,13 +276,13 @@ const PayloadStage = () => {
                 <div className={"payloadRequestResponseWrapper"}>
                     <Accordion allowMultiple={true}>
                         <AccordionItem header={"Request JSON"}>
-                            <div className={"jsonContainer"}>
+                            <div className={"jsonContainerRequest"}>
                                 <pre>{`${payload}`}</pre>
                             </div>
                         </AccordionItem>
                         <AccordionItem header={isUsingMocks() ? "Mocked Response JSON" : "Response JSON"}
                                        initialEntered>
-                            <div className={"jsonContainer"}>
+                            <div className={"jsonContainerResponse"}>
                                 <pre>{`${result ?? "Loading... Please wait."}`}</pre>
                             </div>
                         </AccordionItem>

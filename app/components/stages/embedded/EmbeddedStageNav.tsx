@@ -1,22 +1,10 @@
 import {useEffect, useRef} from "react";
-import {
-    EmbeddedAutoFinanceFormStage,
-    EmbeddedCardFormStage,
-    EmbeddedLoanFormStage,
-    EmbeddedSecuredFormStage,
-    useEmbeddedStageStore
-} from "@/app/state/embedded_stages";
+import {useEmbeddedStageStore} from "@/app/state/embedded_stages";
 
-const EmbeddedStageNav = ({canGoBack}: any) => {
+const EmbeddedStageNav = ({canGoBack, goBackCount = 1}: { canGoBack: boolean, goBackCount?: number }) => {
     const savedStage = useEmbeddedStageStore((state) => state.currentStage);
 
-    const previousStage = useEmbeddedStageStore((state) => state.previousStage);
     const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
-
-    const backStage = (savedStage === EmbeddedCardFormStage.EmploymentStage
-        || savedStage === EmbeddedLoanFormStage.EmploymentStage
-        || savedStage === EmbeddedAutoFinanceFormStage.EmploymentStage
-        || savedStage === EmbeddedSecuredFormStage.EmploymentStage) ? previousStage : savedStage - 1
 
     const continueRef = useRef(null);
     const backRef = useRef(null);
@@ -48,7 +36,11 @@ const EmbeddedStageNav = ({canGoBack}: any) => {
                 className="bg-amber-700 hover:bg-lime-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="submit"
                 value="Back"
-                onClick={() => setCurrentStage(backStage)}
+                onClick={() => {
+                    // setCurrentStage(backStage);
+                    console.log('Go Back Count : ', goBackCount);
+                    setCurrentStage(savedStage - goBackCount);
+                }}
             />
         }
         <input

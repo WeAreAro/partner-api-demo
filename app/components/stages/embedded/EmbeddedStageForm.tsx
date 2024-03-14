@@ -6,7 +6,7 @@ import {useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import EmbeddedStageNav from "@/app/components/stages/embedded/EmbeddedStageNav";
 import EmbeddedProgressBar from "@/app/components/stages/embedded/EmbeddedProgressBar";
 
-export const EmbeddedStageForm = ({title, canGoBack, inputFields, submitFormData}: any) => {
+export const EmbeddedStageForm = ({title, canGoBack, inputFields, submitFormData, goBackCount = 1}: any) => {
 
     const savedPanelType = useEmbeddedStageStore((state) => state.panelType)
     const savedStage = useEmbeddedStageStore((state) => state.currentStage);
@@ -27,7 +27,7 @@ export const EmbeddedStageForm = ({title, canGoBack, inputFields, submitFormData
 
                 {inputFields}
 
-                <EmbeddedStageNav canGoBack={canGoBack}/>
+                <EmbeddedStageNav canGoBack={canGoBack} goBackCount={goBackCount}/>
 
             </form>
         </div>)

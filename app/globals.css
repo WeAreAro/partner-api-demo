@@ -27,14 +27,27 @@
     background-color: lightblue;
 }
 
-.jsonContainer {
-    margin: 10px 20px 10px 20px;
+.jsonContainerRequest {
+    margin: 10px 0 10px 0;
     padding: 10px;
     border: 1px solid black;
     background-color: ivory;
 }
 
-.jsonContainer > pre {
+.jsonContainerRequest > pre {
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.jsonContainerResponse {
+    margin: 10px 0 10px 0;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: rgba(215, 255, 230, 0.38);
+}
+
+.jsonContainerResponse > pre {
     text-align: left;
     white-space: pre-wrap;
     word-break: break-word;

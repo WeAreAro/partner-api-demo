@@ -56,14 +56,6 @@ const CardForm = () => {
                 )
             }
             {
-                formStage === RedirectCardFormStage.FirstPreviousAddressStage && (
-                    <AddressStage
-                        title={"Due to living at your current address for under three years, you must provide your last previous address."}
-                        addressPayloadName={RedirectAddressStages.FIRST_PREVIOUS_ADDRESS}
-                        addressPayloadSetter={RedirectAddressPayloadSetters.FIRST_PREVIOUS_ADDRESS}/>
-                )
-            }
-            {
                 formStage === RedirectCardFormStage.EmploymentStage && (
                     <CurrentEmploymentStage/>
                 )

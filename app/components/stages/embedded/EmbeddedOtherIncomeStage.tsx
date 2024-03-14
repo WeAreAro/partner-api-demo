@@ -3,8 +3,13 @@
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {OtherIncomeDescription, OtherIncomePeriod} from "@/app/state/enum/Common";
-import {EmbeddedOtherIncomePayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {
+    EMBEDDED_JOINT_APPLICANT_STAGES,
+    EmbeddedOtherIncomePayload,
+    useEmbeddedStageStore
+} from "@/app/state/embedded_stages";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {requiresJointApplicant} from "@/app/utils/StageStepUtils";
 
 const EmbeddedOtherIncomeStage = () => {
 
@@ -16,8 +21,10 @@ const EmbeddedOtherIncomeStage = () => {
     const savedIncomeTwo = useEmbeddedStageStore((state) => state.otherIncomePayload?.income_2);
     const savedIncomeDescriptionTwo = useEmbeddedStageStore((state) => state.otherIncomePayload?.description_2);
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
-    const setPayload = useEmbeddedStageStore((state) => state.setOtherIncomePayload)
+    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage);
+    const setPayload = useEmbeddedStageStore((state) => state.setOtherIncomePayload);
+
+    const aboutYouPayload = useEmbeddedStageStore((state) => state.aboutYouPayload);
 
     const [formData, setFormData] = useState<EmbeddedOtherIncomePayload>({
         income_1: savedIncomeOne ?? 800,
@@ -73,7 +80,8 @@ const EmbeddedOtherIncomeStage = () => {
 
     useEffect(() => {
         if (Object.keys(errors).length === 0 && isSubmitted) {
-            setCurrentStage(savedStage + 1)
+            const goForwardAmount = (requiresJointApplicant(aboutYouPayload) ? 1 : EMBEDDED_JOINT_APPLICANT_STAGES + 1);
+            setCurrentStage(savedStage + goForwardAmount);
         }
         setPayload({...formData})
     }, [formData, isSubmitted, errors])

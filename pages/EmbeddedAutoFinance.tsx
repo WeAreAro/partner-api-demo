@@ -65,22 +65,6 @@ const EmbeddedAutoFinance = () => {
                 )
             }
             {
-                formStage === EmbeddedAutoFinanceFormStage.FirstPreviousAddressStage && (
-                    <EmbeddedPrimaryAddressStage
-                        title={"Due to living at your current address for under three years, you must provide your last previous address."}
-                        addressPayloadName={EmbeddedPrimaryAddressStages.FIRST_PREVIOUS_ADDRESS}
-                        addressPayloadSetter={EmbeddedPrimaryAddressPayloadSetters.FIRST_PREVIOUS_ADDRESS}/>
-                )
-            }
-            {
-                formStage === EmbeddedAutoFinanceFormStage.SecondPreviousAddressStage && (
-                    <EmbeddedPrimaryAddressStage
-                        title={"Due to living at your current and previous address for under three years, you must provide your second to last address."}
-                        addressPayloadName={EmbeddedPrimaryAddressStages.SECOND_PREVIOUS_ADDRESS}
-                        addressPayloadSetter={EmbeddedPrimaryAddressPayloadSetters.SECOND_PREVIOUS_ADDRESS}/>
-                )
-            }
-            {
                 formStage === EmbeddedAutoFinanceFormStage.EmploymentStage && (
                     <EmbeddedCurrentEmploymentStage/>
                 )
