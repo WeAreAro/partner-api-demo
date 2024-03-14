@@ -10,6 +10,7 @@ import {
 import {useGeneralStageStore} from "@/app/state/general_stages";
 import {fetchWithTimeout} from "@/app/utils/HttpUtils";
 import LoadingOverlayWrapper from "react-loading-overlay-ts";
+import {Accordion, AccordionItem as Item} from "@szhsin/react-accordion";
 
 const EmbeddedAllOffersPayloadStage = () => {
 
@@ -356,6 +357,35 @@ const EmbeddedAllOffersPayloadStage = () => {
         )
     }
 
+    const AccordionItem = ({header, ...rest}) => (
+        <Item
+            {...rest}
+            header={({state: {isEnter}}) => (
+                <>
+                    {header}
+                    <img
+                        className={`ml-auto transition-transform duration-200 ease-out ${
+                            isEnter && "rotate-180"
+                        }`}
+                        src={"/chevron-down.svg"}
+                        alt="Chevron"
+                    />
+                </>
+            )}
+            className="border-b"
+            buttonProps={{
+                className: ({isEnter}) =>
+                    `flex w-full p-4 text-left hover:bg-slate-100 ${
+                        isEnter && "bg-slate-200"
+                    }`
+            }}
+            contentProps={{
+                className: "transition-height duration-200 ease-out"
+            }}
+            panelProps={{className: "p-4"}}
+        />
+    );
+
     return (
         <LoadingOverlayWrapper active={result === "Loading ... Please wait."}>
             <div className="m-auto text-center">
@@ -368,21 +398,20 @@ const EmbeddedAllOffersPayloadStage = () => {
                     POST {allOffersUrl.replaceAll("/ff-api", "")}
                 </div>
 
-                <div>
-                    <br/>
-                    <h4 style={{fontSize: "18px"}}>Request JSON</h4>
-                    <div className={"jsonContainer"}>
-                        <pre>{`${payload}`}</pre>
-                    </div>
-                </div>
+                <br/>
 
-                <div>
-                    <br/>
-                    <h4 style={{fontSize: "18px"}}>{isUsingMocks() ? "Mocked " : ""}Response JSON</h4>
-                    <div className={"jsonContainer"}>
-                        <pre>{`${result}`}</pre>
-                    </div>
-                </div>
+                <Accordion>
+                    <AccordionItem header={"Request JSON"}>
+                        <div className={"jsonContainer"}>
+                            <pre>{`${payload}`}</pre>
+                        </div>
+                    </AccordionItem>
+                    <AccordionItem header={isUsingMocks() ? "Mocked Response JSON" : "Response JSON"} initialEntered>
+                        <div className={"jsonContainer"}>
+                            <pre>{`${result}`}</pre>
+                        </div>
+                    </AccordionItem>
+                </Accordion>
 
                 <br/>
                 {getNavButtons()}
