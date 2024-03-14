@@ -33,7 +33,7 @@ const CardForm = () => {
             <title>Apply for Credit Card</title>
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
-            <Header showNav={false}/>
+            <Header showNav={false} headerTitle={"Redirect API - Credit Card"}/>
             {
                 formStage === RedirectCardFormStage.PartnerDetailsStage && (
                     <PartnerDetailsStage/>

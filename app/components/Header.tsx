@@ -2,23 +2,25 @@
 
 interface Props {
     showNav: Boolean,
-    headerBackgroundColor?: string
+    headerBackgroundColor?: string,
+    headerTitle?: string
 }
 
 const Header = (props: Props) => {
     const showNav = props.showNav
     const headerBackgroundColor = props.headerBackgroundColor;
+    const headerTitle = props.headerTitle ?? "";
 
     return (
-        <div className="bg-primary grid grid-cols-6 gap-4 min-h-[10vh]"
-             style={{backgroundColor: headerBackgroundColor}}>
-            <div className="col-start-1 col-end-3">
+        <div className="bg-primary" style={{backgroundColor: headerBackgroundColor, minHeight: "80px"}}>
+            <div className="flex justify-center items-center">
                 {/* <Image
                     className="float-left w-4/6"
                     src="/logo.png"
                     height="450"
                     width="450"
                     alt={''} /> */}
+                <span className={"headerTitle"}>{headerTitle}</span>
             </div>
 
             {/* Nav bar */}

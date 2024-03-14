@@ -34,7 +34,7 @@ const UnsecuredForm = () => {
             <title>Apply for an Unsecured Loan</title>
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
-            <Header showNav={false}/>
+            <Header showNav={false} headerTitle={"Redirect API - Unsecured Loan"}/>
             {
                 formStage === RedirectUnsecuredLoanFormStage.PartnerDetailsStage && (
                     <PartnerDetailsStage/>

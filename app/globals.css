@@ -18,6 +18,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Header title */
+
+.headerTitle {
+    color: white;
+    padding-top: 27px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 /* Payload JSON */
 
 .urlDetails {
