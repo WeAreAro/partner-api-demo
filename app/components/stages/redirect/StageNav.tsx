@@ -35,7 +35,7 @@ const StageNav = ({canGoBack, goBackCount = 1}: { canGoBack: boolean, goBackCoun
         {(canGoBack) &&
             <input
                 ref={backRef}
-                className="bg-amber-700 hover:bg-lime-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                className="bg-amber-700 hover:bg-amber-900 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="submit"
                 value="Back"
                 onClick={() => {

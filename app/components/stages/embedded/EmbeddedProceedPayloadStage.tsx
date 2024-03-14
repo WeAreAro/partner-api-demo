@@ -159,7 +159,7 @@ const EmbeddedProceedPayloadStage = () => {
             <>
                 <input
                     ref={backRef}
-                    className="mx-8 bg-amber-700 hover:bg-lime-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                    className="mx-8 bg-amber-700 hover:bg-amber-900 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                     style={{marginLeft: 0}}
                     type="submit"
                     value="Back"
