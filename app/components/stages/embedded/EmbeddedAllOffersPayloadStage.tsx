@@ -371,7 +371,7 @@ const EmbeddedAllOffersPayloadStage = () => {
                 <br/>
 
                 <div className={"urlDetails"}>
-                    POST {allOffersUrl.replaceAll("/ff-api", "")}
+                    <b>POST</b> {allOffersUrl.replaceAll("/ff-api", "")}
                 </div>
 
                 <div className={"payloadRequestResponseWrapper"}>

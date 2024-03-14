@@ -29,6 +29,7 @@ const PayloadStage = () => {
 
     const controller = new AbortController();
 
+    const [proceedUrl, setProceedUrl] = useState("");
     const [payload, setPayload] = useState("");
     const [result, setResult] = useState("Loading ... Please wait.");
     const [usingMocks, setUsingMocks] = useState(false);
@@ -176,6 +177,11 @@ const PayloadStage = () => {
             useJwtToken = savedJwtBearerToken;
         }
 
+        const url = savedFormType === RedirectFormType.UNSECURED_LOAN ?
+            "/ff-api/partner/v1/quote" :
+            "/ff-api/partner/v1/quote/card"
+        setProceedUrl(url);
+
         if (!useJwtToken) {
             const mockedResponses = await fetchMockedResponses();
             setResult(JSON.stringify(mockedResponses["REDIRECT_" + RedirectFormType[savedFormType]], null, 2));
@@ -194,10 +200,6 @@ const PayloadStage = () => {
             headers: myHeaders,
             body: payload
         };
-
-        const url = savedFormType === RedirectFormType.UNSECURED_LOAN ?
-            "/ff-api/partner/v1/quote" :
-            "/ff-api/partner/v1/quote/card"
 
         await fetchWithTimeout(controller, url, requestOptions)
             .then(response => response.json())
@@ -272,6 +274,10 @@ const PayloadStage = () => {
                 <br/>
                 {getNavButtons()}
                 <br/>
+
+                <div className={"urlDetails"}>
+                    <b>POST</b> {proceedUrl.replaceAll("/ff-api", "")}
+                </div>
 
                 <div className={"payloadRequestResponseWrapper"}>
                     <Accordion allowMultiple={true}>

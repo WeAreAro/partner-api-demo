@@ -204,7 +204,7 @@ const EmbeddedProceedPayloadStage = () => {
                 <br/>
 
                 <div className={"urlDetails"}>
-                    POST {proceedUrl.replaceAll("/ff-api", "")}
+                    <b>POST</b> {proceedUrl.replaceAll("/ff-api", "")}
                 </div>
 
                 <div className={"payloadRequestResponseWrapper"}>
