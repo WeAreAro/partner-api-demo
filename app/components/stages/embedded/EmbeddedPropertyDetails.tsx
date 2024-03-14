@@ -37,7 +37,7 @@ const EmbeddedPropertyDetails = () => {
         mortgage_outstanding: savedMortgageOutstanding ?? 175000,
         mortgage_lender: savedMortgageLender ?? "Nationwide Building Society",
         purchase_date: savedPurchaseDate ?? "01/01/2022",
-        has_other_owners: savedHasOtherOwners ?? YesNoValue.Yes,
+        has_other_owners: savedHasOtherOwners ?? YesNoValue.No,
         property_type: savedPropertyType ?? PropertyType.Detached,
         number_of_bedrooms: savedNumberOfBedrooms ?? 3,
         number_of_floors_in_building: savedNumberOfFloorsInBuilding ?? 2,

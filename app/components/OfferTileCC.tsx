@@ -12,8 +12,11 @@ const OfferTileCC = (props: Props) => {
             <div className={"offerTile flexContainer"}>
                 <div className="flexColumn flexColumnBorder">
                     <div className={"offerTileColumnInnerPadding"} style={{height: "100%"}}>
-                        <img alt={"logo"} src={props?.offer?.product_logo_url}
-                             style={{width: "150px"}} className="offerColumnVerticalMargin"></img>
+                        <div style={{display: "block"}}>
+                            <img alt={"logo"} src={props?.offer?.product_logo_url}
+                                 style={{width: "150px", margin: "0 auto"}} className="offerColumnVerticalMargin"></img>
+                            <div className={"offerTileProductName"}>{props?.offer?.product_name}</div>
+                        </div>
                     </div>
                 </div>
                 <div className="flexColumn flexColumnBorder">

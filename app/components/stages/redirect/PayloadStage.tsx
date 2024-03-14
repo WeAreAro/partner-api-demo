@@ -3,6 +3,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {hasTokenDefinedInEnv, isValidJwtBearerToken} from "@/app/utils/BearerUtils";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 import {fetchWithTimeout} from "@/app/utils/HttpUtils";
+import LoadingOverlayWrapper from "react-loading-overlay-ts";
 
 const PayloadStage = () => {
 
@@ -30,7 +31,7 @@ const PayloadStage = () => {
     const controller = new AbortController();
 
     const [payload, setPayload] = useState("");
-    const [result, setResult] = useState(undefined as {});
+    const [result, setResult] = useState("Loading ... Please wait.");
     const [usingMocks, setUsingMocks] = useState(false);
 
     const backRef = useRef(null);
@@ -177,7 +178,7 @@ const PayloadStage = () => {
     }
 
     async function fetchMockedResponses() {
-        const response = await fetch('/mocks/mockedResponses.json');
+        const response = await fetch('/mocks/mockedRedirectResponses.json');
         return await response.json();
     }
 
@@ -254,32 +255,34 @@ const PayloadStage = () => {
     }
 
     return (
-        <div className="m-auto text-center">
+        <LoadingOverlayWrapper active={result === "Loading ... Please wait."}>
+            <div className="m-auto text-center">
 
-            <br/>
-            {getNavButtons()}
-            <br/>
-
-            <div>
                 <br/>
-                <h4 style={{fontSize: "18px"}}>Request JSON</h4>
-                <div className={"jsonContainer"}>
-                    <pre>{`${payload}`}</pre>
-                </div>
-            </div>
-
-            <div>
+                {getNavButtons()}
                 <br/>
-                <h4 style={{fontSize: "18px"}}>{isUsingMocks() ? "Mocked " : ""}Response JSON</h4>
-                <div className={"jsonContainer"}>
-                    <pre>{`${result ?? "Loading... Please wait."}`}</pre>
-                </div>
-            </div>
 
-            <br/>
-            {getNavButtons()}
-            <br/><br/>
-        </div>
+                <div>
+                    <br/>
+                    <h4 style={{fontSize: "18px"}}>Request JSON</h4>
+                    <div className={"jsonContainer"}>
+                        <pre>{`${payload}`}</pre>
+                    </div>
+                </div>
+
+                <div>
+                    <br/>
+                    <h4 style={{fontSize: "18px"}}>{isUsingMocks() ? "Mocked " : ""}Response JSON</h4>
+                    <div className={"jsonContainer"}>
+                        <pre>{`${result ?? "Loading... Please wait."}`}</pre>
+                    </div>
+                </div>
+
+                <br/>
+                {getNavButtons()}
+                <br/><br/>
+            </div>
+        </LoadingOverlayWrapper>
     );
 }
 export default PayloadStage

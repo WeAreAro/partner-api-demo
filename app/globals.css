@@ -121,6 +121,11 @@
     margin-top: 15px;
 }
 
+.offerTileProductName {
+    font-size: 18px;
+    padding-top: 10px;
+}
+
 .flexContainer {
     display: flex;
     flex-wrap: wrap;

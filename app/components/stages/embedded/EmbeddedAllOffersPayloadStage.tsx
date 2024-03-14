@@ -9,6 +9,7 @@ import {
 } from "@/app/state/embedded_stages";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 import {fetchWithTimeout} from "@/app/utils/HttpUtils";
+import LoadingOverlayWrapper from "react-loading-overlay-ts";
 
 const EmbeddedAllOffersPayloadStage = () => {
 
@@ -39,7 +40,7 @@ const EmbeddedAllOffersPayloadStage = () => {
 
     const [allOffersUrl, setAllOffersUrl] = useState("");
     const [payload, setPayload] = useState("");
-    const [result, setResult] = useState("");
+    const [result, setResult] = useState("Loading ... Please wait.");
     const [usingMocks, setUsingMocks] = useState(false);
     const [allOffersResponseObject, setAllOffersResponseObject] = useState(undefined);
 
@@ -204,6 +205,46 @@ const EmbeddedAllOffersPayloadStage = () => {
                     ...marketingConsentPayload
                 }
             },
+
+            ...(savedPanelType === EmbeddedPanelType.SECURED && {
+                "Joint_Applicant": {
+                    "About_You": {
+                        "title": "Mrs",
+                        "first_name": "Jane",
+                        "surname": "Doe",
+                        "dob": "01/01/1971",
+                        "mobile_phone": "071234567892",
+                        "email": "janedoe@example.com"
+                    },
+                    "Current_Address": {
+                        "house_number": "400",
+                        "street": "Old Durham Rd",
+                        "posttown": "Gateshead",
+                        "locality": "Tyne & Wear",
+                        "country": "UK",
+                        "postcode": "NE9 5DQ",
+                        "years_lived": 4,
+                        "months_lived": 5
+                    },
+                    "Current_Employment": {
+                        "occupation": "CEO",
+                        "employer_name": "Example Employer",
+                        "employment_industry": "COMPUTERS_SOFTWARE",
+                        "employment_status": "E",
+                        "gross_income": 100000,
+                        "emp_years": 2,
+                        "emp_months": 4,
+                        "gross_income_all": 100000,
+                        "has_other_income": "Y"
+                    },
+                    "Other_Income": [
+                        {
+                            "income": 5000,
+                            "income_description": "DIV"
+                        }
+                    ]
+                }
+            })
         }
 
         return JSON.stringify(payload, null, 2);
@@ -316,36 +357,38 @@ const EmbeddedAllOffersPayloadStage = () => {
     }
 
     return (
-        <div className="m-auto text-center">
+        <LoadingOverlayWrapper active={result === "Loading ... Please wait."}>
+            <div className="m-auto text-center">
 
-            <br/>
-            {getNavButtons()}
-            <br/>
-
-            <div className={"urlDetails"}>
-                POST {allOffersUrl.replaceAll("/ff-api", "")}
-            </div>
-
-            <div>
                 <br/>
-                <h4 style={{fontSize: "18px"}}>Request JSON</h4>
-                <div className={"jsonContainer"}>
-                    <pre>{`${payload}`}</pre>
-                </div>
-            </div>
-
-            <div>
+                {getNavButtons()}
                 <br/>
-                <h4 style={{fontSize: "18px"}}>{isUsingMocks() ? "Mocked " : ""}Response JSON</h4>
-                <div className={"jsonContainer"}>
-                    <pre>{`${result}`}</pre>
-                </div>
-            </div>
 
-            <br/>
-            {getNavButtons()}
-            <br/><br/>
-        </div>
+                <div className={"urlDetails"}>
+                    POST {allOffersUrl.replaceAll("/ff-api", "")}
+                </div>
+
+                <div>
+                    <br/>
+                    <h4 style={{fontSize: "18px"}}>Request JSON</h4>
+                    <div className={"jsonContainer"}>
+                        <pre>{`${payload}`}</pre>
+                    </div>
+                </div>
+
+                <div>
+                    <br/>
+                    <h4 style={{fontSize: "18px"}}>{isUsingMocks() ? "Mocked " : ""}Response JSON</h4>
+                    <div className={"jsonContainer"}>
+                        <pre>{`${result}`}</pre>
+                    </div>
+                </div>
+
+                <br/>
+                {getNavButtons()}
+                <br/><br/>
+            </div>
+        </LoadingOverlayWrapper>
     );
 }
 export default EmbeddedAllOffersPayloadStage

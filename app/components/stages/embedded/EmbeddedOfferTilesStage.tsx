@@ -85,7 +85,7 @@ const EmbeddedOfferTilesStage = () => {
                 <br/>
                 {flattenAndSortOffers(allOffersResponse?.response_json_as_object?.["offers"])
                     .map((offer) => {
-                        if (offer.product_type === "CreditCard") {
+                        if (offer.product_type === "CreditCard" || offer.product_type === "Credit Card") {
                             return (<div key={offer["uuid"]}>
                                 <OfferTileCC offer={offer} onProceed={() => proceedWithOffer(offer)}></OfferTileCC>
                             </div>)
