@@ -6,6 +6,7 @@ import {fetchWithTimeout} from "@/app/utils/HttpUtils";
 import LoadingOverlayWrapper from "react-loading-overlay-ts";
 import {Accordion, AccordionItem as Item} from "@szhsin/react-accordion";
 import {YesNoValue} from "@/app/state/enum/Common";
+import DismissableMessage from "@/app/components/DismissableMessage";
 
 const PayloadStage = () => {
 
@@ -289,6 +290,7 @@ const PayloadStage = () => {
                         </AccordionItem>
                         <AccordionItem header={isUsingMocks() ? "Mocked Response JSON" : "Response JSON"}
                                        initialEntered>
+                            {isUsingMocks() && <DismissableMessage/>}
                             <div className={"jsonContainerResponse"}>
                                 <pre>{`${result ?? "Loading... Please wait."}`}</pre>
                             </div>

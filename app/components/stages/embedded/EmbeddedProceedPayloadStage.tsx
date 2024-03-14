@@ -5,6 +5,7 @@ import {useGeneralStageStore} from "@/app/state/general_stages";
 import {fetchWithTimeout} from "@/app/utils/HttpUtils";
 import {Accordion, AccordionItem as Item} from "@szhsin/react-accordion";
 import LoadingOverlayWrapper from 'react-loading-overlay-ts';
+import DismissableMessage from "@/app/components/DismissableMessage";
 
 const EmbeddedProceedPayloadStage = () => {
 
@@ -216,6 +217,7 @@ const EmbeddedProceedPayloadStage = () => {
                         </AccordionItem>
                         <AccordionItem header={isUsingMocks() ? "Mocked Response JSON" : "Response JSON"}
                                        initialEntered>
+                            {isUsingMocks() && <DismissableMessage/>}
                             <div className={"jsonContainerResponse"}>
                                 <pre>{`${result}`}</pre>
                             </div>

@@ -14,6 +14,7 @@ import LoadingOverlayWrapper from "react-loading-overlay-ts";
 import {Accordion, AccordionItem as Item} from "@szhsin/react-accordion";
 import {requiresJointApplicant} from "@/app/utils/StageStepUtils";
 import {YesNoValue} from "@/app/state/enum/Common";
+import DismissableMessage from "@/app/components/DismissableMessage";
 
 const EmbeddedAllOffersPayloadStage = () => {
 
@@ -384,6 +385,7 @@ const EmbeddedAllOffersPayloadStage = () => {
                         </AccordionItem>
                         <AccordionItem header={isUsingMocks() ? "Mocked Response JSON" : "Response JSON"}
                                        initialEntered>
+                            {isUsingMocks() && <DismissableMessage/>}
                             <div className={"jsonContainerResponse"}>
                                 <pre>{`${result}`}</pre>
                             </div>
