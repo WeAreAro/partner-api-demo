@@ -3,6 +3,8 @@ import {hasTokenDefinedInEnv, isValidJwtBearerToken} from "@/app/utils/BearerUti
 import {EmbeddedPanelType, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 import {fetchWithTimeout} from "@/app/utils/HttpUtils";
+import {Accordion, AccordionItem as Item} from "@szhsin/react-accordion";
+import LoadingOverlayWrapper from 'react-loading-overlay-ts';
 
 const EmbeddedProceedPayloadStage = () => {
 
@@ -18,7 +20,7 @@ const EmbeddedProceedPayloadStage = () => {
 
     const [proceedUrl, setProceedUrl] = useState("");
     const [payload, setPayload] = useState("");
-    const [result, setResult] = useState("");
+    const [result, setResult] = useState("Loading ... Please wait.");
     const [usingMocks, setUsingMocks] = useState(false);
 
     const backRef = useRef(null);
@@ -170,37 +172,68 @@ const EmbeddedProceedPayloadStage = () => {
         )
     }
 
+    const AccordionItem = ({header, ...rest}) => (
+        <Item
+            {...rest}
+            header={({state: {isEnter}}) => (
+                <>
+                    {header}
+                    <img
+                        className={`ml-auto transition-transform duration-200 ease-out ${
+                            isEnter && "rotate-180"
+                        }`}
+                        src={"/chevron-down.svg"}
+                        alt="Chevron"
+                    />
+                </>
+            )}
+            className="border-b"
+            buttonProps={{
+                className: ({isEnter}) =>
+                    `flex w-full p-4 text-left hover:bg-slate-100 ${
+                        isEnter && "bg-slate-200"
+                    }`
+            }}
+            contentProps={{
+                className: "transition-height duration-200 ease-out"
+            }}
+            panelProps={{className: "p-4"}}
+        />
+    );
+
     return (
-        <div className="m-auto text-center">
+        <LoadingOverlayWrapper active={result === "Loading ... Please wait."}>
+            <div className="m-auto text-center">
 
-            <br/>
-            {getNavButtons()}
-            <br/>
-
-            <div className={"urlDetails"}>
-                POST {proceedUrl.replaceAll("/ff-api", "")}
-            </div>
-
-            <div>
                 <br/>
-                <h4 style={{fontSize: "18px"}}>Request JSON</h4>
-                <div className={"jsonContainer"}>
-                    <pre>{`${payload}`}</pre>
-                </div>
-            </div>
-
-            <div>
+                {getNavButtons()}
                 <br/>
-                <h4 style={{fontSize: "18px"}}>{isUsingMocks() ? "Mocked " : ""}Response JSON</h4>
-                <div className={"jsonContainer"}>
-                    <pre>{`${result ?? "Loading... Please wait."}`}</pre>
-                </div>
-            </div>
 
-            <br/>
-            {getNavButtons()}
-            <br/><br/>
-        </div>
+                <div className={"urlDetails"}>
+                    POST {proceedUrl.replaceAll("/ff-api", "")}
+                </div>
+
+                <br/>
+
+                <Accordion>
+                    <AccordionItem header={"Request JSON"}>
+                        <div className={"jsonContainer"}>
+                            <pre>{`${payload}`}</pre>
+                        </div>
+                    </AccordionItem>
+                    <AccordionItem header={isUsingMocks() ? "Mocked Response JSON" : "Response JSON"} initialEntered>
+                        <div className={"jsonContainer"}>
+                            <pre>{`${result}`}</pre>
+                        </div>
+                    </AccordionItem>
+                </Accordion>
+
+
+                <br/>
+                {getNavButtons()}
+                <br/><br/>
+            </div>
+        </LoadingOverlayWrapper>
     );
 }
 export default EmbeddedProceedPayloadStage
