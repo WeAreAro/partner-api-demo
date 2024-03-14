@@ -13,6 +13,7 @@ import {fetchWithTimeout} from "@/app/utils/HttpUtils";
 import LoadingOverlayWrapper from "react-loading-overlay-ts";
 import {Accordion, AccordionItem as Item} from "@szhsin/react-accordion";
 import {requiresJointApplicant} from "@/app/utils/StageStepUtils";
+import {YesNoValue} from "@/app/state/enum/Common";
 
 const EmbeddedAllOffersPayloadStage = () => {
 
@@ -177,7 +178,7 @@ const EmbeddedAllOffersPayloadStage = () => {
                 "partner_code": partnerDetailsPayload.partner_code ? partnerDetailsPayload.partner_code : undefined,
                 "reference": partnerDetailsPayload.partner_reference ? partnerDetailsPayload.partner_reference : undefined,
                 "campaign_code": partnerDetailsPayload.campaign_code ? partnerDetailsPayload.campaign_code : undefined,
-                "agree_terms": "Y",
+                "agree_terms": partnerDetailsPayload.agree_terms ? partnerDetailsPayload.agree_terms : YesNoValue.No,
                 ...(({"panel_type": EmbeddedPanelType[savedPanelType]}))
             },
 

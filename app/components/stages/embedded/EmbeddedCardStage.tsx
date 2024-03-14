@@ -43,7 +43,6 @@ const EmbeddedCardStage = () => {
             type: InputType.Enum,
             possibleValues: getPossibleValues(YesNoValue),
             required: true
-
         },
         {
             name: "balance_transfer_amount",

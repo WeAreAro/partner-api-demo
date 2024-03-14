@@ -29,7 +29,8 @@ export type EmbeddedFormStageType =
 export interface EmbeddedPartnerDetails {
     partner_code: string,
     partner_reference?: string,
-    campaign_code?: string
+    campaign_code?: string,
+    agree_terms: string
 }
 
 
