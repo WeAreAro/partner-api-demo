@@ -130,7 +130,6 @@ const EmbeddedCurrentEmploymentStage = () => {
             formData.additional_household_income = 0
         }
 
-        console.log({formData})
         return formErrors
     }
 

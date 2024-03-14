@@ -117,7 +117,6 @@ const EmbeddedJointCurrentEmploymentStage = () => {
             formData.emp_months = 0
         }
 
-        console.log({formData})
         return formErrors
     }
 

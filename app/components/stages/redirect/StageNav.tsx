@@ -39,8 +39,6 @@ const StageNav = ({canGoBack, goBackCount = 1}: { canGoBack: boolean, goBackCoun
                 type="submit"
                 value="Back"
                 onClick={() => {
-                    // setCurrentStage(backStage);
-                    console.log('Go Back Count : ', goBackCount);
                     setCurrentStage(savedStage - goBackCount);
                 }}
             />

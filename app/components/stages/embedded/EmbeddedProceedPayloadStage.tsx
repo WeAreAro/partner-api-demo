@@ -67,8 +67,6 @@ const EmbeddedProceedPayloadStage = () => {
     }, []);
 
     const generatePayload = () => {
-        console.log("saved panel type", EmbeddedPanelType.ALL, savedPanelType);
-
         const payload = {
             // Nothing to add yet!
         }
@@ -93,12 +91,8 @@ const EmbeddedProceedPayloadStage = () => {
             useJwtToken = savedJwtBearerToken;
         }
 
-        console.log('Saved Offer', savedOfferToProceed);
-
         const url = "/ff-api" + savedOfferToProceed.offer["proceed_url"];
         setProceedUrl(url);
-
-        console.log('JWT', useJwtToken);
 
         if (!useJwtToken) {
             const mockedResponses = await fetchMockedResponses();
@@ -130,8 +124,8 @@ const EmbeddedProceedPayloadStage = () => {
         await fetchWithTimeout(controller, url, requestOptions)
             .then(response => response.json())
             .then(result => {
-                if (result?.url) {
-                    window.open(result.url, '_blank')?.focus();
+                if (result?.resume_url) {
+                    window.open(result?.resume_url, '_blank')?.focus();
                 }
                 if (result?.toString().startsWith("Internal Server Error")) {
                     setResult("Request timed out.");

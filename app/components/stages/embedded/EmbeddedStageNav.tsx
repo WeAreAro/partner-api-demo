@@ -37,8 +37,6 @@ const EmbeddedStageNav = ({canGoBack, goBackCount = 1}: { canGoBack: boolean, go
                 type="submit"
                 value="Back"
                 onClick={() => {
-                    // setCurrentStage(backStage);
-                    console.log('Go Back Count : ', goBackCount);
                     setCurrentStage(savedStage - goBackCount);
                 }}
             />

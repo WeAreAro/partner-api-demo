@@ -55,8 +55,6 @@ const EmbeddedOfferTilesStage = () => {
                 .sort((a, b) => (a.apr || 0) - (b.apr || 0))
             );
 
-        console.log(sortedOffers);
-
         return sortedOffers;
     }
 
@@ -66,9 +64,6 @@ const EmbeddedOfferTilesStage = () => {
             aro_reference: allOffersResponse.response_json_as_object["freedom_reference"]
         });
         setCurrentStage(savedStage + 1);
-
-        console.log('Proceed with offer:', offer);
-        console.log('New stage : ', savedStage);
     }
 
     return (

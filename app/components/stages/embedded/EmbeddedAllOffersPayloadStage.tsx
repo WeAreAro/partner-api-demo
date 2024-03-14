@@ -113,7 +113,6 @@ const EmbeddedAllOffersPayloadStage = () => {
         const payload = generatePayload();
 
         console.log('Payload', payload);
-
         setPayload(payload);
     }, [])
 
@@ -147,8 +146,6 @@ const EmbeddedAllOffersPayloadStage = () => {
 
     useEffect(() => {
 
-        console.log(allOffersResponse)
-
         if (allOffersResponse && allOffersResponse.response_json_as_object) {
             setAllOffersResponseObject(allOffersResponse.response_json_as_object);
         }
@@ -175,8 +172,6 @@ const EmbeddedAllOffersPayloadStage = () => {
     }
 
     const generatePayload = () => {
-        console.log("saved panel type", EmbeddedPanelType.ALL, savedPanelType, loanPayload);
-
         const payload = {
             "Partner": {
                 "partner_code": partnerDetailsPayload.partner_code ? partnerDetailsPayload.partner_code : undefined,
@@ -261,8 +256,6 @@ const EmbeddedAllOffersPayloadStage = () => {
         const url = "/ff-api/partner/v1/quote/all-offers";
         setAllOffersUrl(url);
 
-        console.log('JWT', useJwtToken);
-
         if (!useJwtToken) {
             const mockedResponses = await fetchMockedResponses();
 
@@ -292,9 +285,6 @@ const EmbeddedAllOffersPayloadStage = () => {
         await fetchWithTimeout(controller, url, requestOptions)
             .then(response => response.json())
             .then(result => {
-                if (result?.url) {
-                    window.open(result.url, '_blank')?.focus();
-                }
                 if (result?.toString().startsWith("Internal Server Error")) {
                     setResult("Request timed out.");
                     setAllOffersResponse({mocked: true, response_json_as_object: undefined});
@@ -326,7 +316,6 @@ const EmbeddedAllOffersPayloadStage = () => {
                     type="submit"
                     value="Back"
                     onClick={() => {
-                        console.log("ABORT!", controller);
                         controller?.abort("Back pressed");
                         setCurrentStage(savedStage - 1);
                     }}
