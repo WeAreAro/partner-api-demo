@@ -46,7 +46,9 @@ const EmbeddedAllOffersPayloadStage = () => {
     const backRef = useRef(null);
     const continueRef = useRef(null);
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage);
+
+    const controller = new AbortController();
 
     let mappedOtherIncomePayload = [] as EmbeddedOtherIncome[];
 
@@ -215,6 +217,9 @@ const EmbeddedAllOffersPayloadStage = () => {
     const sendPayload = async () => {
 
         setUsingMocks(false);
+        setAllOffersResponse(undefined);
+        setAllOffersResponseObject(undefined);
+        setResult("Loading ... Please wait.");
 
         let useJwtToken = undefined;
 
@@ -255,7 +260,7 @@ const EmbeddedAllOffersPayloadStage = () => {
             body: payload
         };
 
-        await fetchWithTimeout(url, requestOptions)
+        await fetchWithTimeout(controller, url, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result?.url) {
@@ -291,7 +296,11 @@ const EmbeddedAllOffersPayloadStage = () => {
                     style={{marginLeft: 0}}
                     type="submit"
                     value="Back"
-                    onClick={() => setCurrentStage(savedStage - 1)}
+                    onClick={() => {
+                        console.log("ABORT!", controller);
+                        controller?.abort("Back pressed");
+                        setCurrentStage(savedStage - 1);
+                    }}
                 />
                 {(allOffersResponseObject && allOffersResponseObject["offers"] && allOffersResponseObject["offers"].length > 0) &&
                     <input
@@ -329,7 +338,7 @@ const EmbeddedAllOffersPayloadStage = () => {
                 <br/>
                 <h4 style={{fontSize: "18px"}}>{isUsingMocks() ? "Mocked " : ""}Response JSON</h4>
                 <div className={"jsonContainer"}>
-                    <pre>{`${result ?? "Loading... Please wait."}`}</pre>
+                    <pre>{`${result}`}</pre>
                 </div>
             </div>
 

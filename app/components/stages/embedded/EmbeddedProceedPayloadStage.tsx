@@ -24,6 +24,8 @@ const EmbeddedProceedPayloadStage = () => {
     const backRef = useRef(null);
     const continueRef = useRef(null);
 
+    const controller = new AbortController();
+
     const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
 
     useEffect(() => {
@@ -123,7 +125,7 @@ const EmbeddedProceedPayloadStage = () => {
             body: payload
         };
 
-        await fetchWithTimeout(url, requestOptions)
+        await fetchWithTimeout(controller, url, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result?.url) {
@@ -159,7 +161,10 @@ const EmbeddedProceedPayloadStage = () => {
                     style={{marginLeft: 0}}
                     type="submit"
                     value="Back"
-                    onClick={() => setCurrentStage(savedStage - 1)}
+                    onClick={() => {
+                        controller?.abort("Back pressed");
+                        setCurrentStage(savedStage - 1);
+                    }}
                 />
             </>
         )

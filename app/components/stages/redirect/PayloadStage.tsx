@@ -27,6 +27,8 @@ const PayloadStage = () => {
 
     const savedJwtBearerToken = useGeneralStageStore((state) => state.jwtBearerToken);
 
+    const controller = new AbortController();
+
     const [payload, setPayload] = useState("");
     const [result, setResult] = useState(undefined as {});
     const [usingMocks, setUsingMocks] = useState(false);
@@ -214,7 +216,7 @@ const PayloadStage = () => {
             "/ff-api/partner/v1/quote" :
             "/ff-api/partner/v1/quote/card"
 
-        await fetchWithTimeout(url, requestOptions)
+        await fetchWithTimeout(controller, url, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result?.url) {
@@ -243,7 +245,10 @@ const PayloadStage = () => {
                 className="mx-8 bg-amber-700 hover:bg-lime-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="submit"
                 value="Back"
-                onClick={() => setCurrentStage(savedStage - 1)}
+                onClick={() => {
+                    controller?.abort("Back pressed");
+                    setCurrentStage(savedStage - 1);
+                }}
             />
         </>)
     }

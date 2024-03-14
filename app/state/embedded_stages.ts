@@ -165,7 +165,8 @@ export interface EmbeddedAboutYouPayload {
     marital_status: MaritalStatus,
     dob: string,
     number_of_dependants: number,
-    dependant_ages_comma_sep?: string
+    dependant_ages_comma_sep?: string,
+    has_driving_license: string
 }
 
 export interface EmbeddedAboutYouPayloadWithDependentsAsList extends EmbeddedAboutYouPayload {

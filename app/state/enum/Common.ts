@@ -66,6 +66,14 @@ export enum YesNoValue {
     "No" = "N",
 }
 
+export enum UkDrivingLicenceType {
+    "Full UK license" = "Y",
+    " Provisional UK license" = "P",
+    "EU license" = "E",
+    "International license" = "I",
+    "No license" = "N",
+}
+
 export enum VendorType {
     "Dealer" = "DEALER",
     "Private Seller" = "PRIVATE_SELLER",
