@@ -95,10 +95,11 @@ export enum EmbeddedSecuredFormStage {
     OtherIncomeStage = 10,
     JointAboutYouStage = 11,
     JointEmploymentStage = 12,
-    MarketingConsentStage = 13,
-    PayloadStage = 14,
-    OfferTilesStage = 15,
-    ProceedOfferStage = 16,
+    JointOtherIncomeStage = 13,
+    MarketingConsentStage = 14,
+    PayloadStage = 15,
+    OfferTilesStage = 16,
+    ProceedOfferStage = 17,
 }
 
 export const EMBEDDED_TOTAL_STAGES = (panelType: EmbeddedPanelType) => {
@@ -251,7 +252,22 @@ export interface EmbeddedOtherIncomePayload {
     period_2: OtherIncomePeriod;
 }
 
+export interface EmbeddedJointOtherIncomePayload {
+    income_1: number;
+    description_1: OtherIncomeDescription;
+    period_1: OtherIncomePeriod;
+
+    income_2: number;
+    description_2: OtherIncomeDescription;
+    period_2: OtherIncomePeriod;
+}
+
 export interface EmbeddedOtherIncome {
+    income: number;
+    income_description: OtherIncomeDescription;
+}
+
+export interface EmbeddedJointOtherIncome {
     income: number;
     income_description: OtherIncomeDescription;
 }
@@ -302,6 +318,7 @@ export interface EmbeddedStageState {
 
     jointAboutYouPayload: EmbeddedJointAboutYouPayload
     jointCurrentEmploymentPayload: EmbeddedJointEmploymentPayload
+    jointOtherIncomePayload: EmbeddedJointOtherIncomePayload
 
     allOffersResponse: EmbeddedAllOffersResponse
     offerToProceed: EmbeddedOfferToProceed
@@ -332,6 +349,7 @@ export interface EmbeddedStageState {
 
     setJointAboutYouPayload: (payload: EmbeddedJointAboutYouPayload) => void
     setJointCurrentEmploymentPayload: (payload: EmbeddedJointEmploymentPayload) => void
+    setJointOtherIncomePayload: (payload: EmbeddedJointOtherIncomePayload) => void
 
     setAllOffersResponse: (response: EmbeddedAllOffersResponse) => void
     setOfferToProceed: (offerToProceed: EmbeddedOfferToProceed) => void
@@ -364,6 +382,7 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
 
     jointAboutYouPayload: {} as EmbeddedJointAboutYouPayload,
     jointCurrentEmploymentPayload: {} as EmbeddedJointEmploymentPayload,
+    jointOtherIncomePayload: {} as EmbeddedJointOtherIncomePayload,
 
     allOffersResponse: {} as EmbeddedAllOffersResponse,
     offerToProceed: {} as EmbeddedOfferToProceed,
@@ -396,6 +415,7 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
 
     setJointAboutYouPayload: (jointAboutYouPayload) => set((state) => ({jointAboutYouPayload})),
     setJointCurrentEmploymentPayload: (jointCurrentEmploymentPayload) => set((state) => ({jointCurrentEmploymentPayload})),
+    setJointOtherIncomePayload: (jointOtherIncomePayload) => set((state) => ({jointOtherIncomePayload})),
 
     setAllOffersResponse: (allOffersResponse) => set((state) => ({allOffersResponse})),
     setOfferToProceed: (offerToProceed) => set((state) => ({offerToProceed})),

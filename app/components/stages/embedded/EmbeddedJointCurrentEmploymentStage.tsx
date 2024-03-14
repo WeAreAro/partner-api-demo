@@ -153,7 +153,7 @@ const EmbeddedJointCurrentEmploymentStage = () => {
         createInputFields(shouldHaveAnIncome(formData.employment_status) ? allFields : noIncomeFields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title={"Joint Applicant Employment Details"} canGoBack={true} inputFields={inputFields}
+        <EmbeddedStageForm title={"Joint Applicant - Employment Details"} canGoBack={true} inputFields={inputFields}
                            submitFormData={submitFormData}/>
     )
 }

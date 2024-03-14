@@ -115,7 +115,7 @@ const EmbeddedJointAboutYouStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title="Joint Applicant Details" canGoBack={true} inputFields={inputFields}
+        <EmbeddedStageForm title="Joint Applicant - Details" canGoBack={true} inputFields={inputFields}
                            submitFormData={submitFormData}/>
     )
 }

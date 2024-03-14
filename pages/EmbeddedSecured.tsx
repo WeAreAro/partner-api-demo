@@ -25,6 +25,7 @@ import EmbeddedOfferTilesStage from "@/app/components/stages/embedded/EmbeddedOf
 import EmbeddedProceedPayloadStage from "@/app/components/stages/embedded/EmbeddedProceedPayloadStage";
 import EmbeddedJointAboutYouStage from "@/app/components/stages/embedded/EmbeddedJointAboutYouStage";
 import EmbeddedJointCurrentEmploymentStage from "@/app/components/stages/embedded/EmbeddedJointCurrentEmploymentStage";
+import EmbeddedJointOtherIncomeStage from "@/app/components/stages/embedded/EmbeddedJointOtherIncomeStage";
 
 const EmbeddedSecured = () => {
     const formStage = useEmbeddedStageStore((state) => state.currentStage);
@@ -105,6 +106,11 @@ const EmbeddedSecured = () => {
             {
                 formStage === EmbeddedSecuredFormStage.JointEmploymentStage && (
                     <EmbeddedJointCurrentEmploymentStage/>
+                )
+            }
+            {
+                formStage === EmbeddedSecuredFormStage.JointOtherIncomeStage && (
+                    <EmbeddedJointOtherIncomeStage/>
                 )
             }
             {

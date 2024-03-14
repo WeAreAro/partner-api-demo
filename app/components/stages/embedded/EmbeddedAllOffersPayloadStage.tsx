@@ -3,6 +3,7 @@ import {hasTokenDefinedInEnv, isValidJwtBearerToken} from "@/app/utils/BearerUti
 import {
     EmbeddedAboutYouPayload,
     EmbeddedAboutYouPayloadWithDependentsAsList,
+    EmbeddedJointOtherIncome,
     EmbeddedOtherIncome,
     EmbeddedPanelType,
     useEmbeddedStageStore
@@ -34,6 +35,7 @@ const EmbeddedAllOffersPayloadStage = () => {
 
     const jointAboutYouPayload = useEmbeddedStageStore((state) => state.jointAboutYouPayload);
     const jointCurrentEmploymentPayload = useEmbeddedStageStore((state) => state.jointCurrentEmploymentPayload);
+    const jointOtherIncomePayload = useEmbeddedStageStore((state) => state.jointOtherIncomePayload);
 
     const marketingConsentPayload = useEmbeddedStageStore((state) => state.marketingConsentPayload);
 
@@ -57,6 +59,8 @@ const EmbeddedAllOffersPayloadStage = () => {
 
     let mappedOtherIncomePayload = [] as EmbeddedOtherIncome[];
 
+    let mappedJointOtherIncomePayload = [] as EmbeddedJointOtherIncome[];
+
     const mapOtherIncomePayload = () => {
         const otherIncome = [] as EmbeddedOtherIncome[]
 
@@ -77,6 +81,26 @@ const EmbeddedAllOffersPayloadStage = () => {
         return otherIncome
     }
 
+    const mapJointOtherIncomePayload = () => {
+        const jointOtherIncome = [] as EmbeddedJointOtherIncome[]
+
+        if (jointOtherIncomePayload.income_1 > 0) {
+            jointOtherIncome.push({
+                income: jointOtherIncomePayload.income_1,
+                income_description: jointOtherIncomePayload.description_1,
+            })
+        }
+
+        if (jointOtherIncomePayload.income_2 > 0) {
+            jointOtherIncome.push({
+                income: jointOtherIncomePayload.income_2,
+                income_description: jointOtherIncomePayload.description_2,
+            })
+        }
+
+        return jointOtherIncome
+    }
+
     const shouldSendFirstPreviousAddress = () => {
         return currentAddressPayload?.years_lived * 12 + currentAddressPayload?.months_lived < 36
     }
@@ -91,6 +115,10 @@ const EmbeddedAllOffersPayloadStage = () => {
     useEffect(() => {
         if (savedPanelType === EmbeddedPanelType.ALL) {
             mappedOtherIncomePayload = mapOtherIncomePayload();
+        }
+
+        if (savedPanelType === EmbeddedPanelType.SECURED) {
+            mappedJointOtherIncomePayload = mapJointOtherIncomePayload();
         }
 
         const payload = generatePayload();
@@ -224,12 +252,9 @@ const EmbeddedAllOffersPayloadStage = () => {
                         "months_lived": 5
                     },
                     "Current_Employment": {...jointCurrentEmploymentPayload},
-                    "Other_Income": [
-                        {
-                            "income": 5000,
-                            "income_description": "DIV"
-                        }
-                    ]
+                    ...(mappedJointOtherIncomePayload.length > 0 && {
+                        "Other_Income": mappedJointOtherIncomePayload
+                    }),
                 }
             })
         }
