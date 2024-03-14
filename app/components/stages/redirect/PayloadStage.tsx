@@ -292,21 +292,21 @@ const PayloadStage = () => {
                 {getNavButtons()}
                 <br/>
 
-                <br/>
-
-                <Accordion>
-                    <AccordionItem header={"Request JSON"}>
-                        <div className={"jsonContainer"}>
-                            <pre>{`${payload}`}</pre>
-                        </div>
-                    </AccordionItem>
-                    <AccordionItem header={isUsingMocks() ? "Mocked Response JSON" : "Response JSON"} initialEntered>
-                        <div className={"jsonContainer"}>
-                            <pre>{`${result ?? "Loading... Please wait."}`}</pre>
-                        </div>
-                    </AccordionItem>
-                </Accordion>
-
+                <div className={"payloadRequestResponseWrapper"}>
+                    <Accordion allowMultiple={true}>
+                        <AccordionItem header={"Request JSON"}>
+                            <div className={"jsonContainer"}>
+                                <pre>{`${payload}`}</pre>
+                            </div>
+                        </AccordionItem>
+                        <AccordionItem header={isUsingMocks() ? "Mocked Response JSON" : "Response JSON"}
+                                       initialEntered>
+                            <div className={"jsonContainer"}>
+                                <pre>{`${result ?? "Loading... Please wait."}`}</pre>
+                            </div>
+                        </AccordionItem>
+                    </Accordion>
+                </div>
 
                 <br/>
                 {getNavButtons()}

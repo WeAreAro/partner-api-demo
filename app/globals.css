@@ -40,6 +40,10 @@
     word-break: break-word;
 }
 
+.payloadRequestResponseWrapper {
+    margin: 20px 20px 0 20px;
+}
+
 /* Enum Dropdown spacing */
 
 .enumList {
