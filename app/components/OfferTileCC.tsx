@@ -8,6 +8,17 @@ interface Props {
 
 const OfferTileCC = (props: Props) => {
 
+    const getCreditLimit = (offer: Offer): string => {
+        // From £{formatNumber(props?.offer?.product_attributes?.credit_limit_min)} to £{formatNumber(props?.offer?.product_attributes?.credit_limit_max)}
+        if (offer?.product_attributes?.credit_limit_min && offer?.product_attributes?.credit_limit_max) {
+            return "From £" + formatNumber(offer.product_attributes.credit_limit_min) + " to £" + formatNumber(offer.product_attributes.credit_limit_max)
+        } else if (offer?.product_attributes?.credit_limit_3) {
+            return offer.product_attributes.credit_limit_3
+        } else {
+            return "";
+        }
+    }
+
     return (<div className={"offerTileContainer"}>
             <div className={"offerTile flexContainer"}>
                 <div className="flexColumn flexColumnBorder">
@@ -48,8 +59,7 @@ const OfferTileCC = (props: Props) => {
                             <div style={{display: "block"}}>
                                 <span>Credit Limit</span>
                                 <br/>
-                                <span
-                                    className="offerEmphasisedText">From £{formatNumber(props?.offer?.product_attributes?.credit_limit_min)} to £{formatNumber(props?.offer?.product_attributes?.credit_limit_max)}</span>
+                                <span className="offerEmphasisedText">{getCreditLimit(props?.offer)}</span>
                             </div>
                         </div>
                     </div>

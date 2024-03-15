@@ -34,6 +34,7 @@
     padding: 10px;
     border: 1px solid black;
     background-color: lightblue;
+    border-radius: 5px;
 }
 
 .jsonContainerRequest {
@@ -53,6 +54,7 @@
     margin: 10px 0 10px 0;
     padding: 10px;
     border: 1px solid black;
+    border-radius: 5px;
     background-color: rgba(215, 255, 230, 0.38);
 }
 
@@ -244,10 +246,10 @@
 .dm-message-container {
     display: flex;
     align-items: center;
-    background-color: #f8d7da;
-    color: #721c24;
+    background-color: #c9ecaf;
+    color: #093403;
     padding: 10px;
-    border: 1px solid #f5c6cb;
+    border: 1px solid #739a7b;
     border-radius: 5px;
     margin-bottom: 10px;
 }

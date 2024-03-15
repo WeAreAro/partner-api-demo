@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {AiOutlineClose} from 'react-icons/ai';
 
-export const DEFAULT_MOCK_MESSAGE = "Mocked responses are always the same and won't reflect validation errors or missing request data.";
+export const DEFAULT_MOCK_MESSAGE = "IMPORTANT: Mocked responses are always the same and won't reflect validation errors or missing request data.";
 
 const DismissibleMessage = ({message = DEFAULT_MOCK_MESSAGE}) => {
     const [showMessage, setShowMessage] = useState(true);

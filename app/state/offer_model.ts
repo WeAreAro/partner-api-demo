@@ -2,6 +2,7 @@ export interface OfferProductAttributes {
     apr: number
     credit_limit_min: number
     credit_limit_max: number
+    credit_limit_3: string,
     rep_example: string
     apr_label_1: string
     apr_label_2: string
