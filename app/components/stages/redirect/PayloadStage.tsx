@@ -7,6 +7,7 @@ import LoadingOverlayWrapper from "react-loading-overlay-ts";
 import {Accordion, AccordionItem as Item} from "@szhsin/react-accordion";
 import {YesNoValue} from "@/app/state/enum/Common";
 import DismissableMessage from "@/app/components/DismissableMessage";
+import {removeUnwantedProperties} from "@/app/utils/ObjectUtils";
 
 const PayloadStage = () => {
 
@@ -159,7 +160,7 @@ const PayloadStage = () => {
             }
         }
 
-        return JSON.stringify(payload, null, 2);
+        return JSON.stringify(removeUnwantedProperties(payload, "null"), null, 2);
     }
 
     async function fetchMockedResponses() {

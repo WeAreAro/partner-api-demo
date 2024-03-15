@@ -16,6 +16,7 @@ import {requiresJointApplicant} from "@/app/utils/StageStepUtils";
 import {YesNoValue} from "@/app/state/enum/Common";
 import DismissableMessage from "@/app/components/DismissableMessage";
 import {obfuscateOfferResponseJson} from "@/app/utils/FormatUtils";
+import {removeUnwantedProperties} from "@/app/utils/ObjectUtils";
 
 const EmbeddedAllOffersPayloadStage = () => {
 
@@ -235,7 +236,7 @@ const EmbeddedAllOffersPayloadStage = () => {
             })
         }
 
-        return JSON.stringify(payload, null, 2);
+        return JSON.stringify(removeUnwantedProperties(payload, "null"), null, 2);
     }
 
     async function fetchMockedResponses() {

@@ -122,6 +122,8 @@ export const InputField = (props: Props) => {
     const renderEnumOptions = () => {
         const enumOptions: JSX.Element[] = [];
 
+        enumOptions.push(<option value={"null"} key={"blank"}>{""}</option>)
+
         for (const [key, value] of Object.entries(props.possibleValues as any)) {
             enumOptions.push(<option value={value as any} key={key}>{key}</option>)
         }
