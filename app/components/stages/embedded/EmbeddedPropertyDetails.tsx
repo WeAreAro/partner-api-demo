@@ -5,6 +5,7 @@ import {createInputFields, Field, getPossibleValues, InputType} from '../../Inpu
 import {EmbeddedPropertyDetailsPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {PropertyType, YesNoValue} from "@/app/state/enum/Common";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const EmbeddedPropertyDetails = () => {
 
@@ -31,6 +32,8 @@ const EmbeddedPropertyDetails = () => {
     const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
 
     const setPayload = useEmbeddedStageStore((state) => state.setPropertyDetailsPayload)
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<EmbeddedPropertyDetailsPayload>({
         estimated_value: savedEstimatedValue ?? 250000,
@@ -138,6 +141,10 @@ const EmbeddedPropertyDetails = () => {
 
     const validate = (formData: EmbeddedPropertyDetailsPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         return formErrors
     }

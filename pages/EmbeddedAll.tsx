@@ -35,7 +35,7 @@ const EmbeddedAll = () => {
             <title>Apply for a Loan</title>
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
-            <Header showNav={false} headerBackgroundColor={"#3C0B5D"} headerTitle={"Eligibility API - All"}/>
+            <Header showNav={false} headerBackgroundColor={"#3C0B5D"} headerTitle={"Eligibility API - All Offers"}/>
             <span style={{display: "none"}}>{formStage}</span>
             {
                 formStage === EmbeddedLoanFormStage.PartnerDetailsStage && (

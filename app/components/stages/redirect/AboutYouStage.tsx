@@ -5,6 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {StageForm} from './StageForm';
 import {MaritalStatus, ResidentialStatus, Title} from "@/app/state/enum/Common";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const AboutYouStage = () => {
 
@@ -24,6 +25,8 @@ const AboutYouStage = () => {
 
     const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
     const setAboutYouPayload = useRedirectStageStore((state) => state.setAboutYouPayload)
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<RedirectAboutYouPayload>({
         title: savedTitle ?? Title.Mr,
@@ -107,6 +110,10 @@ const AboutYouStage = () => {
 
     const validate = (formData: RedirectAboutYouPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         if (!formData.forename) {
             formErrors.forename = "First name is required."

@@ -4,6 +4,7 @@ import {RedirectExpenditurePayload, useRedirectStageStore} from '@/app/state/red
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, InputType} from '../../InputField';
 import {StageForm} from './StageForm';
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const ExpenditureStage = () => {
 
@@ -14,6 +15,8 @@ const ExpenditureStage = () => {
 
     const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
     const setPayload = useRedirectStageStore((state) => state.setExpenditurePayload)
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<RedirectExpenditurePayload>({
         monthly_mortgage_rent: savedMonthlyRent ?? 850,
@@ -38,6 +41,10 @@ const ExpenditureStage = () => {
 
     const validate = (formData: RedirectExpenditurePayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         if (isNaN(formData.monthly_mortgage_rent) || formData?.monthly_mortgage_rent > 1000000) {
             formErrors.monthly_mortgage_rent = "Please provide a valid number of £."

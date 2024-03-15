@@ -11,6 +11,7 @@ import {
     useEmbeddedStageStore
 } from "@/app/state/embedded_stages";
 import {requiresJointApplicant} from "@/app/utils/StageStepUtils";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const EmbeddedMarketingConsentStage = () => {
 
@@ -23,6 +24,8 @@ const EmbeddedMarketingConsentStage = () => {
     const setPayload = useEmbeddedStageStore((state) => state.setMarketingConsentPayload)
 
     const aboutYouPayload = useEmbeddedStageStore((state) => state.aboutYouPayload);
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<EmbeddedMarketingConsentPayload>({
         email_opt_in: savedEmailOptIn ?? YesNoValue.Yes,
@@ -48,6 +51,10 @@ const EmbeddedMarketingConsentStage = () => {
 
     const validate = (formData: EmbeddedMarketingConsentPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         return formErrors
     }

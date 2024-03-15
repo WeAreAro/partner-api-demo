@@ -5,6 +5,7 @@ import {createInputFields, Field, getPossibleValues, InputType} from '../../Inpu
 import {EmbeddedPartnerDetails, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
 import {YesNoValue} from "@/app/state/enum/Common";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const EmbeddedPartnerDetailsStage = () => {
 
@@ -21,10 +22,12 @@ const EmbeddedPartnerDetailsStage = () => {
 
     const setPayload = useEmbeddedStageStore((state) => state.setPartnerDetailsPayload)
 
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
+
     const [formData, setFormData] = useState<EmbeddedPartnerDetails>({
         partner_code: savedPartnerCode ?? "FFW-TEST",
-        partner_reference: savedPartnerReference ?? "REF-A-1",
-        campaign_code: savedCampaignCode ?? "CA-1",
+        partner_reference: savedPartnerReference ?? "REFERENCE-1",
+        campaign_code: savedCampaignCode ?? "CAMPAIGN-1",
         agree_terms: savedAgreeTerms ?? YesNoValue.Yes
     })
 
@@ -55,6 +58,11 @@ const EmbeddedPartnerDetailsStage = () => {
 
     const validate = (formData: EmbeddedPartnerDetails) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
+
         return formErrors
     }
 

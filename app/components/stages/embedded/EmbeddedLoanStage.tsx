@@ -5,6 +5,7 @@ import {createInputFields, Field, getPossibleValues, InputType} from '../../Inpu
 import {EmbeddedLoanPayload, EmbeddedPanelType, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {LoanPurpose} from "@/app/state/enum/Common";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const EmbeddedLoanStage = () => {
 
@@ -12,6 +13,8 @@ const EmbeddedLoanStage = () => {
     const savedPanelType = useEmbeddedStageStore((state) => state.panelType);
 
     const savedLoanPayload = useEmbeddedStageStore((state) => state.loanPayload) as EmbeddedLoanPayload;
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const savedLoanAmount = savedLoanPayload.loan_amount;
     const savedLoanTerm = savedLoanPayload.loan_term;
@@ -55,6 +58,10 @@ const EmbeddedLoanStage = () => {
 
     const validate = (formData: EmbeddedLoanPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         if (isNaN(formData.loan_amount)) {
             formErrors.loan_amount = "Please provide a loan amount denoted in GBP. E.g 10000."

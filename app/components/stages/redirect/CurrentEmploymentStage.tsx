@@ -5,6 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {StageForm} from './StageForm';
 import {EmploymentStatus} from "@/app/state/enum/Common";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const CurrentEmploymentStage = () => {
 
@@ -22,6 +23,8 @@ const CurrentEmploymentStage = () => {
     const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
 
     const setPayload = useRedirectStageStore((state) => state.setCurrentEmploymentPayload)
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<RedirectEmploymentPayload>({
         occupation: savedOccupation ?? "Software Engineer",
@@ -99,6 +102,10 @@ const CurrentEmploymentStage = () => {
 
     const validate = (formData: RedirectEmploymentPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         if (shouldHaveAnIncome(formData?.employment_status)) {
             if (formData?.gross_income

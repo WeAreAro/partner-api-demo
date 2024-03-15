@@ -4,6 +4,7 @@ import {RedirectAddressPayload, RedirectStageState, useRedirectStageStore} from 
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, InputType} from '../../InputField';
 import {StageForm} from './StageForm';
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 interface Props {
     title: string,
@@ -35,6 +36,8 @@ const AddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) 
 
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [errors, setErrors] = useState({} as any);
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<RedirectAddressPayload>({
         flat: savedFlat,
@@ -103,6 +106,10 @@ const AddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) 
 
     const validate = (formData: RedirectAddressPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         if (!formData.street) {
             formErrors.street = "Please provide your street name."

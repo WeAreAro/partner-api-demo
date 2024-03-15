@@ -5,6 +5,7 @@ import {createInputFields, Field, getPossibleValues, InputType} from '../../Inpu
 import {Title} from "@/app/state/enum/Common";
 import {EmbeddedJointAboutYouPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const EmbeddedJointAboutYouStage = () => {
 
@@ -28,6 +29,8 @@ const EmbeddedJointAboutYouStage = () => {
         mobile_phone: savedMobilePhone ?? "07598235666",
         dob: savedDob ?? "04/09/1980",
     })
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [errors, setErrors] = useState({} as any);
     const [isSubmitted, setIsSubmitted] = useState(false)
@@ -69,6 +72,10 @@ const EmbeddedJointAboutYouStage = () => {
 
     const validate = (formData: EmbeddedJointAboutYouPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         if (!formData.first_name) {
             formErrors.first_name = "First name is required."

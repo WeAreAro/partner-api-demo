@@ -5,6 +5,7 @@ import {createInputFields, Field, getPossibleValues, InputType} from '../../Inpu
 import {OtherIncomeDescription, OtherIncomePeriod} from "@/app/state/enum/Common";
 import {EmbeddedJointOtherIncomePayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const EmbeddedJointOtherIncomeStage = () => {
 
@@ -18,6 +19,8 @@ const EmbeddedJointOtherIncomeStage = () => {
 
     const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
     const setPayload = useEmbeddedStageStore((state) => state.setJointOtherIncomePayload)
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<EmbeddedJointOtherIncomePayload>({
         income_1: savedIncomeOne ?? 300,
@@ -60,7 +63,9 @@ const EmbeddedJointOtherIncomeStage = () => {
     const validate = (formData: EmbeddedJointOtherIncomePayload) => {
         const formErrors = {} as any
 
-        // Don't care if it's left blank.
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         return formErrors
     }

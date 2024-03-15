@@ -5,6 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {StageForm} from './StageForm';
 import {YesNoValue} from "@/app/state/enum/Common";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const PartnerDetailsStage = () => {
 
@@ -21,10 +22,12 @@ const PartnerDetailsStage = () => {
 
     const setPayload = useRedirectStageStore((state) => state.setPartnerDetailsPayload)
 
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
+
     const [formData, setFormData] = useState<RedirectPartnerDetails>({
         partner_code: savedPartnerCode ?? "FFW-TEST",
-        partner_reference: savedPartnerReference ?? "REF-A-1",
-        campaign_code: savedCampaignCode ?? "CA-1",
+        partner_reference: savedPartnerReference ?? "REFERENCE-1",
+        campaign_code: savedCampaignCode ?? "CAMPAIGN-1",
         agree_terms: savedAgreeTerms ?? YesNoValue.Yes
     })
 
@@ -55,6 +58,11 @@ const PartnerDetailsStage = () => {
 
     const validate = (formData: RedirectPartnerDetails) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
+
         return formErrors
     }
 

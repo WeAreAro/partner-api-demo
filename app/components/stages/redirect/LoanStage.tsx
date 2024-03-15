@@ -5,6 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {StageForm} from './StageForm';
 import {LoanPurpose} from "@/app/state/enum/Common";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const LoanStage = () => {
 
@@ -19,6 +20,8 @@ const LoanStage = () => {
     const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
 
     const setPayload = useRedirectStageStore((state) => state.setQuotePayload)
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<RedirectLoanPayload>({
         loan_amount: savedLoanAmount ?? 10000,
@@ -53,6 +56,10 @@ const LoanStage = () => {
 
     const validate = (formData: RedirectLoanPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         if (isNaN(formData.loan_amount)) {
             formErrors.loan_amount = "Please provide a loan amount denoted in GBP. E.g 10000."

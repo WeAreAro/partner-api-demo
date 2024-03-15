@@ -5,6 +5,7 @@ import {createInputFields, Field, getPossibleValues, InputType} from '../../Inpu
 import {YesNoValue} from "@/app/state/enum/Common";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
 import {EmbeddedCardPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const EmbeddedCardStage = () => {
 
@@ -19,6 +20,8 @@ const EmbeddedCardStage = () => {
     const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
 
     const setPayload = useEmbeddedStageStore((state) => state.setCardPayload)
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<EmbeddedCardPayload>({
         cash_advance: savedCashAdvance ?? YesNoValue.Yes,
@@ -54,6 +57,11 @@ const EmbeddedCardStage = () => {
 
     const validate = (formData: EmbeddedCardPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
+
         return formErrors
     }
 

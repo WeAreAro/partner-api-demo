@@ -10,6 +10,7 @@ import {
 } from "@/app/state/embedded_stages";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
 import {requiresJointApplicant} from "@/app/utils/StageStepUtils";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const EmbeddedOtherIncomeStage = () => {
 
@@ -25,6 +26,8 @@ const EmbeddedOtherIncomeStage = () => {
     const setPayload = useEmbeddedStageStore((state) => state.setOtherIncomePayload);
 
     const aboutYouPayload = useEmbeddedStageStore((state) => state.aboutYouPayload);
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<EmbeddedOtherIncomePayload>({
         income_1: savedIncomeOne ?? 800,
@@ -67,7 +70,9 @@ const EmbeddedOtherIncomeStage = () => {
     const validate = (formData: EmbeddedOtherIncomePayload) => {
         const formErrors = {} as any
 
-        // Don't care if it's left blank.
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         return formErrors
     }

@@ -6,6 +6,7 @@ import {createInputFields, Field, getPossibleValues, InputType} from '../../Inpu
 import {EmploymentStatus} from "@/app/state/enum/Common";
 import {EmbeddedEmploymentPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const EmbeddedCurrentEmploymentStage = () => {
 
@@ -40,6 +41,8 @@ const EmbeddedCurrentEmploymentStage = () => {
 
     const [errors, setErrors] = useState({} as any);
     const [isSubmitted, setIsSubmitted] = useState(false)
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const allFields: Field[] = [
         {
@@ -100,6 +103,10 @@ const EmbeddedCurrentEmploymentStage = () => {
 
     const validate = (formData: EmbeddedEmploymentPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         if (shouldHaveAnIncome(formData?.employment_status)) {
             if (formData?.gross_income

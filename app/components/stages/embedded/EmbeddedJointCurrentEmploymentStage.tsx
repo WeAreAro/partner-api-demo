@@ -6,6 +6,7 @@ import {createInputFields, Field, getPossibleValues, InputType} from '../../Inpu
 import {EmploymentStatus} from "@/app/state/enum/Common";
 import {EmbeddedJointEmploymentPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const EmbeddedJointCurrentEmploymentStage = () => {
 
@@ -22,6 +23,8 @@ const EmbeddedJointCurrentEmploymentStage = () => {
     const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
 
     const setPayload = useEmbeddedStageStore((state) => state.setJointCurrentEmploymentPayload)
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<EmbeddedJointEmploymentPayload>({
         occupation: savedOccupation ?? "Clinical Nurse",
@@ -92,6 +95,10 @@ const EmbeddedJointCurrentEmploymentStage = () => {
 
     const validate = (formData: EmbeddedJointEmploymentPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         if (shouldHaveAnIncome(formData?.employment_status)) {
             if (formData?.gross_income

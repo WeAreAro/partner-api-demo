@@ -36,7 +36,8 @@ const EmbeddedAutoFinance = () => {
             <title>Apply for Auto Finance</title>
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
-            <Header showNav={false} headerBackgroundColor={"#3C0B5D"} headerTitle={"Eligibility API - Auto Finance"}/>
+            <Header showNav={false} headerBackgroundColor={"#3C0B5D"}
+                    headerTitle={"Eligibility API - Auto Finance Offers"}/>
             {
                 formStage === EmbeddedAutoFinanceFormStage.PartnerDetailsStage && (
                     <EmbeddedPartnerDetailsStage/>

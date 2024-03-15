@@ -42,7 +42,7 @@ const EmbeddedSecured = () => {
             <title>Apply for a Secured loan</title>
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
-            <Header showNav={false} headerBackgroundColor={"#3C0B5D"} headerTitle={"Eligibility API - Secured Loan"}/>
+            <Header showNav={false} headerBackgroundColor={"#3C0B5D"} headerTitle={"Eligibility API - Secured Offers"}/>
             {
                 formStage === EmbeddedSecuredFormStage.PartnerDetailsStage && (
                     <EmbeddedPartnerDetailsStage/>

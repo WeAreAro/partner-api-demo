@@ -5,6 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {StageForm} from './StageForm';
 import {YesNoValue} from "@/app/state/enum/Common";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const MarketingConsentStage = () => {
 
@@ -15,6 +16,8 @@ const MarketingConsentStage = () => {
 
     const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
     const setPayload = useRedirectStageStore((state) => state.setMarketingConsentPayload)
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<RedirectMarketingConsentPayload>({
         email_opt_in: savedEmailOptIn ?? YesNoValue.Yes,
@@ -40,6 +43,10 @@ const MarketingConsentStage = () => {
 
     const validate = (formData: RedirectMarketingConsentPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         return formErrors
     }

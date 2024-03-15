@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, InputType} from '../../InputField';
 import {EmbeddedExpenditurePayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const EmbeddedExpenditureStage = () => {
 
@@ -19,6 +20,8 @@ const EmbeddedExpenditureStage = () => {
         monthly_mortgage_rent: savedMonthlyRent ?? 850,
         monthly_mortgage_rent_share: savedMonthlyMortgageRentShare,
     })
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const fields: Field[] = [
         {
@@ -38,6 +41,10 @@ const EmbeddedExpenditureStage = () => {
 
     const validate = (formData: EmbeddedExpenditurePayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         if (isNaN(formData.monthly_mortgage_rent) || formData?.monthly_mortgage_rent > 1000000) {
             formErrors.monthly_mortgage_rent = "Please provide a valid number of £."

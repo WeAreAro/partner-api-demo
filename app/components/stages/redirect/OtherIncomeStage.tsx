@@ -5,6 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {StageForm} from './StageForm';
 import {OtherIncomeDescription, OtherIncomePeriod} from "@/app/state/enum/Common";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const OtherIncomeStage = () => {
 
@@ -18,6 +19,8 @@ const OtherIncomeStage = () => {
 
     const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
     const setPayload = useRedirectStageStore((state) => state.setOtherIncomePayload)
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<RedirectOtherIncomePayload>({
         income_1: savedIncomeOne ?? 800,
@@ -60,7 +63,9 @@ const OtherIncomeStage = () => {
     const validate = (formData: RedirectOtherIncomePayload) => {
         const formErrors = {} as any
 
-        // Don't care if it's left blank.
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         return formErrors
     }

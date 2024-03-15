@@ -1,6 +1,6 @@
 {
   "EMBEDDED_ALL": {
-    "partner_reference": "REF-A-1",
+    "partner_reference": "REFERENCE-1",
     "aro_reference": "74cbf596-fb6e-494b-9803-aae8685eefd0",
     "ec_created": "Y",
     "status_messages": {
@@ -353,7 +353,7 @@
     ]
   },
   "EMBEDDED_CREDITCARD": {
-    "partner_reference": "REF-A-1",
+    "partner_reference": "REFERENCE-1",
     "aro_reference": "7c472cc0-c667-47d5-81d0-c3946cb6a4aa",
     "ec_created": "Y",
     "status_messages": {
@@ -573,7 +573,7 @@
     ]
   },
   "EMBEDDED_AUTOFINANCE": {
-    "partner_reference": "REF-A-1",
+    "partner_reference": "REFERENCE-1",
     "aro_reference": "5c492a2d-c96d-4a0e-9825-9b85d1899093",
     "ec_created": "Y",
     "status_messages": {
@@ -800,7 +800,7 @@
     ]
   },
   "EMBEDDED_SECURED": {
-    "partner_reference": "REF-A-1",
+    "partner_reference": "REFERENCE-1",
     "aro_reference": "9974e25f-69d4-440b-a92a-c99691d6a30f",
     "ec_created": "Y",
     "status_messages": {

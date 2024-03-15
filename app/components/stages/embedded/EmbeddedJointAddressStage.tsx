@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, InputType} from '../../InputField';
 import {EmbeddedAddressPayload, EmbeddedStageState, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 interface Props {
     title: string,
@@ -34,6 +35,8 @@ const EmbeddedJointAddressStage = ({title, addressPayloadName, addressPayloadSet
 
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [errors, setErrors] = useState({} as any);
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<EmbeddedAddressPayload>({
         flat: savedFlat,
@@ -103,6 +106,10 @@ const EmbeddedJointAddressStage = ({title, addressPayloadName, addressPayloadSet
 
     const validate = (formData: EmbeddedAddressPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         if (!formData.street) {
             formErrors.street = "Please provide your street name."

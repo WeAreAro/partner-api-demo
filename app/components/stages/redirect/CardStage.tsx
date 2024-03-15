@@ -5,6 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {StageForm} from './StageForm';
 import {YesNoValue} from "@/app/state/enum/Common";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const CardStage = () => {
 
@@ -19,6 +20,8 @@ const CardStage = () => {
     const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
 
     const setPayload = useRedirectStageStore((state) => state.setQuotePayload)
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<RedirectCardPayload>({
         cash_advance: savedCashAdvance ?? YesNoValue.Yes,
@@ -55,6 +58,11 @@ const CardStage = () => {
 
     const validate = (formData: RedirectCardPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
+
         return formErrors
     }
 

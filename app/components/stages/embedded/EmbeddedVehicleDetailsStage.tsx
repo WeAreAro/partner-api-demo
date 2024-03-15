@@ -5,6 +5,7 @@ import {createInputFields, Field, getPossibleValues, InputType} from '../../Inpu
 import {VendorType, YesNoValue} from "@/app/state/enum/Common";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
 import {EmbeddedVehicleDetailsPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const EmbeddedVehicleDetailsStage = () => {
 
@@ -23,6 +24,8 @@ const EmbeddedVehicleDetailsStage = () => {
     const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
 
     const setPayload = useEmbeddedStageStore((state) => state.setVehicleDetailsPayload)
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<EmbeddedVehicleDetailsPayload>({
         vehicle_found: savedVehicleFound ?? YesNoValue.Yes,
@@ -80,6 +83,11 @@ const EmbeddedVehicleDetailsStage = () => {
 
     const validate = (formData: EmbeddedVehicleDetailsPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
+
         return formErrors
     }
 

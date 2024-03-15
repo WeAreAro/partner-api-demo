@@ -35,7 +35,8 @@ const EmbeddedCard = () => {
             <title>Apply for a Credit Card</title>
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
-            <Header showNav={false} headerBackgroundColor={"#3C0B5D"} headerTitle={"Eligibility API - Credit Card"}/>
+            <Header showNav={false} headerBackgroundColor={"#3C0B5D"}
+                    headerTitle={"Eligibility API - Credit Card Offers"}/>
             {
                 formStage === EmbeddedCardFormStage.PartnerDetailsStage && (
                     <EmbeddedPartnerDetailsStage/>

@@ -5,6 +5,7 @@ import {createInputFields, Field, getPossibleValues, InputType} from '../../Inpu
 import {MaritalStatus, ResidentialStatus, Title, UkDrivingLicenceType} from "@/app/state/enum/Common";
 import {EmbeddedAboutYouPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
 import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {useGeneralStageStore} from "@/app/state/general_stages";
 
 const EmbeddedAboutYouStage = () => {
 
@@ -25,6 +26,8 @@ const EmbeddedAboutYouStage = () => {
 
     const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
     const setAboutYouPayload = useEmbeddedStageStore((state) => state.setAboutYouPayload)
+
+    const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<EmbeddedAboutYouPayload>({
         title: savedTitle ?? Title.Mr,
@@ -102,7 +105,7 @@ const EmbeddedAboutYouStage = () => {
             type: InputType.Number
         },
         {
-            name: "dependant_ages",
+            name: "dependant_ages_comma_sep",
             title: "The ages of the dependants"
         },
         {
@@ -115,6 +118,10 @@ const EmbeddedAboutYouStage = () => {
 
     const validate = (formData: EmbeddedAboutYouPayload) => {
         const formErrors = {} as any
+
+        if (!enableValidation) {
+            return formErrors;
+        }
 
         if (!formData.first_name) {
             formErrors.first_name = "First name is required."
@@ -146,11 +153,13 @@ const EmbeddedAboutYouStage = () => {
             formErrors.dob = "Date of birth is required in the format: dd/MM/yyyy"
         }
         if (formData?.number_of_dependants > 0 && !formData.dependant_ages_comma_sep) {
-            formErrors.dependant_ages = "Please provide the ages for your dependant and seperate them by a comma."
+            formErrors.dependant_ages_comma_sep = "Please provide the ages for your dependant and seperate them by a comma."
         }
         if (!formData.number_of_dependants && formData.dependant_ages_comma_sep) {
             formErrors.number_of_dependants = "Please do not provide dependant ages if you do not have any."
         }
+
+        console.log(formErrors);
 
         return formErrors
     }
