@@ -3,33 +3,33 @@
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {MaritalStatus, ResidentialStatus, Title, UkDrivingLicenceType} from "@/app/state/enum/Common";
-import {EmbeddedAboutYouPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
-import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {EligibilityAboutYouPayload, useEligibilityStageStore} from "@/app/state/eligibility_stages";
+import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 
-const EmbeddedAboutYouStage = () => {
+const EligibilityAboutYouStage = () => {
 
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
-    const savedTitle = useEmbeddedStageStore((state) => state.aboutYouPayload.title);
-    const savedFirstName = useEmbeddedStageStore((state) => state.aboutYouPayload?.first_name);
-    const savedSurname = useEmbeddedStageStore((state) => state.aboutYouPayload?.surname);
-    const savedEmail = useEmbeddedStageStore((state) => state.aboutYouPayload?.email);
-    const savedHomePhone = useEmbeddedStageStore((state) => state.aboutYouPayload?.home_phone);
-    const savedMobilePhone = useEmbeddedStageStore((state) => state.aboutYouPayload?.mobile_phone);
-    const savedResidentialStatus = useEmbeddedStageStore((state) => state.aboutYouPayload?.residential_status);
-    const savedDob = useEmbeddedStageStore((state) => state.aboutYouPayload?.dob);
-    const savedMaritalStatus = useEmbeddedStageStore((state) => state.aboutYouPayload?.marital_status);
-    const savedNumberOfDependants = useEmbeddedStageStore((state) => state.aboutYouPayload?.number_of_dependants);
-    const savedDependantAges = useEmbeddedStageStore((state) => state.aboutYouPayload?.dependant_ages_comma_sep);
-    const savedHasDrivingLicence = useEmbeddedStageStore((state) => state.aboutYouPayload?.has_driving_licence)
+    const savedTitle = useEligibilityStageStore((state) => state.aboutYouPayload.title);
+    const savedFirstName = useEligibilityStageStore((state) => state.aboutYouPayload?.first_name);
+    const savedSurname = useEligibilityStageStore((state) => state.aboutYouPayload?.surname);
+    const savedEmail = useEligibilityStageStore((state) => state.aboutYouPayload?.email);
+    const savedHomePhone = useEligibilityStageStore((state) => state.aboutYouPayload?.home_phone);
+    const savedMobilePhone = useEligibilityStageStore((state) => state.aboutYouPayload?.mobile_phone);
+    const savedResidentialStatus = useEligibilityStageStore((state) => state.aboutYouPayload?.residential_status);
+    const savedDob = useEligibilityStageStore((state) => state.aboutYouPayload?.dob);
+    const savedMaritalStatus = useEligibilityStageStore((state) => state.aboutYouPayload?.marital_status);
+    const savedNumberOfDependants = useEligibilityStageStore((state) => state.aboutYouPayload?.number_of_dependants);
+    const savedDependantAges = useEligibilityStageStore((state) => state.aboutYouPayload?.dependant_ages_comma_sep);
+    const savedHasDrivingLicence = useEligibilityStageStore((state) => state.aboutYouPayload?.has_driving_licence)
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
-    const setAboutYouPayload = useEmbeddedStageStore((state) => state.setAboutYouPayload)
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage)
+    const setAboutYouPayload = useEligibilityStageStore((state) => state.setAboutYouPayload)
 
     const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
-    const [formData, setFormData] = useState<EmbeddedAboutYouPayload>({
+    const [formData, setFormData] = useState<EligibilityAboutYouPayload>({
         title: savedTitle ?? Title.Mr,
         first_name: savedFirstName ?? "John",
         surname: savedSurname ?? "Doe",
@@ -116,7 +116,7 @@ const EmbeddedAboutYouStage = () => {
         },
     ]
 
-    const validate = (formData: EmbeddedAboutYouPayload) => {
+    const validate = (formData: EligibilityAboutYouPayload) => {
         const formErrors = {} as any
 
         if (!enableValidation) {
@@ -181,8 +181,8 @@ const EmbeddedAboutYouStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title="Personal Details" canGoBack={true} inputFields={inputFields}
-                           submitFormData={submitFormData}/>
+        <EligibilityStageForm title="Personal Details" canGoBack={true} inputFields={inputFields}
+                              submitFormData={submitFormData}/>
     )
 }
-export default EmbeddedAboutYouStage
+export default EligibilityAboutYouStage

@@ -2,43 +2,47 @@
 
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, InputType} from '../../InputField';
-import {EmbeddedAddressPayload, EmbeddedStageState, useEmbeddedStageStore} from "@/app/state/embedded_stages";
-import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {
+    EligibilityAddressPayload,
+    EligibilityStageState,
+    useEligibilityStageStore
+} from "@/app/state/eligibility_stages";
+import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 
 interface Props {
     title: string,
-    addressPayloadName: keyof EmbeddedStageState,
-    addressPayloadSetter: keyof EmbeddedStageState,
+    addressPayloadName: keyof EligibilityStageState,
+    addressPayloadSetter: keyof EligibilityStageState,
 }
 
-const EmbeddedPrimaryAddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) => {
+const EligibilityJointAddressStage = ({title, addressPayloadName, addressPayloadSetter}: Props) => {
 
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
-    const savedPanelType = useEmbeddedStageStore((state) => state.panelType)
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
+    const savedPanelType = useEligibilityStageStore((state) => state.panelType)
 
-    const savedFlat = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.flat);
-    const savedHouseNumber = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.house_number);
-    const savedHouseName = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.house_name);
-    const savedStreet = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.street);
-    const savedPostTown = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.posttown);
-    const savedLocality = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.locality);
-    const savedCountry = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.country);
-    const savedPostcode = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.postcode);
+    const savedFlat = useEligibilityStageStore((state) => (state[addressPayloadName] as EligibilityAddressPayload)?.flat);
+    const savedHouseNumber = useEligibilityStageStore((state) => (state[addressPayloadName] as EligibilityAddressPayload)?.house_number);
+    const savedHouseName = useEligibilityStageStore((state) => (state[addressPayloadName] as EligibilityAddressPayload)?.house_name);
+    const savedStreet = useEligibilityStageStore((state) => (state[addressPayloadName] as EligibilityAddressPayload)?.street);
+    const savedPostTown = useEligibilityStageStore((state) => (state[addressPayloadName] as EligibilityAddressPayload)?.posttown);
+    const savedLocality = useEligibilityStageStore((state) => (state[addressPayloadName] as EligibilityAddressPayload)?.locality);
+    const savedCountry = useEligibilityStageStore((state) => (state[addressPayloadName] as EligibilityAddressPayload)?.country);
+    const savedPostcode = useEligibilityStageStore((state) => (state[addressPayloadName] as EligibilityAddressPayload)?.postcode);
 
-    const savedYearsLived = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.years_lived);
-    const savedMonthsLived = useEmbeddedStageStore((state) => (state[addressPayloadName] as EmbeddedAddressPayload)?.months_lived);
+    const savedYearsLived = useEligibilityStageStore((state) => (state[addressPayloadName] as EligibilityAddressPayload)?.years_lived);
+    const savedMonthsLived = useEligibilityStageStore((state) => (state[addressPayloadName] as EligibilityAddressPayload)?.months_lived);
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage)
 
-    const setPayload = useEmbeddedStageStore((state) => state[addressPayloadSetter] as Function)
+    const setPayload = useEligibilityStageStore((state) => state[addressPayloadSetter] as Function)
 
     const [isSubmitted, setIsSubmitted] = useState(false)
     const [errors, setErrors] = useState({} as any);
 
     const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
-    const [formData, setFormData] = useState<EmbeddedAddressPayload>({
+    const [formData, setFormData] = useState<EligibilityAddressPayload>({
         flat: savedFlat,
         house_number: savedHouseNumber ?? "400",
         house_name: savedHouseName,
@@ -47,8 +51,8 @@ const EmbeddedPrimaryAddressStage = ({title, addressPayloadName, addressPayloadS
         locality: savedLocality ?? "Tyne & Wear",
         country: savedCountry || "UK",
         postcode: savedPostcode ?? "NE9 5DQ",
-        years_lived: savedYearsLived ?? 4,
-        months_lived: savedMonthsLived ?? 5,
+        years_lived: savedYearsLived ?? 3,
+        months_lived: savedMonthsLived ?? 11,
     })
 
     const fields: Field[] = [
@@ -104,7 +108,7 @@ const EmbeddedPrimaryAddressStage = ({title, addressPayloadName, addressPayloadS
     ]
 
 
-    const validate = (formData: EmbeddedAddressPayload) => {
+    const validate = (formData: EligibilityAddressPayload) => {
         const formErrors = {} as any
 
         if (!enableValidation) {
@@ -156,8 +160,8 @@ const EmbeddedPrimaryAddressStage = ({title, addressPayloadName, addressPayloadS
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title={title ?? "Your current address"} canGoBack={true} inputFields={inputFields}
-                           submitFormData={submitFormData}/>
+        <EligibilityStageForm title={title ?? "Your current address"} canGoBack={true} inputFields={inputFields}
+                              submitFormData={submitFormData}/>
     )
 }
-export default EmbeddedPrimaryAddressStage
+export default EligibilityJointAddressStage

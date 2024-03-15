@@ -1,21 +1,21 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {hasTokenDefinedInEnv, isValidJwtBearerToken} from "@/app/utils/BearerUtils";
-import {EmbeddedPanelType, useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {EligibilityPanelType, useEligibilityStageStore} from "@/app/state/eligibility_stages";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 import {fetchWithTimeout} from "@/app/utils/HttpUtils";
 import {Accordion, AccordionItem as Item} from "@szhsin/react-accordion";
 import LoadingOverlayWrapper from 'react-loading-overlay-ts';
 import DismissableMessage from "@/app/components/DismissableMessage";
 
-const EmbeddedProceedPayloadStage = () => {
+const EligibilityProceedPayloadStage = () => {
 
-    const savedPanelType = useEmbeddedStageStore((state) => state.panelType)
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedPanelType = useEligibilityStageStore((state) => state.panelType)
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
-    const savedOfferToProceed = useEmbeddedStageStore((state) => state.offerToProceed);
+    const savedOfferToProceed = useEligibilityStageStore((state) => state.offerToProceed);
 
-    const setProceedResponse = useEmbeddedStageStore((state) => state.setProceedResponse)
-    const proceedResponse = useEmbeddedStageStore((state) => state.proceedResponse);
+    const setProceedResponse = useEligibilityStageStore((state) => state.setProceedResponse)
+    const proceedResponse = useEligibilityStageStore((state) => state.proceedResponse);
 
     const savedJwtBearerToken = useGeneralStageStore((state) => state.jwtBearerToken);
 
@@ -29,7 +29,7 @@ const EmbeddedProceedPayloadStage = () => {
 
     const controller = new AbortController();
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage)
 
     useEffect(() => {
         const payload = generatePayload();
@@ -98,7 +98,7 @@ const EmbeddedProceedPayloadStage = () => {
         if (!useJwtToken) {
             const mockedResponses = await fetchMockedResponses();
 
-            const responseObject = mockedResponses["EMBEDDED_" + EmbeddedPanelType[savedPanelType]];
+            const responseObject = mockedResponses["ELIGIBILITY_" + EligibilityPanelType[savedPanelType]];
 
             responseObject["aro_reference"] = savedOfferToProceed.aro_reference;
             responseObject["offer_uuid"] = savedOfferToProceed.offer["uuid"];
@@ -232,4 +232,4 @@ const EmbeddedProceedPayloadStage = () => {
         </LoadingOverlayWrapper>
     );
 }
-export default EmbeddedProceedPayloadStage
+export default EligibilityProceedPayloadStage

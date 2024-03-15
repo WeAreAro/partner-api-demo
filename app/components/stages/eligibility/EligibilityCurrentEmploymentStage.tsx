@@ -4,28 +4,28 @@ import {EmploymentIndustry} from '@/app/state/redirect_stages';
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {EmploymentStatus} from "@/app/state/enum/Common";
-import {EmbeddedEmploymentPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
-import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {EligibilityEmploymentPayload, useEligibilityStageStore} from "@/app/state/eligibility_stages";
+import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 
-const EmbeddedCurrentEmploymentStage = () => {
+const EligibilityCurrentEmploymentStage = () => {
 
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
-    const savedOccupation = useEmbeddedStageStore((state) => state.currentEmploymentPayload?.occupation);
-    const savedEmployerName = useEmbeddedStageStore((state) => state.currentEmploymentPayload?.employer_name);
-    const savedEmploymentIndustry = useEmbeddedStageStore((state) => state.currentEmploymentPayload?.employment_industry);
-    const savedGrossIncome = useEmbeddedStageStore((state) => state.currentEmploymentPayload?.gross_income);
-    const savedEmploymentStatus = useEmbeddedStageStore((state) => state.currentEmploymentPayload?.employment_status);
-    const savedEmploymentYears = useEmbeddedStageStore((state) => state.currentEmploymentPayload?.emp_years);
-    const savedEmploymentMonths = useEmbeddedStageStore((state) => state.currentEmploymentPayload?.emp_months);
-    const savedAdditionalHouseholdIncome = useEmbeddedStageStore((state) => state.currentEmploymentPayload?.additional_household_income);
+    const savedOccupation = useEligibilityStageStore((state) => state.currentEmploymentPayload?.occupation);
+    const savedEmployerName = useEligibilityStageStore((state) => state.currentEmploymentPayload?.employer_name);
+    const savedEmploymentIndustry = useEligibilityStageStore((state) => state.currentEmploymentPayload?.employment_industry);
+    const savedGrossIncome = useEligibilityStageStore((state) => state.currentEmploymentPayload?.gross_income);
+    const savedEmploymentStatus = useEligibilityStageStore((state) => state.currentEmploymentPayload?.employment_status);
+    const savedEmploymentYears = useEligibilityStageStore((state) => state.currentEmploymentPayload?.emp_years);
+    const savedEmploymentMonths = useEligibilityStageStore((state) => state.currentEmploymentPayload?.emp_months);
+    const savedAdditionalHouseholdIncome = useEligibilityStageStore((state) => state.currentEmploymentPayload?.additional_household_income);
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage)
 
-    const setPayload = useEmbeddedStageStore((state) => state.setCurrentEmploymentPayload)
+    const setPayload = useEligibilityStageStore((state) => state.setCurrentEmploymentPayload)
 
-    const [formData, setFormData] = useState<EmbeddedEmploymentPayload>({
+    const [formData, setFormData] = useState<EligibilityEmploymentPayload>({
         occupation: savedOccupation ?? "Software Engineer",
         employer_name: savedEmployerName ?? "Aro",
 
@@ -101,7 +101,7 @@ const EmbeddedCurrentEmploymentStage = () => {
     ]
 
 
-    const validate = (formData: EmbeddedEmploymentPayload) => {
+    const validate = (formData: EligibilityEmploymentPayload) => {
         const formErrors = {} as any
 
         if (!enableValidation) {
@@ -172,8 +172,8 @@ const EmbeddedCurrentEmploymentStage = () => {
         createInputFields(shouldHaveAnIncome(formData.employment_status) ? allFields : noIncomeFields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title={"Current Employment Details"} canGoBack={true} inputFields={inputFields}
-                           submitFormData={submitFormData}/>
+        <EligibilityStageForm title={"Current Employment Details"} canGoBack={true} inputFields={inputFields}
+                              submitFormData={submitFormData}/>
     )
 }
-export default EmbeddedCurrentEmploymentStage
+export default EligibilityCurrentEmploymentStage

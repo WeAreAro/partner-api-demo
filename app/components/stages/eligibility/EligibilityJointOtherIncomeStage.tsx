@@ -3,35 +3,28 @@
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {OtherIncomeDescription, OtherIncomePeriod} from "@/app/state/enum/Common";
-import {
-    EMBEDDED_JOINT_APPLICANT_STAGES,
-    EmbeddedOtherIncomePayload,
-    useEmbeddedStageStore
-} from "@/app/state/embedded_stages";
-import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
-import {requiresJointApplicant} from "@/app/utils/StageStepUtils";
+import {EligibilityJointOtherIncomePayload, useEligibilityStageStore} from "@/app/state/eligibility_stages";
+import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 
-const EmbeddedOtherIncomeStage = () => {
+const EligibilityJointOtherIncomeStage = () => {
 
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
-    const savedIncomeOne = useEmbeddedStageStore((state) => state.otherIncomePayload?.income_1);
-    const savedIncomeDescriptionOne = useEmbeddedStageStore((state) => state.otherIncomePayload?.description_1);
+    const savedIncomeOne = useEligibilityStageStore((state) => state.jointOtherIncomePayload?.income_1);
+    const savedIncomeDescriptionOne = useEligibilityStageStore((state) => state.jointOtherIncomePayload?.description_1);
 
-    const savedIncomeTwo = useEmbeddedStageStore((state) => state.otherIncomePayload?.income_2);
-    const savedIncomeDescriptionTwo = useEmbeddedStageStore((state) => state.otherIncomePayload?.description_2);
+    const savedIncomeTwo = useEligibilityStageStore((state) => state.jointOtherIncomePayload?.income_2);
+    const savedIncomeDescriptionTwo = useEligibilityStageStore((state) => state.jointOtherIncomePayload?.description_2);
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage);
-    const setPayload = useEmbeddedStageStore((state) => state.setOtherIncomePayload);
-
-    const aboutYouPayload = useEmbeddedStageStore((state) => state.aboutYouPayload);
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage)
+    const setPayload = useEligibilityStageStore((state) => state.setJointOtherIncomePayload)
 
     const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
-    const [formData, setFormData] = useState<EmbeddedOtherIncomePayload>({
-        income_1: savedIncomeOne ?? 800,
-        description_1: savedIncomeDescriptionOne ?? OtherIncomeDescription['Adoption Allowance'],
+    const [formData, setFormData] = useState<EligibilityJointOtherIncomePayload>({
+        income_1: savedIncomeOne ?? 300,
+        description_1: savedIncomeDescriptionOne ?? OtherIncomeDescription['Overtime'],
         period_1: OtherIncomePeriod.Monthly,
 
         income_2: savedIncomeTwo,
@@ -67,7 +60,7 @@ const EmbeddedOtherIncomeStage = () => {
         },
     ]
 
-    const validate = (formData: EmbeddedOtherIncomePayload) => {
+    const validate = (formData: EligibilityJointOtherIncomePayload) => {
         const formErrors = {} as any
 
         if (!enableValidation) {
@@ -85,8 +78,7 @@ const EmbeddedOtherIncomeStage = () => {
 
     useEffect(() => {
         if (Object.keys(errors).length === 0 && isSubmitted) {
-            const goForwardAmount = (requiresJointApplicant(aboutYouPayload) ? 1 : EMBEDDED_JOINT_APPLICANT_STAGES + 1);
-            setCurrentStage(savedStage + goForwardAmount);
+            setCurrentStage(savedStage + 1)
         }
         setPayload({...formData})
     }, [formData, isSubmitted, errors])
@@ -95,8 +87,9 @@ const EmbeddedOtherIncomeStage = () => {
         createInputFields(allFields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title={"Other Monthly Incomes"} canGoBack={true} inputFields={inputFields}
-                           submitFormData={submitFormData}/>
+        <EligibilityStageForm title={"Joint Application - Other Monthly Incomes"} canGoBack={true}
+                              inputFields={inputFields}
+                              submitFormData={submitFormData}/>
     )
 }
-export default EmbeddedOtherIncomeStage
+export default EligibilityJointOtherIncomeStage

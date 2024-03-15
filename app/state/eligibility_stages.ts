@@ -13,20 +13,20 @@ import {
 import {EmploymentIndustry} from "@/app/state/enum/EmploymentIndustry";
 import {Offer} from "@/app/state/offer_model";
 
-export enum EmbeddedPanelType {
+export enum EligibilityPanelType {
     ALL,
     CREDITCARD,
     AUTOFINANCE,
     SECURED
 }
 
-export type EmbeddedFormStageType =
-    | EmbeddedLoanFormStage
-    | EmbeddedCardFormStage
-    | EmbeddedAutoFinanceFormStage
-    | EmbeddedSecuredFormStage;
+export type EligibilityFormStageType =
+    | EligibilityLoanFormStage
+    | EligibilityCardFormStage
+    | EligibilityAutoFinanceFormStage
+    | EligibilitySecuredFormStage;
 
-export interface EmbeddedPartnerDetails {
+export interface EligibilityPartnerDetails {
     partner_code: string,
     partner_reference?: string,
     campaign_code?: string,
@@ -34,7 +34,7 @@ export interface EmbeddedPartnerDetails {
 }
 
 
-export enum EmbeddedLoanFormStage {
+export enum EligibilityLoanFormStage {
     PartnerDetailsStage = 1,
     LoanStage = 2,
     AboutYouStage = 3,
@@ -48,7 +48,7 @@ export enum EmbeddedLoanFormStage {
     ProceedOfferStage = 11,
 }
 
-export enum EmbeddedCardFormStage {
+export enum EligibilityCardFormStage {
     PartnerDetailsStage = 1,
     CardStage = 2,
     AboutYouStage = 3,
@@ -62,7 +62,7 @@ export enum EmbeddedCardFormStage {
     ProceedOfferStage = 11,
 }
 
-export enum EmbeddedAutoFinanceFormStage {
+export enum EligibilityAutoFinanceFormStage {
     PartnerDetailsStage = 1,
     LoanStage = 2,
     VehicleDetailsStage = 3,
@@ -77,9 +77,9 @@ export enum EmbeddedAutoFinanceFormStage {
     ProceedOfferStage = 12,
 }
 
-export const EMBEDDED_JOINT_APPLICANT_STAGES = 4;
+export const ELIGIBILITY_JOINT_APPLICANT_STAGES = 4;
 
-export enum EmbeddedSecuredFormStage {
+export enum EligibilitySecuredFormStage {
     PartnerDetailsStage = 1,
     LoanStage = 2,
     PropertyDetailsStage = 3,
@@ -98,34 +98,34 @@ export enum EmbeddedSecuredFormStage {
     ProceedOfferStage = 16,
 }
 
-export const EMBEDDED_TOTAL_STAGES = (panelType: EmbeddedPanelType) => {
+export const ELIGIBILITY_TOTAL_STAGES = (panelType: EligibilityPanelType) => {
     switch (panelType) {
-        case EmbeddedPanelType.ALL:
-            return Object.keys(EmbeddedLoanFormStage).length / 2;
-        case EmbeddedPanelType.CREDITCARD:
-            return Object.keys(EmbeddedCardFormStage).length / 2;
-        case EmbeddedPanelType.AUTOFINANCE:
-            return Object.keys(EmbeddedAutoFinanceFormStage).length / 2;
-        case EmbeddedPanelType.SECURED:
-            return Object.keys(EmbeddedSecuredFormStage).length / 2;
+        case EligibilityPanelType.ALL:
+            return Object.keys(EligibilityLoanFormStage).length / 2;
+        case EligibilityPanelType.CREDITCARD:
+            return Object.keys(EligibilityCardFormStage).length / 2;
+        case EligibilityPanelType.AUTOFINANCE:
+            return Object.keys(EligibilityAutoFinanceFormStage).length / 2;
+        case EligibilityPanelType.SECURED:
+            return Object.keys(EligibilitySecuredFormStage).length / 2;
         default:
             return 99;
     }
 }
 
-export interface EmbeddedLoanPayload {
+export interface EligibilityLoanPayload {
     loan_amount: number,
     loan_term: number,
     loan_purpose: LoanPurpose
 }
 
-export interface EmbeddedCardPayload {
+export interface EligibilityCardPayload {
     cash_advance: string,
     balance_transfer: string,
     balance_transfer_amount: number;
 }
 
-export interface EmbeddedVehicleDetailsPayload {
+export interface EligibilityVehicleDetailsPayload {
     vehicle_found: string,
     expected_annual_mileage: number,
     vendor_type: string,
@@ -135,7 +135,7 @@ export interface EmbeddedVehicleDetailsPayload {
     vehicle_current_mileage: number
 }
 
-export interface EmbeddedPropertyDetailsPayload {
+export interface EligibilityPropertyDetailsPayload {
     estimated_value: number,
     mortgage_outstanding: number,
     mortgage_lender: string,
@@ -153,7 +153,7 @@ export interface EmbeddedPropertyDetailsPayload {
     has_other_properties: YesNoValue
 }
 
-export interface EmbeddedAboutYouPayload {
+export interface EligibilityAboutYouPayload {
     title: Title,
     first_name: string,
     surname: string,
@@ -168,11 +168,11 @@ export interface EmbeddedAboutYouPayload {
     has_driving_licence: string
 }
 
-export interface EmbeddedAboutYouPayloadWithDependentsAsList extends EmbeddedAboutYouPayload {
+export interface EligibilityAboutYouPayloadWithDependentsAsList extends EligibilityAboutYouPayload {
     dependant_ages: number[]
 }
 
-export interface EmbeddedJointAboutYouPayload {
+export interface EligibilityJointAboutYouPayload {
     title: Title,
     first_name: string,
     surname: string,
@@ -181,7 +181,7 @@ export interface EmbeddedJointAboutYouPayload {
     dob: string,
 }
 
-export interface EmbeddedAddressPayload {
+export interface EligibilityAddressPayload {
     flat?: string,
     house_number?: string,
     house_name?: string,
@@ -195,23 +195,23 @@ export interface EmbeddedAddressPayload {
     months_lived: number
 }
 
-export enum EmbeddedPrimaryAddressStages {
+export enum EligibilityPrimaryAddressStages {
     CURRENT_ADDRESS = "currentAddressPayload",
 }
 
-export enum EmbeddedPrimaryAddressPayloadSetters {
+export enum EligibilityPrimaryAddressPayloadSetters {
     CURRENT_ADDRESS = "setCurrentAddressPayload",
 }
 
-export enum EmbeddedJointAddressStages {
+export enum EligibilityJointAddressStages {
     CURRENT_ADDRESS = "jointCurrentAddressPayload",
 }
 
-export enum EmbeddedJointAddressPayloadSetters {
+export enum EligibilityJointAddressPayloadSetters {
     CURRENT_ADDRESS = "setJointCurrentAddressPayload",
 }
 
-export interface EmbeddedEmploymentPayload {
+export interface EligibilityEmploymentPayload {
     occupation?: string,
     employer_name?: string,
     employment_industry?: EmploymentIndustry,
@@ -225,7 +225,7 @@ export interface EmbeddedEmploymentPayload {
     additional_household_income: number,
 }
 
-export interface EmbeddedJointEmploymentPayload {
+export interface EligibilityJointEmploymentPayload {
     occupation?: string,
     employer_name?: string,
     employment_industry?: EmploymentIndustry,
@@ -237,12 +237,12 @@ export interface EmbeddedJointEmploymentPayload {
     emp_months: number,
 }
 
-export interface EmbeddedExpenditurePayload {
+export interface EligibilityExpenditurePayload {
     monthly_mortgage_rent: number,
     monthly_mortgage_rent_share?: number,
 }
 
-export interface EmbeddedOtherIncomePayload {
+export interface EligibilityOtherIncomePayload {
     income_1: number;
     description_1: OtherIncomeDescription;
     period_1: OtherIncomePeriod;
@@ -252,7 +252,7 @@ export interface EmbeddedOtherIncomePayload {
     period_2: OtherIncomePeriod;
 }
 
-export interface EmbeddedJointOtherIncomePayload {
+export interface EligibilityJointOtherIncomePayload {
     income_1: number;
     description_1: OtherIncomeDescription;
     period_1: OtherIncomePeriod;
@@ -262,130 +262,129 @@ export interface EmbeddedJointOtherIncomePayload {
     period_2: OtherIncomePeriod;
 }
 
-export interface EmbeddedOtherIncome {
+export interface EligibilityOtherIncome {
     income: number;
     income_description: OtherIncomeDescription;
 }
 
-export interface EmbeddedJointOtherIncome {
+export interface EligibilityJointOtherIncome {
     income: number;
     income_description: OtherIncomeDescription;
 }
 
-export interface EmbeddedMarketingConsentPayload {
+export interface EligibilityMarketingConsentPayload {
     email_opt_in: YesNoValue,
     text_opt_in: YesNoValue,
 }
 
-export interface EmbeddedAllOffersResponse {
+export interface EligibilityAllOffersResponse {
     response_json_as_object: string,
     mocked: boolean
 }
 
-export interface EmbeddedOfferToProceed {
+export interface EligibilityOfferToProceed {
     offer: Offer,
     aro_reference: string
 }
 
-export interface EmbeddedProceedResponse {
+export interface EligibilityProceedResponse {
     response_json_as_object: string,
     mocked: boolean
 }
 
-export interface EmbeddedStageState {
-    panelType: EmbeddedPanelType
+export interface EligibilityStageState {
+    panelType: EligibilityPanelType
     obfuscateOffers: boolean
 
-    currentStage: EmbeddedFormStageType
+    currentStage: EligibilityFormStageType
 
     // --------------------------------
 
-    partnerDetailsPayload: EmbeddedPartnerDetails
+    partnerDetailsPayload: EligibilityPartnerDetails
 
-    loanPayload: EmbeddedLoanPayload
-    cardPayload: EmbeddedCardPayload
-    vehicleDetailsPayload: EmbeddedVehicleDetailsPayload
-    propertyDetailsPayload: EmbeddedPropertyDetailsPayload
+    loanPayload: EligibilityLoanPayload
+    cardPayload: EligibilityCardPayload
+    vehicleDetailsPayload: EligibilityVehicleDetailsPayload
+    propertyDetailsPayload: EligibilityPropertyDetailsPayload
 
-    aboutYouPayload: EmbeddedAboutYouPayload
-    currentAddressPayload: EmbeddedAddressPayload
-    currentEmploymentPayload: EmbeddedEmploymentPayload
-    otherIncomePayload: EmbeddedOtherIncomePayload
-    expenditurePayload: EmbeddedExpenditurePayload
-    marketingConsentPayload: EmbeddedMarketingConsentPayload
+    aboutYouPayload: EligibilityAboutYouPayload
+    currentAddressPayload: EligibilityAddressPayload
+    currentEmploymentPayload: EligibilityEmploymentPayload
+    otherIncomePayload: EligibilityOtherIncomePayload
+    expenditurePayload: EligibilityExpenditurePayload
+    marketingConsentPayload: EligibilityMarketingConsentPayload
 
-    jointAboutYouPayload: EmbeddedJointAboutYouPayload
-    jointCurrentAddressPayload: EmbeddedAddressPayload
-    jointCurrentEmploymentPayload: EmbeddedJointEmploymentPayload
-    jointOtherIncomePayload: EmbeddedJointOtherIncomePayload
+    jointAboutYouPayload: EligibilityJointAboutYouPayload
+    jointCurrentAddressPayload: EligibilityAddressPayload
+    jointCurrentEmploymentPayload: EligibilityJointEmploymentPayload
+    jointOtherIncomePayload: EligibilityJointOtherIncomePayload
 
-    allOffersResponse: EmbeddedAllOffersResponse
-    offerToProceed: EmbeddedOfferToProceed
-    proceedResponse: EmbeddedProceedResponse
+    allOffersResponse: EligibilityAllOffersResponse
+    offerToProceed: EligibilityOfferToProceed
+    proceedResponse: EligibilityProceedResponse
 
     // --------------------------------
 
-    setPanelType: (panelType: EmbeddedPanelType) => void
+    setPanelType: (panelType: EligibilityPanelType) => void
     setObfuscateOffers: (obfuscateOffers: boolean) => void
 
     setCurrentStage: (currentStage: number) => void
     // setPreviousStage: (previousStage: number) => void
 
-    setPartnerDetailsPayload: (payload: EmbeddedPartnerDetails) => void
+    setPartnerDetailsPayload: (payload: EligibilityPartnerDetails) => void
 
-    setLoanPayload: (payload: EmbeddedLoanPayload) => void
-    setCardPayload: (payload: EmbeddedCardPayload) => void
-    setVehicleDetailsPayload: (payload: EmbeddedVehicleDetailsPayload) => void
-    setPropertyDetailsPayload: (payload: EmbeddedPropertyDetailsPayload) => void
+    setLoanPayload: (payload: EligibilityLoanPayload) => void
+    setCardPayload: (payload: EligibilityCardPayload) => void
+    setVehicleDetailsPayload: (payload: EligibilityVehicleDetailsPayload) => void
+    setPropertyDetailsPayload: (payload: EligibilityPropertyDetailsPayload) => void
 
-    setAboutYouPayload: (payload: EmbeddedAboutYouPayload) => void
-    setCurrentAddressPayload: (payload: EmbeddedAddressPayload) => void
-    setCurrentEmploymentPayload: (payload: EmbeddedEmploymentPayload) => void
-    setOtherIncomePayload: (payload: EmbeddedOtherIncomePayload) => void
-    setExpenditurePayload: (payload: EmbeddedExpenditurePayload) => void
-    setMarketingConsentPayload: (payload: EmbeddedMarketingConsentPayload) => void
+    setAboutYouPayload: (payload: EligibilityAboutYouPayload) => void
+    setCurrentAddressPayload: (payload: EligibilityAddressPayload) => void
+    setCurrentEmploymentPayload: (payload: EligibilityEmploymentPayload) => void
+    setOtherIncomePayload: (payload: EligibilityOtherIncomePayload) => void
+    setExpenditurePayload: (payload: EligibilityExpenditurePayload) => void
+    setMarketingConsentPayload: (payload: EligibilityMarketingConsentPayload) => void
 
-    setJointAboutYouPayload: (payload: EmbeddedJointAboutYouPayload) => void
-    setJointCurrentAddressPayload: (payload: EmbeddedAddressPayload) => void
-    setJointCurrentEmploymentPayload: (payload: EmbeddedJointEmploymentPayload) => void
-    setJointOtherIncomePayload: (payload: EmbeddedJointOtherIncomePayload) => void
+    setJointAboutYouPayload: (payload: EligibilityJointAboutYouPayload) => void
+    setJointCurrentAddressPayload: (payload: EligibilityAddressPayload) => void
+    setJointCurrentEmploymentPayload: (payload: EligibilityJointEmploymentPayload) => void
+    setJointOtherIncomePayload: (payload: EligibilityJointOtherIncomePayload) => void
 
-    setAllOffersResponse: (response: EmbeddedAllOffersResponse) => void
-    setOfferToProceed: (offerToProceed: EmbeddedOfferToProceed) => void
-    setProceedResponse: (response: EmbeddedProceedResponse) => void
+    setAllOffersResponse: (response: EligibilityAllOffersResponse) => void
+    setOfferToProceed: (offerToProceed: EligibilityOfferToProceed) => void
+    setProceedResponse: (response: EligibilityProceedResponse) => void
 }
 
-export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
-    panelType: EmbeddedPanelType.ALL,
+export const useEligibilityStageStore = create<EligibilityStageState>()((set) => ({
+    panelType: EligibilityPanelType.ALL,
     obfuscateOffers: true,
 
-    currentStage: EmbeddedLoanFormStage.PartnerDetailsStage,
-    // previousStage: EmbeddedLoanFormStage.PartnerDetailsStage,
+    currentStage: EligibilityLoanFormStage.PartnerDetailsStage,
 
     // --------------------------------
 
-    partnerDetailsPayload: {} as EmbeddedPartnerDetails,
+    partnerDetailsPayload: {} as EligibilityPartnerDetails,
 
-    loanPayload: {} as EmbeddedLoanPayload,
-    cardPayload: {} as EmbeddedCardPayload,
-    vehicleDetailsPayload: {} as EmbeddedVehicleDetailsPayload,
-    propertyDetailsPayload: {} as EmbeddedPropertyDetailsPayload,
+    loanPayload: {} as EligibilityLoanPayload,
+    cardPayload: {} as EligibilityCardPayload,
+    vehicleDetailsPayload: {} as EligibilityVehicleDetailsPayload,
+    propertyDetailsPayload: {} as EligibilityPropertyDetailsPayload,
 
-    aboutYouPayload: {} as EmbeddedAboutYouPayload,
-    currentAddressPayload: {} as EmbeddedAddressPayload,
-    currentEmploymentPayload: {} as EmbeddedEmploymentPayload,
-    otherIncomePayload: {} as EmbeddedOtherIncomePayload,
-    expenditurePayload: {} as EmbeddedExpenditurePayload,
-    marketingConsentPayload: {} as EmbeddedMarketingConsentPayload,
+    aboutYouPayload: {} as EligibilityAboutYouPayload,
+    currentAddressPayload: {} as EligibilityAddressPayload,
+    currentEmploymentPayload: {} as EligibilityEmploymentPayload,
+    otherIncomePayload: {} as EligibilityOtherIncomePayload,
+    expenditurePayload: {} as EligibilityExpenditurePayload,
+    marketingConsentPayload: {} as EligibilityMarketingConsentPayload,
 
-    jointAboutYouPayload: {} as EmbeddedJointAboutYouPayload,
-    jointCurrentAddressPayload: {} as EmbeddedAddressPayload,
-    jointCurrentEmploymentPayload: {} as EmbeddedJointEmploymentPayload,
-    jointOtherIncomePayload: {} as EmbeddedJointOtherIncomePayload,
+    jointAboutYouPayload: {} as EligibilityJointAboutYouPayload,
+    jointCurrentAddressPayload: {} as EligibilityAddressPayload,
+    jointCurrentEmploymentPayload: {} as EligibilityJointEmploymentPayload,
+    jointOtherIncomePayload: {} as EligibilityJointOtherIncomePayload,
 
-    allOffersResponse: {} as EmbeddedAllOffersResponse,
-    offerToProceed: {} as EmbeddedOfferToProceed,
-    proceedResponse: {} as EmbeddedProceedResponse,
+    allOffersResponse: {} as EligibilityAllOffersResponse,
+    offerToProceed: {} as EligibilityOfferToProceed,
+    proceedResponse: {} as EligibilityProceedResponse,
 
     // --------------------------------
 

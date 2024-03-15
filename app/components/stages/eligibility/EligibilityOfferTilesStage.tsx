@@ -1,27 +1,27 @@
 import React, {useEffect, useRef} from 'react';
-import {useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {useEligibilityStageStore} from "@/app/state/eligibility_stages";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 import OfferTileLoan from "@/app/components/OfferTileLoan";
 import OfferTileCC from "@/app/components/OfferTileCC";
 import {Offer} from "@/app/state/offer_model";
 import {obfuscateLenderOfferValues} from "@/app/utils/FormatUtils";
 
-const EmbeddedOfferTilesStage = () => {
+const EligibilityOfferTilesStage = () => {
 
-    const savedPanelType = useEmbeddedStageStore((state) => state.panelType)
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedPanelType = useEligibilityStageStore((state) => state.panelType)
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
-    const allOffersResponse = useEmbeddedStageStore((state) => state.allOffersResponse);
+    const allOffersResponse = useEligibilityStageStore((state) => state.allOffersResponse);
 
     const savedJwtBearerToken = useGeneralStageStore((state) => state.jwtBearerToken);
 
     const backRef = useRef(null);
     const continueRef = useRef(null);
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage);
-    const setOfferToProceed = useEmbeddedStageStore((state) => state.setOfferToProceed);
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage);
+    const setOfferToProceed = useEligibilityStageStore((state) => state.setOfferToProceed);
 
-    const obfuscateOffers = useEmbeddedStageStore((state) => state.obfuscateOffers);
+    const obfuscateOffers = useEligibilityStageStore((state) => state.obfuscateOffers);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -107,4 +107,4 @@ const EmbeddedOfferTilesStage = () => {
         </div>
     );
 }
-export default EmbeddedOfferTilesStage
+export default EligibilityOfferTilesStage

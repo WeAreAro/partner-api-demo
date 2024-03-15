@@ -1,10 +1,10 @@
 import {useEffect, useRef} from "react";
-import {useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {useEligibilityStageStore} from "@/app/state/eligibility_stages";
 
-const EmbeddedStageNav = ({canGoBack, goBackCount = 1}: { canGoBack: boolean, goBackCount?: number }) => {
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+const EligibilityStageNav = ({canGoBack, goBackCount = 1}: { canGoBack: boolean, goBackCount?: number }) => {
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage)
 
     const continueRef = useRef(null);
     const backRef = useRef(null);
@@ -50,4 +50,4 @@ const EmbeddedStageNav = ({canGoBack, goBackCount = 1}: { canGoBack: boolean, go
     </div>)
 }
 
-export default EmbeddedStageNav
+export default EligibilityStageNav

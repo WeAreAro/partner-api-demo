@@ -3,27 +3,27 @@
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {YesNoValue} from "@/app/state/enum/Common";
-import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
-import {EmbeddedCardPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
+import {EligibilityCardPayload, useEligibilityStageStore} from "@/app/state/eligibility_stages";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 
-const EmbeddedCardStage = () => {
+const EligibilityCardStage = () => {
 
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
-    const savedCardQuote = useEmbeddedStageStore((state) => state.cardPayload) as EmbeddedCardPayload;
+    const savedCardQuote = useEligibilityStageStore((state) => state.cardPayload) as EligibilityCardPayload;
 
     const savedCashAdvance = savedCardQuote?.cash_advance;
     const savedBalanceTransfer = savedCardQuote?.balance_transfer;
     const savedBalanceTransferAmount = savedCardQuote?.balance_transfer_amount;
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage)
 
-    const setPayload = useEmbeddedStageStore((state) => state.setCardPayload)
+    const setPayload = useEligibilityStageStore((state) => state.setCardPayload)
 
     const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
-    const [formData, setFormData] = useState<EmbeddedCardPayload>({
+    const [formData, setFormData] = useState<EligibilityCardPayload>({
         cash_advance: savedCashAdvance ?? YesNoValue.Yes,
         balance_transfer: savedBalanceTransfer ?? YesNoValue.Yes,
         balance_transfer_amount: savedBalanceTransferAmount ?? 4000
@@ -55,7 +55,7 @@ const EmbeddedCardStage = () => {
         },
     ]
 
-    const validate = (formData: EmbeddedCardPayload) => {
+    const validate = (formData: EligibilityCardPayload) => {
         const formErrors = {} as any
 
         if (!enableValidation) {
@@ -81,8 +81,8 @@ const EmbeddedCardStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title="Credit Card details" canGoBack={true} inputFields={inputFields}
-                           submitFormData={submitFormData}/>
+        <EligibilityStageForm title="Credit Card details" canGoBack={true} inputFields={inputFields}
+                              submitFormData={submitFormData}/>
     )
 }
-export default EmbeddedCardStage
+export default EligibilityCardStage

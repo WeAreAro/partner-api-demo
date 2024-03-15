@@ -1,13 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {hasTokenDefinedInEnv, isValidJwtBearerToken} from "@/app/utils/BearerUtils";
 import {
-    EmbeddedAboutYouPayload,
-    EmbeddedAboutYouPayloadWithDependentsAsList,
-    EmbeddedJointOtherIncome,
-    EmbeddedOtherIncome,
-    EmbeddedPanelType,
-    useEmbeddedStageStore
-} from "@/app/state/embedded_stages";
+    EligibilityAboutYouPayload,
+    EligibilityAboutYouPayloadWithDependentsAsList,
+    EligibilityJointOtherIncome,
+    EligibilityOtherIncome,
+    EligibilityPanelType,
+    useEligibilityStageStore
+} from "@/app/state/eligibility_stages";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 import {fetchWithTimeout} from "@/app/utils/HttpUtils";
 import LoadingOverlayWrapper from "react-loading-overlay-ts";
@@ -18,33 +18,33 @@ import DismissableMessage from "@/app/components/DismissableMessage";
 import {obfuscateOfferResponseJson} from "@/app/utils/FormatUtils";
 import {removeUnwantedProperties} from "@/app/utils/ObjectUtils";
 
-const EmbeddedAllOffersPayloadStage = () => {
+const EligibilityAllOffersPayloadStage = () => {
 
-    const savedPanelType = useEmbeddedStageStore((state) => state.panelType)
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedPanelType = useEligibilityStageStore((state) => state.panelType)
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
-    const partnerDetailsPayload = useEmbeddedStageStore((state) => state.partnerDetailsPayload);
+    const partnerDetailsPayload = useEligibilityStageStore((state) => state.partnerDetailsPayload);
 
-    const loanPayload = useEmbeddedStageStore((state) => state.loanPayload);
-    const cardPayload = useEmbeddedStageStore((state) => state.cardPayload);
-    const vehicleDetailsPayload = useEmbeddedStageStore((state) => state.vehicleDetailsPayload);
-    const securedPayload = useEmbeddedStageStore((state) => state.propertyDetailsPayload);
+    const loanPayload = useEligibilityStageStore((state) => state.loanPayload);
+    const cardPayload = useEligibilityStageStore((state) => state.cardPayload);
+    const vehicleDetailsPayload = useEligibilityStageStore((state) => state.vehicleDetailsPayload);
+    const securedPayload = useEligibilityStageStore((state) => state.propertyDetailsPayload);
 
-    const aboutYouPayload = useEmbeddedStageStore((state) => state.aboutYouPayload);
-    const currentAddressPayload = useEmbeddedStageStore((state) => state.currentAddressPayload);
-    const currentEmploymentPayload = useEmbeddedStageStore((state) => state.currentEmploymentPayload);
-    const expenditurePayload = useEmbeddedStageStore((state) => state.expenditurePayload);
-    const otherIncomePayload = useEmbeddedStageStore((state) => state.otherIncomePayload);
+    const aboutYouPayload = useEligibilityStageStore((state) => state.aboutYouPayload);
+    const currentAddressPayload = useEligibilityStageStore((state) => state.currentAddressPayload);
+    const currentEmploymentPayload = useEligibilityStageStore((state) => state.currentEmploymentPayload);
+    const expenditurePayload = useEligibilityStageStore((state) => state.expenditurePayload);
+    const otherIncomePayload = useEligibilityStageStore((state) => state.otherIncomePayload);
 
-    const jointAboutYouPayload = useEmbeddedStageStore((state) => state.jointAboutYouPayload);
-    const jointCurrentAddressPayload = useEmbeddedStageStore((state) => state.jointCurrentAddressPayload);
-    const jointCurrentEmploymentPayload = useEmbeddedStageStore((state) => state.jointCurrentEmploymentPayload);
-    const jointOtherIncomePayload = useEmbeddedStageStore((state) => state.jointOtherIncomePayload);
+    const jointAboutYouPayload = useEligibilityStageStore((state) => state.jointAboutYouPayload);
+    const jointCurrentAddressPayload = useEligibilityStageStore((state) => state.jointCurrentAddressPayload);
+    const jointCurrentEmploymentPayload = useEligibilityStageStore((state) => state.jointCurrentEmploymentPayload);
+    const jointOtherIncomePayload = useEligibilityStageStore((state) => state.jointOtherIncomePayload);
 
-    const marketingConsentPayload = useEmbeddedStageStore((state) => state.marketingConsentPayload);
+    const marketingConsentPayload = useEligibilityStageStore((state) => state.marketingConsentPayload);
 
-    const setAllOffersResponse = useEmbeddedStageStore((state) => state.setAllOffersResponse)
-    const allOffersResponse = useEmbeddedStageStore((state) => state.allOffersResponse);
+    const setAllOffersResponse = useEligibilityStageStore((state) => state.setAllOffersResponse)
+    const allOffersResponse = useEligibilityStageStore((state) => state.allOffersResponse);
 
     const savedJwtBearerToken = useGeneralStageStore((state) => state.jwtBearerToken);
 
@@ -57,18 +57,18 @@ const EmbeddedAllOffersPayloadStage = () => {
     const backRef = useRef(null);
     const continueRef = useRef(null);
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage);
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage);
 
-    const obfuscateOffers = useEmbeddedStageStore((state) => state.obfuscateOffers);
+    const obfuscateOffers = useEligibilityStageStore((state) => state.obfuscateOffers);
 
     const controller = new AbortController();
 
-    let mappedOtherIncomePayload = [] as EmbeddedOtherIncome[];
+    let mappedOtherIncomePayload = [] as EligibilityOtherIncome[];
 
-    let mappedJointOtherIncomePayload = [] as EmbeddedJointOtherIncome[];
+    let mappedJointOtherIncomePayload = [] as EligibilityJointOtherIncome[];
 
     const mapOtherIncomePayload = () => {
-        const otherIncome = [] as EmbeddedOtherIncome[]
+        const otherIncome = [] as EligibilityOtherIncome[]
 
         if (otherIncomePayload.income_1 > 0) {
             otherIncome.push({
@@ -88,7 +88,7 @@ const EmbeddedAllOffersPayloadStage = () => {
     }
 
     const mapJointOtherIncomePayload = () => {
-        const jointOtherIncome = [] as EmbeddedJointOtherIncome[]
+        const jointOtherIncome = [] as EligibilityJointOtherIncome[]
 
         if (jointOtherIncomePayload.income_1 > 0) {
             jointOtherIncome.push({
@@ -108,11 +108,11 @@ const EmbeddedAllOffersPayloadStage = () => {
     }
 
     useEffect(() => {
-        if (savedPanelType === EmbeddedPanelType.ALL) {
+        if (savedPanelType === EligibilityPanelType.ALL) {
             mappedOtherIncomePayload = mapOtherIncomePayload();
         }
 
-        if (savedPanelType === EmbeddedPanelType.SECURED) {
+        if (savedPanelType === EligibilityPanelType.SECURED) {
             mappedJointOtherIncomePayload = mapJointOtherIncomePayload();
         }
 
@@ -166,8 +166,8 @@ const EmbeddedAllOffersPayloadStage = () => {
         return input.split(",").map(numString => parseInt(numString.trim(), 10));
     }
 
-    function mapAboutYou(aboutYouPayload: EmbeddedAboutYouPayload): EmbeddedAboutYouPayloadWithDependentsAsList {
-        let asList: EmbeddedAboutYouPayloadWithDependentsAsList = {
+    function mapAboutYou(aboutYouPayload: EligibilityAboutYouPayload): EligibilityAboutYouPayloadWithDependentsAsList {
+        let asList: EligibilityAboutYouPayloadWithDependentsAsList = {
             ...aboutYouPayload,
             dependant_ages: stringToNumberArray(aboutYouPayload?.dependant_ages_comma_sep)
         };
@@ -184,19 +184,19 @@ const EmbeddedAllOffersPayloadStage = () => {
                 "reference": partnerDetailsPayload.partner_reference ? partnerDetailsPayload.partner_reference : undefined,
                 "campaign_code": partnerDetailsPayload.campaign_code ? partnerDetailsPayload.campaign_code : undefined,
                 "agree_terms": partnerDetailsPayload.agree_terms ? partnerDetailsPayload.agree_terms : YesNoValue.No,
-                ...(({"panel_type": EmbeddedPanelType[savedPanelType]}))
+                ...(({"panel_type": EligibilityPanelType[savedPanelType]}))
             },
 
-            ...((savedPanelType === EmbeddedPanelType.ALL
-                    || savedPanelType === EmbeddedPanelType.AUTOFINANCE
-                    || savedPanelType === EmbeddedPanelType.SECURED)
+            ...((savedPanelType === EligibilityPanelType.ALL
+                    || savedPanelType === EligibilityPanelType.AUTOFINANCE
+                    || savedPanelType === EligibilityPanelType.SECURED)
                 && {"Loan": {...loanPayload}}),
 
-            ...(savedPanelType === EmbeddedPanelType.CREDITCARD && {"Credit_Card": {...cardPayload}}),
+            ...(savedPanelType === EligibilityPanelType.CREDITCARD && {"Credit_Card": {...cardPayload}}),
 
-            ...(savedPanelType === EmbeddedPanelType.AUTOFINANCE && {"Auto_Finance": {...vehicleDetailsPayload}}),
+            ...(savedPanelType === EligibilityPanelType.AUTOFINANCE && {"Auto_Finance": {...vehicleDetailsPayload}}),
 
-            ...(savedPanelType === EmbeddedPanelType.SECURED && {"Property": {...securedPayload}}),
+            ...(savedPanelType === EligibilityPanelType.SECURED && {"Property": {...securedPayload}}),
 
             "Primary_Applicant": {
                 "Personal_Details": {
@@ -215,7 +215,7 @@ const EmbeddedAllOffersPayloadStage = () => {
                     ...expenditurePayload
                 },
 
-                ...(savedPanelType === EmbeddedPanelType.ALL && mappedOtherIncomePayload.length > 0 && {
+                ...(savedPanelType === EligibilityPanelType.ALL && mappedOtherIncomePayload.length > 0 && {
                     "Other_Income": mappedOtherIncomePayload
                 }),
 
@@ -224,7 +224,7 @@ const EmbeddedAllOffersPayloadStage = () => {
                 }
             },
 
-            ...(savedPanelType === EmbeddedPanelType.SECURED && requiresJointApplicant(aboutYouPayload) && {
+            ...(savedPanelType === EligibilityPanelType.SECURED && requiresJointApplicant(aboutYouPayload) && {
                 "Joint_Applicant": {
                     "About_You": {...jointAboutYouPayload},
                     "Current_Address": {...jointCurrentAddressPayload},
@@ -265,7 +265,7 @@ const EmbeddedAllOffersPayloadStage = () => {
         if (!useJwtToken) {
             const mockedResponses = await fetchMockedResponses();
 
-            const obfuscatedResult = obfuscateOfferResponseJson(obfuscateOffers, mockedResponses["EMBEDDED_" + EmbeddedPanelType[savedPanelType]]);
+            const obfuscatedResult = obfuscateOfferResponseJson(obfuscateOffers, mockedResponses["ELIGIBILITY_" + EligibilityPanelType[savedPanelType]]);
             let resultJson = JSON.stringify(obfuscatedResult, null, 2);
 
             setResult(resultJson);
@@ -406,4 +406,4 @@ const EmbeddedAllOffersPayloadStage = () => {
         </LoadingOverlayWrapper>
     );
 }
-export default EmbeddedAllOffersPayloadStage
+export default EligibilityAllOffersPayloadStage

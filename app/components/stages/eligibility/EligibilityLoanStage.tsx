@@ -2,17 +2,17 @@
 
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
-import {EmbeddedLoanPayload, EmbeddedPanelType, useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {EligibilityLoanPayload, EligibilityPanelType, useEligibilityStageStore} from "@/app/state/eligibility_stages";
 import {LoanPurpose} from "@/app/state/enum/Common";
-import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 
-const EmbeddedLoanStage = () => {
+const EligibilityLoanStage = () => {
 
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
-    const savedPanelType = useEmbeddedStageStore((state) => state.panelType);
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
+    const savedPanelType = useEligibilityStageStore((state) => state.panelType);
 
-    const savedLoanPayload = useEmbeddedStageStore((state) => state.loanPayload) as EmbeddedLoanPayload;
+    const savedLoanPayload = useEligibilityStageStore((state) => state.loanPayload) as EligibilityLoanPayload;
 
     const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
@@ -20,11 +20,11 @@ const EmbeddedLoanStage = () => {
     const savedLoanTerm = savedLoanPayload.loan_term;
     const savedLoanPurpose = savedLoanPayload.loan_purpose;
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage)
 
-    const setPayload = useEmbeddedStageStore((state) => state.setLoanPayload)
+    const setPayload = useEligibilityStageStore((state) => state.setLoanPayload)
 
-    const [formData, setFormData] = useState<EmbeddedLoanPayload>({
+    const [formData, setFormData] = useState<EligibilityLoanPayload>({
         loan_amount: savedLoanAmount ?? 10000,
         loan_term: savedLoanTerm ?? 24,
         loan_purpose: savedLoanPurpose ?? LoanPurpose['Debt Consolidation']
@@ -52,11 +52,11 @@ const EmbeddedLoanStage = () => {
             type: InputType.Enum,
             possibleValues: getPossibleValues(LoanPurpose),
             required: true,
-            readonly: savedPanelType === EmbeddedPanelType.AUTOFINANCE,
+            readonly: savedPanelType === EligibilityPanelType.AUTOFINANCE,
         },
     ]
 
-    const validate = (formData: EmbeddedLoanPayload) => {
+    const validate = (formData: EligibilityLoanPayload) => {
         const formErrors = {} as any
 
         if (!enableValidation) {
@@ -96,7 +96,7 @@ const EmbeddedLoanStage = () => {
     }, [formData, isSubmitted, errors])
 
     useEffect(() => {
-        if (savedPanelType === EmbeddedPanelType.AUTOFINANCE) {
+        if (savedPanelType === EligibilityPanelType.AUTOFINANCE) {
             formData["loan_purpose"] = LoanPurpose["Car Loan"];
         }
     }, [savedPanelType]);
@@ -104,8 +104,8 @@ const EmbeddedLoanStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title="Loan Details" canGoBack={true} inputFields={inputFields}
-                           submitFormData={submitFormData}/>
+        <EligibilityStageForm title="Loan Details" canGoBack={true} inputFields={inputFields}
+                              submitFormData={submitFormData}/>
     )
 }
-export default EmbeddedLoanStage
+export default EligibilityLoanStage

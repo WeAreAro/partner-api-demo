@@ -1,5 +1,5 @@
 {
-  "EMBEDDED_ALL": {
+  "ELIGIBILITY_ALL": {
     "status_messages": {
       "error_messages": [],
       "warning_messages": [],
@@ -9,7 +9,7 @@
     "offer_uuid": "e88cae5c-0d15-4bfd-9071-54af40b1bf70",
     "resume_url": "https://general-loans-to-go.com/offer.php"
   },
-  "EMBEDDED_CREDITCARD": {
+  "ELIGIBILITY_CREDITCARD": {
     "status_messages": {
       "error_messages": [],
       "warning_messages": [],
@@ -19,7 +19,7 @@
     "offer_uuid": "e88cae5c-0d15-4bfd-9071-54af40b1bf70",
     "resume_url": "https://cards-to-go.com/offer.php"
   },
-  "EMBEDDED_AUTOFINANCE": {
+  "ELIGIBILITY_AUTOFINANCE": {
     "status_messages": {
       "error_messages": [],
       "warning_messages": [],
@@ -29,7 +29,7 @@
     "offer_uuid": "e88cae5c-0d15-4bfd-9071-54af40b1bf70",
     "resume_url": "https://autofinance-to-go.com/offer.php"
   },
-  "EMBEDDED_SECURED": {
+  "ELIGIBILITY_SECURED": {
     "status_messages": {
       "error_messages": [],
       "warning_messages": [],

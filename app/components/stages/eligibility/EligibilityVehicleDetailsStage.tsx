@@ -3,15 +3,15 @@
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {VendorType, YesNoValue} from "@/app/state/enum/Common";
-import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
-import {EmbeddedVehicleDetailsPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
+import {EligibilityVehicleDetailsPayload, useEligibilityStageStore} from "@/app/state/eligibility_stages";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 
-const EmbeddedVehicleDetailsStage = () => {
+const EligibilityVehicleDetailsStage = () => {
 
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
-    const savedAutoFinancePayload = useEmbeddedStageStore((state) => state.vehicleDetailsPayload) as EmbeddedVehicleDetailsPayload;
+    const savedAutoFinancePayload = useEligibilityStageStore((state) => state.vehicleDetailsPayload) as EligibilityVehicleDetailsPayload;
 
     const savedVehicleFound = savedAutoFinancePayload?.vehicle_found;
     const savedExpectedAnnualMileage = savedAutoFinancePayload?.expected_annual_mileage;
@@ -21,13 +21,13 @@ const EmbeddedVehicleDetailsStage = () => {
     const savedVehicleRegistration = savedAutoFinancePayload?.vehicle_registration;
     const savedVehicleCurrentMileage = savedAutoFinancePayload?.vehicle_current_mileage;
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage)
 
-    const setPayload = useEmbeddedStageStore((state) => state.setVehicleDetailsPayload)
+    const setPayload = useEligibilityStageStore((state) => state.setVehicleDetailsPayload)
 
     const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
-    const [formData, setFormData] = useState<EmbeddedVehicleDetailsPayload>({
+    const [formData, setFormData] = useState<EligibilityVehicleDetailsPayload>({
         vehicle_found: savedVehicleFound ?? YesNoValue.Yes,
         expected_annual_mileage: savedExpectedAnnualMileage ?? 8000,
         vendor_type: savedVendorType ?? VendorType.Dealer,
@@ -81,7 +81,7 @@ const EmbeddedVehicleDetailsStage = () => {
         },
     ]
 
-    const validate = (formData: EmbeddedVehicleDetailsPayload) => {
+    const validate = (formData: EligibilityVehicleDetailsPayload) => {
         const formErrors = {} as any
 
         if (!enableValidation) {
@@ -107,8 +107,8 @@ const EmbeddedVehicleDetailsStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title="Vehicle Details" canGoBack={true} inputFields={inputFields}
-                           submitFormData={submitFormData}/>
+        <EligibilityStageForm title="Vehicle Details" canGoBack={true} inputFields={inputFields}
+                              submitFormData={submitFormData}/>
     )
 }
-export default EmbeddedVehicleDetailsStage
+export default EligibilityVehicleDetailsStage

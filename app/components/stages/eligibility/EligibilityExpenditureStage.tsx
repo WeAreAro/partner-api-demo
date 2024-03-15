@@ -2,21 +2,21 @@
 
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, InputType} from '../../InputField';
-import {EmbeddedExpenditurePayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
-import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {EligibilityExpenditurePayload, useEligibilityStageStore} from "@/app/state/eligibility_stages";
+import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 
-const EmbeddedExpenditureStage = () => {
+const EligibilityExpenditureStage = () => {
 
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
-    const savedMonthlyRent = useEmbeddedStageStore((state) => state.expenditurePayload?.monthly_mortgage_rent);
-    const savedMonthlyMortgageRentShare = useEmbeddedStageStore((state) => state.expenditurePayload?.monthly_mortgage_rent_share);
+    const savedMonthlyRent = useEligibilityStageStore((state) => state.expenditurePayload?.monthly_mortgage_rent);
+    const savedMonthlyMortgageRentShare = useEligibilityStageStore((state) => state.expenditurePayload?.monthly_mortgage_rent_share);
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
-    const setPayload = useEmbeddedStageStore((state) => state.setExpenditurePayload)
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage)
+    const setPayload = useEligibilityStageStore((state) => state.setExpenditurePayload)
 
-    const [formData, setFormData] = useState<EmbeddedExpenditurePayload>({
+    const [formData, setFormData] = useState<EligibilityExpenditurePayload>({
         monthly_mortgage_rent: savedMonthlyRent ?? 850,
         monthly_mortgage_rent_share: savedMonthlyMortgageRentShare,
     })
@@ -39,7 +39,7 @@ const EmbeddedExpenditureStage = () => {
 
     const [errors, setErrors] = useState({} as any);
 
-    const validate = (formData: EmbeddedExpenditurePayload) => {
+    const validate = (formData: EligibilityExpenditurePayload) => {
         const formErrors = {} as any
 
         if (!enableValidation) {
@@ -71,8 +71,8 @@ const EmbeddedExpenditureStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title={"Expenditure Details"} canGoBack={true} inputFields={inputFields}
-                           submitFormData={submitFormData}/>
+        <EligibilityStageForm title={"Expenditure Details"} canGoBack={true} inputFields={inputFields}
+                              submitFormData={submitFormData}/>
     )
 }
-export default EmbeddedExpenditureStage
+export default EligibilityExpenditureStage

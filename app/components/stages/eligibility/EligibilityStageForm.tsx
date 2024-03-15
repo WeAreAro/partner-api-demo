@@ -2,17 +2,17 @@
 
 import BearerTokenHeader from "@/app/components/BearerTokenHeader";
 import {hasTokenDefinedInEnv} from "@/app/utils/BearerUtils";
-import {useEmbeddedStageStore} from "@/app/state/embedded_stages";
-import EmbeddedStageNav from "@/app/components/stages/embedded/EmbeddedStageNav";
-import EmbeddedProgressBar from "@/app/components/stages/embedded/EmbeddedProgressBar";
+import {useEligibilityStageStore} from "@/app/state/eligibility_stages";
+import EligibilityStageNav from "@/app/components/stages/eligibility/EligibilityStageNav";
+import EligibilityProgressBar from "@/app/components/stages/eligibility/EligibilityProgressBar";
 import Switch from "react-switch";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 import {useState} from "react";
 
-export const EmbeddedStageForm = ({title, canGoBack, inputFields, submitFormData, goBackCount = 1}: any) => {
+export const EligibilityStageForm = ({title, canGoBack, inputFields, submitFormData, goBackCount = 1}: any) => {
 
-    const savedPanelType = useEmbeddedStageStore((state) => state.panelType)
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedPanelType = useEligibilityStageStore((state) => state.panelType)
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
     const enableValidation = useGeneralStageStore((state) => state.enableValidation);
     const setEnableValidation = useGeneralStageStore((state) => state.setEnableValidation);
@@ -33,14 +33,14 @@ export const EmbeddedStageForm = ({title, canGoBack, inputFields, submitFormData
             <form className="shadow-md rounded px-8 pt-6 pb-8 mb-4"
                   onSubmit={submitFormData}>
 
-                <EmbeddedProgressBar panelType={savedPanelType} currentStage={savedStage}/>
+                <EligibilityProgressBar panelType={savedPanelType} currentStage={savedStage}/>
 
                 <h2 className="text-center text-lg text-gray-900 font-bold">{title}</h2>
                 <br></br>
 
                 {inputFields}
 
-                <EmbeddedStageNav canGoBack={canGoBack} goBackCount={goBackCount}/>
+                <EligibilityStageNav canGoBack={canGoBack} goBackCount={goBackCount}/>
 
             </form>
 

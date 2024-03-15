@@ -3,25 +3,25 @@
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {Title} from "@/app/state/enum/Common";
-import {EmbeddedJointAboutYouPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
-import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {EligibilityJointAboutYouPayload, useEligibilityStageStore} from "@/app/state/eligibility_stages";
+import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 
-const EmbeddedJointAboutYouStage = () => {
+const EligibilityJointAboutYouStage = () => {
 
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
-    const savedTitle = useEmbeddedStageStore((state) => state.jointAboutYouPayload.title);
-    const savedFirstName = useEmbeddedStageStore((state) => state.jointAboutYouPayload?.first_name);
-    const savedSurname = useEmbeddedStageStore((state) => state.jointAboutYouPayload?.surname);
-    const savedEmail = useEmbeddedStageStore((state) => state.jointAboutYouPayload?.email);
-    const savedMobilePhone = useEmbeddedStageStore((state) => state.jointAboutYouPayload?.mobile_phone);
-    const savedDob = useEmbeddedStageStore((state) => state.jointAboutYouPayload?.dob);
+    const savedTitle = useEligibilityStageStore((state) => state.jointAboutYouPayload.title);
+    const savedFirstName = useEligibilityStageStore((state) => state.jointAboutYouPayload?.first_name);
+    const savedSurname = useEligibilityStageStore((state) => state.jointAboutYouPayload?.surname);
+    const savedEmail = useEligibilityStageStore((state) => state.jointAboutYouPayload?.email);
+    const savedMobilePhone = useEligibilityStageStore((state) => state.jointAboutYouPayload?.mobile_phone);
+    const savedDob = useEligibilityStageStore((state) => state.jointAboutYouPayload?.dob);
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
-    const setJointAboutYouPayload = useEmbeddedStageStore((state) => state.setJointAboutYouPayload)
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage)
+    const setJointAboutYouPayload = useEligibilityStageStore((state) => state.setJointAboutYouPayload)
 
-    const [formData, setFormData] = useState<EmbeddedJointAboutYouPayload>({
+    const [formData, setFormData] = useState<EligibilityJointAboutYouPayload>({
         title: savedTitle ?? Title.Mrs,
         first_name: savedFirstName ?? "Janet",
         surname: savedSurname ?? "Doe",
@@ -70,7 +70,7 @@ const EmbeddedJointAboutYouStage = () => {
         },
     ]
 
-    const validate = (formData: EmbeddedJointAboutYouPayload) => {
+    const validate = (formData: EligibilityJointAboutYouPayload) => {
         const formErrors = {} as any
 
         if (!enableValidation) {
@@ -122,8 +122,8 @@ const EmbeddedJointAboutYouStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title="Joint Applicant - Details" canGoBack={true} inputFields={inputFields}
-                           submitFormData={submitFormData}/>
+        <EligibilityStageForm title="Joint Applicant - Details" canGoBack={true} inputFields={inputFields}
+                              submitFormData={submitFormData}/>
     )
 }
-export default EmbeddedJointAboutYouStage
+export default EligibilityJointAboutYouStage

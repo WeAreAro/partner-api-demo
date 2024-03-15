@@ -2,29 +2,29 @@
 
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
-import {EmbeddedPartnerDetails, useEmbeddedStageStore} from "@/app/state/embedded_stages";
-import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {EligibilityPartnerDetails, useEligibilityStageStore} from "@/app/state/eligibility_stages";
+import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {YesNoValue} from "@/app/state/enum/Common";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 
-const EmbeddedPartnerDetailsStage = () => {
+const EligibilityPartnerDetailsStage = () => {
 
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
-    const savedPartnerDetails = useEmbeddedStageStore((state) => state.partnerDetailsPayload) as EmbeddedPartnerDetails;
+    const savedPartnerDetails = useEligibilityStageStore((state) => state.partnerDetailsPayload) as EligibilityPartnerDetails;
 
     const savedPartnerCode = savedPartnerDetails?.partner_code;
     const savedPartnerReference = savedPartnerDetails?.partner_reference;
     const savedCampaignCode = savedPartnerDetails?.campaign_code;
     const savedAgreeTerms = savedPartnerDetails?.agree_terms;
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage)
 
-    const setPayload = useEmbeddedStageStore((state) => state.setPartnerDetailsPayload)
+    const setPayload = useEligibilityStageStore((state) => state.setPartnerDetailsPayload)
 
     const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
-    const [formData, setFormData] = useState<EmbeddedPartnerDetails>({
+    const [formData, setFormData] = useState<EligibilityPartnerDetails>({
         partner_code: savedPartnerCode ?? "FFW-TEST",
         partner_reference: savedPartnerReference ?? "REFERENCE-1",
         campaign_code: savedCampaignCode ?? "CAMPAIGN-1",
@@ -56,7 +56,7 @@ const EmbeddedPartnerDetailsStage = () => {
         }
     ]
 
-    const validate = (formData: EmbeddedPartnerDetails) => {
+    const validate = (formData: EligibilityPartnerDetails) => {
         const formErrors = {} as any
 
         if (!enableValidation) {
@@ -82,8 +82,8 @@ const EmbeddedPartnerDetailsStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title="Partner details" canGoBack={false} inputFields={inputFields}
-                           submitFormData={submitFormData}/>
+        <EligibilityStageForm title="Partner details" canGoBack={false} inputFields={inputFields}
+                              submitFormData={submitFormData}/>
     )
 }
-export default EmbeddedPartnerDetailsStage
+export default EligibilityPartnerDetailsStage

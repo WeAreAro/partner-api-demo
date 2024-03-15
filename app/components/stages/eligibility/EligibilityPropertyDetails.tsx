@@ -2,16 +2,16 @@
 
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
-import {EmbeddedPropertyDetailsPayload, useEmbeddedStageStore} from "@/app/state/embedded_stages";
+import {EligibilityPropertyDetailsPayload, useEligibilityStageStore} from "@/app/state/eligibility_stages";
 import {PropertyType, YesNoValue} from "@/app/state/enum/Common";
-import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 
-const EmbeddedPropertyDetails = () => {
+const EligibilityPropertyDetails = () => {
 
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
-    const savedPropertyDetailsPayload = useEmbeddedStageStore((state) => state.propertyDetailsPayload) as EmbeddedPropertyDetailsPayload;
+    const savedPropertyDetailsPayload = useEligibilityStageStore((state) => state.propertyDetailsPayload) as EligibilityPropertyDetailsPayload;
 
     const savedEstimatedValue = savedPropertyDetailsPayload.estimated_value;
     const savedMortgageOutstanding = savedPropertyDetailsPayload.mortgage_outstanding;
@@ -29,13 +29,13 @@ const EmbeddedPropertyDetails = () => {
     const savedHelpToBuySettled = savedPropertyDetailsPayload.help_to_buy_settled;
     const savedHasOtherProperties = savedPropertyDetailsPayload.has_other_properties;
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage)
 
-    const setPayload = useEmbeddedStageStore((state) => state.setPropertyDetailsPayload)
+    const setPayload = useEligibilityStageStore((state) => state.setPropertyDetailsPayload)
 
     const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
-    const [formData, setFormData] = useState<EmbeddedPropertyDetailsPayload>({
+    const [formData, setFormData] = useState<EligibilityPropertyDetailsPayload>({
         estimated_value: savedEstimatedValue ?? 250000,
         mortgage_outstanding: savedMortgageOutstanding ?? 175000,
         mortgage_lender: savedMortgageLender ?? "Nationwide Building Society",
@@ -139,7 +139,7 @@ const EmbeddedPropertyDetails = () => {
         },
     ]
 
-    const validate = (formData: EmbeddedPropertyDetailsPayload) => {
+    const validate = (formData: EligibilityPropertyDetailsPayload) => {
         const formErrors = {} as any
 
         if (!enableValidation) {
@@ -165,8 +165,8 @@ const EmbeddedPropertyDetails = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title="Property Details" canGoBack={true} inputFields={inputFields}
-                           submitFormData={submitFormData}/>
+        <EligibilityStageForm title="Property Details" canGoBack={true} inputFields={inputFields}
+                              submitFormData={submitFormData}/>
     )
 }
-export default EmbeddedPropertyDetails
+export default EligibilityPropertyDetails

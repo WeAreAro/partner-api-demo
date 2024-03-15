@@ -4,30 +4,30 @@
 import React, {useEffect, useState} from 'react';
 import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
 import {YesNoValue} from "@/app/state/enum/Common";
-import {EmbeddedStageForm} from "@/app/components/stages/embedded/EmbeddedStageForm";
+import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {
-    EMBEDDED_JOINT_APPLICANT_STAGES,
-    EmbeddedMarketingConsentPayload,
-    useEmbeddedStageStore
-} from "@/app/state/embedded_stages";
+    ELIGIBILITY_JOINT_APPLICANT_STAGES,
+    EligibilityMarketingConsentPayload,
+    useEligibilityStageStore
+} from "@/app/state/eligibility_stages";
 import {requiresJointApplicant} from "@/app/utils/StageStepUtils";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 
-const EmbeddedMarketingConsentStage = () => {
+const EligibilityMarketingConsentStage = () => {
 
-    const savedStage = useEmbeddedStageStore((state) => state.currentStage);
+    const savedStage = useEligibilityStageStore((state) => state.currentStage);
 
-    const savedEmailOptIn = useEmbeddedStageStore((state) => state.marketingConsentPayload?.email_opt_in);
-    const savedTextOptIn = useEmbeddedStageStore((state) => state.marketingConsentPayload?.text_opt_in);
+    const savedEmailOptIn = useEligibilityStageStore((state) => state.marketingConsentPayload?.email_opt_in);
+    const savedTextOptIn = useEligibilityStageStore((state) => state.marketingConsentPayload?.text_opt_in);
 
-    const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage)
-    const setPayload = useEmbeddedStageStore((state) => state.setMarketingConsentPayload)
+    const setCurrentStage = useEligibilityStageStore((state) => state.setCurrentStage)
+    const setPayload = useEligibilityStageStore((state) => state.setMarketingConsentPayload)
 
-    const aboutYouPayload = useEmbeddedStageStore((state) => state.aboutYouPayload);
+    const aboutYouPayload = useEligibilityStageStore((state) => state.aboutYouPayload);
 
     const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
-    const [formData, setFormData] = useState<EmbeddedMarketingConsentPayload>({
+    const [formData, setFormData] = useState<EligibilityMarketingConsentPayload>({
         email_opt_in: savedEmailOptIn ?? YesNoValue.Yes,
         text_opt_in: savedTextOptIn ?? YesNoValue.Yes
     })
@@ -49,7 +49,7 @@ const EmbeddedMarketingConsentStage = () => {
 
     const [errors, setErrors] = useState({} as any);
 
-    const validate = (formData: EmbeddedMarketingConsentPayload) => {
+    const validate = (formData: EligibilityMarketingConsentPayload) => {
         const formErrors = {} as any
 
         if (!enableValidation) {
@@ -78,11 +78,11 @@ const EmbeddedMarketingConsentStage = () => {
     const inputFields = createInputFields(fields, formData, errors, setFormData)
 
     return (
-        <EmbeddedStageForm title={"Marketing Consent"}
-                           canGoBack={true}
-                           goBackCount={!requiresJointApplicant(aboutYouPayload) ? EMBEDDED_JOINT_APPLICANT_STAGES + 1 : 1}
-                           inputFields={inputFields}
-                           submitFormData={submitFormData}/>
+        <EligibilityStageForm title={"Marketing Consent"}
+                              canGoBack={true}
+                              goBackCount={!requiresJointApplicant(aboutYouPayload) ? ELIGIBILITY_JOINT_APPLICANT_STAGES + 1 : 1}
+                              inputFields={inputFields}
+                              submitFormData={submitFormData}/>
     )
 }
-export default EmbeddedMarketingConsentStage
+export default EligibilityMarketingConsentStage
