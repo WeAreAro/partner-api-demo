@@ -15,6 +15,7 @@ import {Accordion, AccordionItem as Item} from "@szhsin/react-accordion";
 import {requiresJointApplicant} from "@/app/utils/StageStepUtils";
 import {YesNoValue} from "@/app/state/enum/Common";
 import DismissableMessage from "@/app/components/DismissableMessage";
+import {obfuscateOfferResponseJson} from "@/app/utils/FormatUtils";
 
 const EmbeddedAllOffersPayloadStage = () => {
 
@@ -56,6 +57,8 @@ const EmbeddedAllOffersPayloadStage = () => {
     const continueRef = useRef(null);
 
     const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage);
+
+    const obfuscateOffers = useEmbeddedStageStore((state) => state.obfuscateOffers);
 
     const controller = new AbortController();
 
@@ -261,12 +264,13 @@ const EmbeddedAllOffersPayloadStage = () => {
         if (!useJwtToken) {
             const mockedResponses = await fetchMockedResponses();
 
-            let resultJson = JSON.stringify(mockedResponses["EMBEDDED_" + EmbeddedPanelType[savedPanelType]], null, 2);
+            const obfuscatedResult = obfuscateOfferResponseJson(obfuscateOffers, mockedResponses["EMBEDDED_" + EmbeddedPanelType[savedPanelType]]);
+            let resultJson = JSON.stringify(obfuscatedResult, null, 2);
 
             setResult(resultJson);
             setAllOffersResponse({
                 mocked: true,
-                response_json_as_object: mockedResponses["EMBEDDED_" + EmbeddedPanelType[savedPanelType]]
+                response_json_as_object: obfuscatedResult
             });
             setUsingMocks(true);
 
@@ -291,9 +295,10 @@ const EmbeddedAllOffersPayloadStage = () => {
                     setResult("Request timed out.");
                     setAllOffersResponse({mocked: true, response_json_as_object: undefined});
                 } else {
-                    let json = JSON.stringify(result, null, 2);
+                    const obfuscatedResult = obfuscateOfferResponseJson(obfuscateOffers, result);
+                    let json = JSON.stringify(obfuscatedResult, null, 2);
                     setResult(json);
-                    setAllOffersResponse({mocked: false, response_json_as_object: result});
+                    setAllOffersResponse({mocked: false, response_json_as_object: obfuscatedResult});
                 }
             })
             .catch(error => {

@@ -4,6 +4,7 @@ import {useGeneralStageStore} from "@/app/state/general_stages";
 import OfferTileLoan from "@/app/components/OfferTileLoan";
 import OfferTileCC from "@/app/components/OfferTileCC";
 import {Offer} from "@/app/state/offer_model";
+import {obfuscateLenderOfferValues} from "@/app/utils/FormatUtils";
 
 const EmbeddedOfferTilesStage = () => {
 
@@ -19,6 +20,8 @@ const EmbeddedOfferTilesStage = () => {
 
     const setCurrentStage = useEmbeddedStageStore((state) => state.setCurrentStage);
     const setOfferToProceed = useEmbeddedStageStore((state) => state.setOfferToProceed);
+
+    const obfuscateOffers = useEmbeddedStageStore((state) => state.obfuscateOffers);
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -42,18 +45,23 @@ const EmbeddedOfferTilesStage = () => {
         };
     }, []);
 
-    const flattenAndSortOffers = (offers) => {
+    const flattenAndSortOffers = (productOffers): Offer[] => {
         const ret = [] as Offer[];
 
-        for (const offer of offers) {
+        for (const offer of productOffers) {
             ret.push(...offer.product_offers);
         }
 
-        const sortedOffers = ret.filter(offer => offer.offer_display_rank !== null)
+        let sortedOffers = ret.filter(offer => offer.offer_display_rank !== null)
             .sort((a, b) => (a.offer_display_rank! - b.offer_display_rank!))
             .concat(ret.filter(offer => offer.offer_display_rank === null)
                 .sort((a, b) => (a.apr || 0) - (b.apr || 0))
             );
+
+        if (obfuscateOffers) {
+            console.log("Obfuscating offers...");
+            sortedOffers = obfuscateLenderOfferValues(sortedOffers);
+        }
 
         return sortedOffers;
     }

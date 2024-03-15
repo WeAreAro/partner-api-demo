@@ -294,9 +294,9 @@ export interface EmbeddedProceedResponse {
 
 export interface EmbeddedStageState {
     panelType: EmbeddedPanelType
+    obfuscateOffers: boolean
 
     currentStage: EmbeddedFormStageType
-    // previousStage: EmbeddedFormStageType
 
     // --------------------------------
 
@@ -326,6 +326,7 @@ export interface EmbeddedStageState {
     // --------------------------------
 
     setPanelType: (panelType: EmbeddedPanelType) => void
+    setObfuscateOffers: (obfuscateOffers: boolean) => void
 
     setCurrentStage: (currentStage: number) => void
     // setPreviousStage: (previousStage: number) => void
@@ -356,6 +357,7 @@ export interface EmbeddedStageState {
 
 export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
     panelType: EmbeddedPanelType.ALL,
+    obfuscateOffers: true,
 
     currentStage: EmbeddedLoanFormStage.PartnerDetailsStage,
     // previousStage: EmbeddedLoanFormStage.PartnerDetailsStage,
@@ -388,6 +390,7 @@ export const useEmbeddedStageStore = create<EmbeddedStageState>()((set) => ({
     // --------------------------------
 
     setPanelType: (panelType) => set((state) => ({panelType})),
+    setObfuscateOffers: (obfuscateOffers) => set((state) => ({obfuscateOffers})),
 
     setCurrentStage: (currentStage) => set((state) => ({currentStage})),
     // setPreviousStage: (previousStage) => set((state) => ({previousStage})),
