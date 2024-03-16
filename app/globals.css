@@ -315,4 +315,13 @@
     width: 202px;
     height: 202px;
     font-weight: bold;
+    filter: brightness(105%);
+}
+
+.demo-menu-choice-icon {
+    font-size: 50px;
+}
+
+.demo-menu-choice:hover .demo-menu-choice-icon {
+    font-size: 55px;
 }

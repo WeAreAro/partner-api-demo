@@ -22,14 +22,14 @@ const DemoMenu = () => {
                     <DemoMenuChoice title={"Unsecured Loan Offers"}
                                     location={"/UnsecuredForm"}
                                     backgroundColor={"#DFFEFF"}>
-                        <BsCashCoin style={{fontSize: 50}}/>
+                        <BsCashCoin className={"demo-menu-choice-icon"}/>
                     </DemoMenuChoice>
                 </div>
                 <div className="api-menu-item">
                     <DemoMenuChoice title={"Credit Card Offers"}
                                     location={"/CardForm"}
                                     backgroundColor={"#DFFEFF"}>
-                        <BsCreditCard style={{fontSize: 50}}/>
+                        <BsCreditCard className={"demo-menu-choice-icon"}/>
                     </DemoMenuChoice>
                 </div>
             </div>
@@ -39,28 +39,28 @@ const DemoMenu = () => {
                     <DemoMenuChoice title={"All Offers"}
                                     location={"/EligibilityAll"}
                                     backgroundColor={"#F1DAFF"}>
-                        <BsCashCoin style={{fontSize: 50}}/>
+                        <BsCashCoin className={"demo-menu-choice-icon"}/>
                     </DemoMenuChoice>
                 </div>
                 <div className="api-menu-item">
                     <DemoMenuChoice title={"Credit Card Offers"}
                                     location={"/EligibilityCard"}
                                     backgroundColor={"#F1DAFF"}>
-                        <BsCreditCard style={{fontSize: 50}}/>
+                        <BsCreditCard className={"demo-menu-choice-icon"}/>
                     </DemoMenuChoice>
                 </div>
                 <div className="api-menu-item">
                     <DemoMenuChoice title={"Auto Finance Offers"}
                                     location={"/EligibilityAutoFinance"}
                                     backgroundColor={"#F1DAFF"}>
-                        <FaCarSide style={{fontSize: 50}}/>
+                        <FaCarSide className={"demo-menu-choice-icon"}/>
                     </DemoMenuChoice>
                 </div>
                 <div className="api-menu-item">
                     <DemoMenuChoice title={"Secured Offers"}
                                     location={"/EligibilitySecured"}
                                     backgroundColor={"#F1DAFF"}>
-                        <BsHouseFill style={{fontSize: 50}}/>
+                        <BsHouseFill className={"demo-menu-choice-icon"}/>
                     </DemoMenuChoice>
                 </div>
             </div>
