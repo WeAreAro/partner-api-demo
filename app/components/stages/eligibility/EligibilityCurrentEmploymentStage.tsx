@@ -32,7 +32,7 @@ const EligibilityCurrentEmploymentStage = () => {
         employment_industry: savedEmploymentIndustry ?? EmploymentIndustry['Computers - Software'],
         employment_status: savedEmploymentStatus ?? EmploymentStatus['Full time'],
 
-        gross_income: savedGrossIncome ?? 26000,
+        gross_income: savedGrossIncome ?? 135000,
         emp_years: savedEmploymentYears ?? 2,
         emp_months: savedEmploymentMonths ?? 4,
 
