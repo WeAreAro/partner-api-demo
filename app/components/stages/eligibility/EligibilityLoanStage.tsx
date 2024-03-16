@@ -25,7 +25,7 @@ const EligibilityLoanStage = () => {
     const setPayload = useEligibilityStageStore((state) => state.setLoanPayload)
 
     const [formData, setFormData] = useState<EligibilityLoanPayload>({
-        loan_amount: savedLoanAmount ?? 10000,
+        loan_amount: savedLoanAmount ?? (savedPanelType === EligibilityPanelType.SECURED ? 30000 : 10000),
         loan_term: savedLoanTerm ?? 24,
         loan_purpose: savedLoanPurpose ?? LoanPurpose['Debt Consolidation']
     })

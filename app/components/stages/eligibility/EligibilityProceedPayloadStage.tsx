@@ -126,7 +126,9 @@ const EligibilityProceedPayloadStage = () => {
             .then(response => response.json())
             .then(result => {
                 if (result?.resume_url) {
-                    window.open(result?.resume_url, '_blank')?.focus();
+                    setTimeout(() => {
+                        window.open(result?.resume_url, '_blank')?.focus();
+                    }, 1000);
                 }
                 if (result?.toString().startsWith("Internal Server Error")) {
                     setResult("Request timed out.");
