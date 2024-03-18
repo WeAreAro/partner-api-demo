@@ -88,6 +88,26 @@ const EligibilityVehicleDetailsStage = () => {
             return formErrors;
         }
 
+        if (isNaN(formData.purchase_price) || formData?.purchase_price < 0) {
+            formErrors.purchase_price = "Please provide a purchase price in GBP. E.g 15000."
+        }
+
+        if (isNaN(formData.deposit_amount) || formData?.deposit_amount < 0) {
+            formErrors.deposit_amount = "Please provide a deposit amount in GBP. E.g 1000."
+        }
+
+        if ((!isNaN(formData.purchase_price) && !isNaN(formData.deposit_amount)) && (formData?.purchase_price <= formData?.deposit_amount)) {
+            formErrors.deposit_amount = "Deposit amount must be less than purchase price."
+        }
+
+        if (isNaN(formData.expected_annual_mileage) || formData?.expected_annual_mileage < 0) {
+            formErrors.expected_annual_mileage = "Please provide the estimated annual mileage of the vehicle."
+        }
+
+        if (isNaN(formData.vehicle_current_mileage) || formData?.vehicle_current_mileage < 0) {
+            formErrors.vehicle_current_mileage = "Please provide the current mileage of the vehicle."
+        }
+
         return formErrors
     }
 

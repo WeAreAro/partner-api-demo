@@ -146,6 +146,23 @@ const EligibilityPropertyDetails = () => {
             return formErrors;
         }
 
+        if (isNaN(formData.estimated_value) || formData?.estimated_value < 0) {
+            formErrors.estimated_value = "Please provide an estimated value in GBP. E.g 100000."
+        }
+
+        if (isNaN(formData.mortgage_outstanding) || formData?.mortgage_outstanding < 0) {
+            formErrors.mortgage_outstanding = "Please provide an outstanding mortgage value in GBP. E.g 100000."
+        }
+
+        if (isNaN(formData.council_discount_amount) || formData?.council_discount_amount < 0) {
+            formErrors.mortgage_outstanding = "Please provide a council discount amount value in GBP. E.g 10000."
+        }
+
+        const dobRegex = new RegExp(/^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([1][26]|[2468][048]|[3579][26])00))))$/g);
+        if (!formData.purchase_date || !dobRegex.test(formData.purchase_date)) {
+            formErrors.purchase_date = "Purchase Date is required in the format: dd/MM/yyyy"
+        }
+
         return formErrors
     }
 
