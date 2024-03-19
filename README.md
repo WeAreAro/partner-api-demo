@@ -16,7 +16,7 @@ It *is intended* to provide clarity on the:
 
 The documentation is available [here](https://developer.aro.co.uk/).
 
-A live version of this demo can be found [here](https://partner-api-demo.freedom-finance-test.cloud/)
+A live version of this demo can be found [here](https://partner-api-demo.freedom-finance-test.cloud/DemoMenu)
 
 ## Adding your API Bearer Token to the Environment
 
