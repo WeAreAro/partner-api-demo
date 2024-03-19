@@ -11,6 +11,7 @@ import {
 import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {requiresJointApplicant} from "@/app/utils/StageStepUtils";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 const EligibilityOtherIncomeStage = () => {
 
@@ -68,10 +69,15 @@ const EligibilityOtherIncomeStage = () => {
     ]
 
     const validate = (formData: EligibilityOtherIncomePayload) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, allFields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         return formErrors

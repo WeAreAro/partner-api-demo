@@ -6,6 +6,7 @@ import {OtherIncomeDescription, OtherIncomePeriod} from "@/app/state/enum/Common
 import {EligibilityJointOtherIncomePayload, useEligibilityStageStore} from "@/app/state/eligibility_stages";
 import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 const EligibilityJointOtherIncomeStage = () => {
 
@@ -61,10 +62,15 @@ const EligibilityJointOtherIncomeStage = () => {
     ]
 
     const validate = (formData: EligibilityJointOtherIncomePayload) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, allFields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         return formErrors

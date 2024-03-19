@@ -6,6 +6,7 @@ import {MaritalStatus, ResidentialStatus, Title, UkDrivingLicenceType} from "@/a
 import {EligibilityAboutYouPayload, useEligibilityStageStore} from "@/app/state/eligibility_stages";
 import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 const EligibilityAboutYouStage = () => {
 
@@ -117,10 +118,15 @@ const EligibilityAboutYouStage = () => {
     ]
 
     const validate = (formData: EligibilityAboutYouPayload) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, fields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         if (!formData.first_name) {

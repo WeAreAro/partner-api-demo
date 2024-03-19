@@ -6,6 +6,7 @@ import {createInputFields, Field, getPossibleValues, InputType} from '../../Inpu
 import {StageForm} from './StageForm';
 import {YesNoValue} from "@/app/state/enum/Common";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 const CardStage = () => {
 
@@ -57,10 +58,15 @@ const CardStage = () => {
     ]
 
     const validate = (formData: RedirectCardPayload) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, fields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         return formErrors

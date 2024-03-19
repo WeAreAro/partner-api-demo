@@ -6,6 +6,7 @@ import {createInputFields, Field, getPossibleValues, InputType} from '../../Inpu
 import {StageForm} from './StageForm';
 import {LoanPurpose} from "@/app/state/enum/Common";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 const LoanStage = () => {
 
@@ -55,10 +56,15 @@ const LoanStage = () => {
     ]
 
     const validate = (formData: RedirectLoanPayload) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, fields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         if (isNaN(formData.loan_amount)) {

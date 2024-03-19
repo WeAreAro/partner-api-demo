@@ -6,6 +6,7 @@ import {EligibilityLoanPayload, EligibilityPanelType, useEligibilityStageStore} 
 import {LoanPurpose} from "@/app/state/enum/Common";
 import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 const EligibilityLoanStage = () => {
 
@@ -57,10 +58,15 @@ const EligibilityLoanStage = () => {
     ]
 
     const validate = (formData: EligibilityLoanPayload) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, fields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         if (isNaN(formData.loan_amount)) {

@@ -5,6 +5,7 @@ import {createInputFields, Field, InputType} from '../../InputField';
 import {EligibilityExpenditurePayload, useEligibilityStageStore} from "@/app/state/eligibility_stages";
 import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 const EligibilityExpenditureStage = () => {
 
@@ -40,10 +41,15 @@ const EligibilityExpenditureStage = () => {
     const [errors, setErrors] = useState({} as any);
 
     const validate = (formData: EligibilityExpenditurePayload) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, fields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         if (isNaN(formData.monthly_mortgage_rent) || formData?.monthly_mortgage_rent > 1000000) {

@@ -6,6 +6,7 @@ import {createInputFields, Field, getPossibleValues, InputType} from '../../Inpu
 import {StageForm} from './StageForm';
 import {OtherIncomeDescription, OtherIncomePeriod} from "@/app/state/enum/Common";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 const OtherIncomeStage = () => {
 
@@ -61,10 +62,15 @@ const OtherIncomeStage = () => {
     ]
 
     const validate = (formData: RedirectOtherIncomePayload) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, allFields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         return formErrors

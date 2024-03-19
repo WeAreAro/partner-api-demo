@@ -12,6 +12,7 @@ import {
 } from "@/app/state/eligibility_stages";
 import {requiresJointApplicant} from "@/app/utils/StageStepUtils";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 const EligibilityMarketingConsentStage = () => {
 
@@ -50,10 +51,15 @@ const EligibilityMarketingConsentStage = () => {
     const [errors, setErrors] = useState({} as any);
 
     const validate = (formData: EligibilityMarketingConsentPayload) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, fields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         return formErrors

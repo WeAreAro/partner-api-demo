@@ -6,6 +6,7 @@ import {createInputFields, Field, getPossibleValues, InputType} from '../../Inpu
 import {StageForm} from './StageForm';
 import {MaritalStatus, ResidentialStatus, Title} from "@/app/state/enum/Common";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 const AboutYouStage = () => {
 
@@ -109,10 +110,15 @@ const AboutYouStage = () => {
     ]
 
     const validate = (formData: RedirectAboutYouPayload) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, fields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         if (!formData.forename) {

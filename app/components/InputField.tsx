@@ -143,7 +143,8 @@ export const InputField = (props: Props) => {
                 onChange={props.onChange}
                 disabled={props.readonly}>
                 {renderEnumOptions()}
-            </select></div>)
+            </select>{props.error && <span
+                className="text-red-500 text-xs italic">{props.error}</span>}</div>)
     } else {
         if (props.type === InputType.String) {
             return renderTextField()

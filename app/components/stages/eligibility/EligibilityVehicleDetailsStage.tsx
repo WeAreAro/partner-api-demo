@@ -6,6 +6,7 @@ import {VendorType, YesNoValue} from "@/app/state/enum/Common";
 import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {EligibilityVehicleDetailsPayload, useEligibilityStageStore} from "@/app/state/eligibility_stages";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 const EligibilityVehicleDetailsStage = () => {
 
@@ -82,10 +83,15 @@ const EligibilityVehicleDetailsStage = () => {
     ]
 
     const validate = (formData: EligibilityVehicleDetailsPayload) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, fields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         if (isNaN(formData.purchase_price) || formData?.purchase_price < 0) {

@@ -6,6 +6,7 @@ import {EligibilityPropertyDetailsPayload, useEligibilityStageStore} from "@/app
 import {PropertyType, YesNoValue} from "@/app/state/enum/Common";
 import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 const EligibilityPropertyDetails = () => {
 
@@ -140,10 +141,15 @@ const EligibilityPropertyDetails = () => {
     ]
 
     const validate = (formData: EligibilityPropertyDetailsPayload) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, fields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         if (isNaN(formData.estimated_value) || formData?.estimated_value < 0) {

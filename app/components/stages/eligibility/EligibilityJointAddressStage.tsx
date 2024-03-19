@@ -9,6 +9,7 @@ import {
 } from "@/app/state/eligibility_stages";
 import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 interface Props {
     title: string,
@@ -109,10 +110,15 @@ const EligibilityJointAddressStage = ({title, addressPayloadName, addressPayload
 
 
     const validate = (formData: EligibilityAddressPayload) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, fields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         if (!formData.street) {

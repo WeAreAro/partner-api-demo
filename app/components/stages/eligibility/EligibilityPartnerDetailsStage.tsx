@@ -6,6 +6,7 @@ import {EligibilityPartnerDetails, useEligibilityStageStore} from "@/app/state/e
 import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {YesNoValue} from "@/app/state/enum/Common";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 const EligibilityPartnerDetailsStage = () => {
 
@@ -57,10 +58,15 @@ const EligibilityPartnerDetailsStage = () => {
     ]
 
     const validate = (formData: EligibilityPartnerDetails) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, fields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         return formErrors

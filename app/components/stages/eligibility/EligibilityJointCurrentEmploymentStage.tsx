@@ -7,6 +7,7 @@ import {EmploymentStatus} from "@/app/state/enum/Common";
 import {EligibilityJointEmploymentPayload, useEligibilityStageStore} from "@/app/state/eligibility_stages";
 import {EligibilityStageForm} from "@/app/components/stages/eligibility/EligibilityStageForm";
 import {useGeneralStageStore} from "@/app/state/general_stages";
+import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
 const EligibilityJointCurrentEmploymentStage = () => {
 
@@ -94,10 +95,15 @@ const EligibilityJointCurrentEmploymentStage = () => {
 
 
     const validate = (formData: EligibilityJointEmploymentPayload) => {
-        const formErrors = {} as any
+        let formErrors = {} as any
 
         if (!enableValidation) {
             return formErrors;
+        }
+
+        const missingRequiredFields = checkRequiredFields(formData, allFields);
+        if (Object.keys(missingRequiredFields).length > 0) {
+            formErrors = {...formErrors, ...missingRequiredFields}
         }
 
         if (shouldHaveAnIncome(formData?.employment_status)) {
