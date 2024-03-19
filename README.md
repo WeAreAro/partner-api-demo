@@ -98,6 +98,15 @@ You can toggle whether validation is available by using the switch at the bottom
 
 ![img_validation_toggle.png](docs/img_validation_toggle.png)
 
+## Some Useful Info
+
+1. Form data is pre-populated to make it easier to work with the APIs - you can change the field data per your own needs
+    - This includes the `Partner Code` field that you can populate with your own code when supplied by Aro, which along
+      with the Sandbox API token to allow you to make API calls and use the Lending Panel configured for your account.
+1. Use the Left and Right cursor keys to quickly navigate the UI (without the need to find and click the Back and
+   Continue buttons) - make sure you're not focused on a UI field though
+1. The UI has been built to be responsive and will also work on a mobile (or small screen) device
+
 ## Components
 
 Bootstrapping common components from TailWindCSS.
