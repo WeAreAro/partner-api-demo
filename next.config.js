@@ -12,7 +12,7 @@ const nextConfig = {
         return [
             {
                 source: '/',
-                destination: '/UnsecuredForm',
+                destination: '/DemoMenu',
                 permanent: true,
             },
         ]

@@ -3,14 +3,16 @@
 The purpose of this project is to provide an example of how a Partner could implement the API within a modern frontend
 stack.
 
-It *is not intended* for production. It is not optimized and fails to use React optimizations and recommendations.
+It *is not intended* for production (it is not optimized and doesn't necessarily use React optimizations and
+recommendations).
 
 It *is intended* to provide clarity on the:
 
 1. The expected payload and how it is handled for each journey.
 2. Basic validation expected around required fields.
-3. The conditional logic around certain aspects of the form such as if the applicant is retired.
-4. How the result looks and could be handled.
+3. The conditional logic around certain aspects of the form (such as if the applicant is retired).
+4. How the API requests are constructed and results handled.
+5. How the API results can be displayed and interacted with.
 
 The documentation is available [here](https://developer.aro.co.uk/).
 
@@ -52,7 +54,7 @@ After entering a valid token, the lock should close. Now whenever you make API r
 
 ![img_2.png](docs/img_locked.png)
 
-## Getting Started
+## Getting Started for Development
 
 Next, run the development server:
 
@@ -61,12 +63,40 @@ npm i next
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to test that the application runs OK.
+Open [http://localhost:3000/DemoMenu](http://localhost:3000) with your browser to test that the application runs OK.
 
-There are two journeys that are available for use:
+You will be presented with a menu page as follows that allows you to access each of the journeys supported by the APIs:
 
-1. [http://localhost:3000/UnsecuredForm](http://localhost:3000/UnsecuredForm) for the Loan redirect journey
-1. [http://localhost:3000/CardForm](http://localhost:3000/CardForm) for the Credit Card redirect journey
+![img_demo.png](docs/img_demo_menu.png)
+
+Alternatively you can access each journey individually:
+
+1. [http://localhost:3000/UnsecuredForm](http://localhost:3000/UnsecuredForm) for the Redirect Loan journey
+1. [http://localhost:3000/CardForm](http://localhost:3000/CardForm) for the Redirect Credit Card journey
+1. [http://localhost:3000/EligibilityAll](http://localhost:3000/CardForm) for the Eligibility All Offers journey
+1. [http://localhost:3000/EligibilityCard](http://localhost:3000/CardForm) for the Eligibility Credit Card journey
+1. [http://localhost:3000/EligibilityAutoFinance](http://localhost:3000/CardForm) for the Eligibility Auto Finance
+   journey
+1. [http://localhost:3000/EligibilitySecured](http://localhost:3000/CardForm) for the Eligibility Secured journey
+
+## Running a Production Build
+
+A faster Production build can be run using these commands:
+
+```bash
+npm run build
+npm start
+```
+
+## Form Validation
+
+Simple form validation (such as required fields) is switched on by default. It can be useful to be able to play with the
+data and observe how the API responses changes, so for this reason it is possible to *switch off* validation so that
+fields can be left empty or have invalid data.
+
+You can toggle whether validation is available by using the switch at the bottom of the form:
+
+![img_validation_toggle.png](docs/img_validation_toggle.png)
 
 ## Components
 
