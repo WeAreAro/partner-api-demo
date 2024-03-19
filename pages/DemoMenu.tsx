@@ -19,14 +19,14 @@ const DemoMenu = () => {
             <div className="api-menu-title">Redirect API Examples</div>
             <div className="api-menu-container">
                 <div className="api-menu-item">
-                    <DemoMenuChoice title={"Unsecured Loan Offers"}
+                    <DemoMenuChoice title={"Unsecured Loans"}
                                     location={"/UnsecuredForm"}
                                     backgroundColor={"#DFFEFF"}>
                         <BsCashCoin className={"demo-menu-choice-icon"}/>
                     </DemoMenuChoice>
                 </div>
                 <div className="api-menu-item">
-                    <DemoMenuChoice title={"Credit Card Offers"}
+                    <DemoMenuChoice title={"Credit Cards"}
                                     location={"/CardForm"}
                                     backgroundColor={"#DFFEFF"}>
                         <BsCreditCard className={"demo-menu-choice-icon"}/>
