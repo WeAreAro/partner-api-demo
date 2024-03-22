@@ -26,7 +26,7 @@ const EligibilityPartnerDetailsStage = () => {
     const enableValidation = useGeneralStageStore((state) => state.enableValidation);
 
     const [formData, setFormData] = useState<EligibilityPartnerDetails>({
-        partner_code: savedPartnerCode ?? "FFW-TEST",
+        partner_code: savedPartnerCode ?? "QAPARTNER-TEST",
         partner_reference: savedPartnerReference ?? "REFERENCE-1",
         campaign_code: savedCampaignCode ?? "CAMPAIGN-1",
         agree_terms: savedAgreeTerms ?? YesNoValue.Yes
