@@ -42,5 +42,6 @@ export interface Offer {
     rep_example_text: string
     product_logo_url: string
     proceed_url: string
+    proceed_url_redirect: string
     product_attributes?: OfferProductAttributes
 }
