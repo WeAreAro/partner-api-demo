@@ -86,6 +86,8 @@ const EligibilityOfferTilesStage = () => {
                 // URL needs to be unsecured to work (probably with a one-time or time-expired token)
                 const getUrl = process.env.API_BASE_URL + offer.proceed_url_redirect;
                 console.log("Offer GET Url :", getUrl);
+                window.alert("You are now leaving this website to go to the Lender's website. Please press BACK in the " +
+                    "browser if you wish to return after having left.");
                 window.location.href = getUrl;
 
                 /*
