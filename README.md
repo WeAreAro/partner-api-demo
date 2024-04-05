@@ -114,3 +114,9 @@ Bootstrapping common components from TailWindCSS.
 ## Aro Sandbox API
 
 It currently uses [`next.config.js`] to bypass CORS for local development.
+
+## Upgrading NextJS version
+
+```
+npm i next@latest react@latest react-dom@latest eslint-config-next@latest
+```
