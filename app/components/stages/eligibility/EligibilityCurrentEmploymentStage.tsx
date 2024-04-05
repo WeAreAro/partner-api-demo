@@ -31,7 +31,7 @@ const EligibilityCurrentEmploymentStage = () => {
         employer_name: savedEmployerName ?? "Aro",
 
         employment_industry: savedEmploymentIndustry ?? EmploymentIndustry['Computers - Software'],
-        employment_status: savedEmploymentStatus ?? EmploymentStatus['Full time'],
+        employment_status: savedEmploymentStatus ?? EmploymentStatus['Employed'],
 
         gross_income: savedGrossIncome ?? 135000,
         emp_years: savedEmploymentYears ?? 2,
@@ -149,9 +149,6 @@ const EligibilityCurrentEmploymentStage = () => {
     const shouldHaveAnIncome = (status: EmploymentStatus) => {
         switch (status) {
             case EmploymentStatus.Retired:
-            case EmploymentStatus.Homemaker:
-            case EmploymentStatus.Student:
-            case EmploymentStatus['Part time Self-employed']:
             case EmploymentStatus.Unemployed:
                 return false;
 
