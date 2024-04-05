@@ -32,7 +32,7 @@ const EligibilityJointCurrentEmploymentStage = () => {
         employer_name: savedEmployerName ?? "NHS",
 
         employment_industry: savedEmploymentIndustry ?? EmploymentIndustry['Health Care - NHS'],
-        employment_status: savedEmploymentStatus ?? EmploymentStatus['Part time'],
+        employment_status: savedEmploymentStatus ?? EmploymentStatus['Unemployed'],
 
         gross_income: savedGrossIncome ?? 13400,
         emp_years: savedEmploymentYears ?? 18,
@@ -136,9 +136,6 @@ const EligibilityJointCurrentEmploymentStage = () => {
     const shouldHaveAnIncome = (status: EmploymentStatus) => {
         switch (status) {
             case EmploymentStatus.Retired:
-            case EmploymentStatus.Homemaker:
-            case EmploymentStatus.Student:
-            case EmploymentStatus['Part time Self-employed']:
             case EmploymentStatus.Unemployed:
                 return false;
 

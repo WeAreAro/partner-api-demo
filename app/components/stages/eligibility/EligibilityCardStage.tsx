@@ -26,8 +26,8 @@ const EligibilityCardStage = () => {
 
     const [formData, setFormData] = useState<EligibilityCardPayload>({
         cash_advance: savedCashAdvance ?? YesNoValue.Yes,
-        balance_transfer: savedBalanceTransfer ?? YesNoValue.Yes,
-        balance_transfer_amount: savedBalanceTransferAmount ?? 4000
+        balance_transfer: savedBalanceTransfer ?? YesNoValue.No,
+        balance_transfer_amount: savedBalanceTransferAmount ?? 100
     })
 
     const [errors, setErrors] = useState({} as any);

@@ -50,15 +50,11 @@ export enum LoanPurpose {
 }
 
 export enum EmploymentStatus {
+    "Employed" = "E",
     "Self Employed" = "S",
-    "Full time" = "E",
-    "Part time" = "P",
-
+    "Contractor" = "C",
     "Retired" = "R",
-    "Homemaker" = "H",
-    "Student" = "F",
-    "Part time Self-employed" = "M",
-    "Unemployed" = "U",
+    "Unemployed" = "U"
 }
 
 export enum YesNoValue {

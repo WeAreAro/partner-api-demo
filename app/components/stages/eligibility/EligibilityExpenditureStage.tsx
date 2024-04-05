@@ -19,7 +19,7 @@ const EligibilityExpenditureStage = () => {
 
     const [formData, setFormData] = useState<EligibilityExpenditurePayload>({
         monthly_mortgage_rent: savedMonthlyRent ?? 850,
-        monthly_mortgage_rent_share: savedMonthlyMortgageRentShare,
+        monthly_mortgage_rent_share: savedMonthlyMortgageRentShare ?? 400,
     })
 
     const enableValidation = useGeneralStageStore((state) => state.enableValidation);
@@ -52,8 +52,18 @@ const EligibilityExpenditureStage = () => {
             formErrors = {...formErrors, ...missingRequiredFields}
         }
 
-        if (isNaN(formData.monthly_mortgage_rent) || formData?.monthly_mortgage_rent > 1000000) {
+        if (isNaN(formData.monthly_mortgage_rent) || formData?.monthly_mortgage_rent > 1000000
+            || formData?.monthly_mortgage_rent < 0) {
             formErrors.monthly_mortgage_rent = "Please provide a valid number of £."
+        }
+
+        if (!isNaN(formData?.monthly_mortgage_rent_share) && formData?.monthly_mortgage_rent_share < 0) {
+            formErrors.monthly_mortgage_rent_share = "Please provide a valid number of £."
+        }
+
+        if (!isNaN(formData?.monthly_mortgage_rent) && !isNaN(formData?.monthly_mortgage_rent_share) &&
+            (formData?.monthly_mortgage_rent_share > formData?.monthly_mortgage_rent)) {
+            formErrors.monthly_mortgage_rent_share = "Your share cannot exceed the monthly amount."
         }
 
         return formErrors
