@@ -104,6 +104,10 @@
     padding: 10px;
 }
 
+.api-key-header-open {
+    padding: 0 10px 10px 10px;
+}
+
 /* Offer Tile */
 
 .offerTileContainer {

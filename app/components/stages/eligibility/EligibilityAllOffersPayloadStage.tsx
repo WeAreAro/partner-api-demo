@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {hasTokenDefinedInEnv, isValidJwtBearerToken} from "@/app/utils/BearerUtils";
+import {hasApiKeyDefinedInEnv, hasTokenDefinedInEnv, isValidJwtBearerToken} from "@/app/utils/BearerUtils";
 import {
     EligibilityAboutYouPayload,
     EligibilityAboutYouPayloadWithDependentsAsList,
@@ -47,6 +47,7 @@ const EligibilityAllOffersPayloadStage = () => {
     const allOffersResponse = useEligibilityStageStore((state) => state.allOffersResponse);
 
     const savedJwtBearerToken = useGeneralStageStore((state) => state.jwtBearerToken);
+    const savedApiKey = useGeneralStageStore((state) => state.apiKey);
 
     const [allOffersUrl, setAllOffersUrl] = useState("");
     const [payload, setPayload] = useState("");
@@ -252,12 +253,21 @@ const EligibilityAllOffersPayloadStage = () => {
         setResult("Loading ... Please wait.");
 
         let useJwtToken = undefined;
+        let useApiKey = undefined;
 
         if (hasTokenDefinedInEnv()) {
             useJwtToken = process.env.NEXT_PUBLIC_API_BEARER_TOKEN;
         } else if (isValidJwtBearerToken(savedJwtBearerToken)) {
             useJwtToken = savedJwtBearerToken;
         }
+
+        if (hasApiKeyDefinedInEnv()) {
+            useApiKey = process.env.NEXT_PUBLIC_API_KEY;
+        } else {
+            useApiKey = savedApiKey;
+        }
+
+        console.log("Using Bearer Token and API Key", useJwtToken, useApiKey);
 
         const url = "/ff-api/partner/v1/quote/all-offers";
         setAllOffersUrl(url);
@@ -282,6 +292,7 @@ const EligibilityAllOffersPayloadStage = () => {
 
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", "Bearer " + useJwtToken); // See README.md
+        myHeaders.append("x-api-key", useApiKey ?? "");
 
         const requestOptions = {
             method: 'POST',

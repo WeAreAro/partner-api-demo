@@ -1,7 +1,7 @@
 'use client';
 
 import BearerTokenHeader from "@/app/components/BearerTokenHeader";
-import {hasTokenDefinedInEnv} from "@/app/utils/BearerUtils";
+import {hasBothTokenAndApiKeyDefined} from "@/app/utils/BearerUtils";
 import {useEligibilityStageStore} from "@/app/state/eligibility_stages";
 import EligibilityStageNav from "@/app/components/stages/eligibility/EligibilityStageNav";
 import EligibilityProgressBar from "@/app/components/stages/eligibility/EligibilityProgressBar";
@@ -26,7 +26,7 @@ export const EligibilityStageForm = ({title, canGoBack, inputFields, submitFormD
 
     return (
         <div className="m-auto w-full max-w-xs">
-            {!hasTokenDefinedInEnv() &&
+            {!hasBothTokenAndApiKeyDefined() &&
                 <BearerTokenHeader/>
             }
 

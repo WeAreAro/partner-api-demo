@@ -3,7 +3,7 @@
 import {useRedirectStageStore} from "../../../state/redirect_stages";
 import StageNav from "./StageNav";
 import BearerTokenHeader from "@/app/components/BearerTokenHeader";
-import {hasTokenDefinedInEnv} from "@/app/utils/BearerUtils";
+import {hasBothTokenAndApiKeyDefined} from "@/app/utils/BearerUtils";
 import RedirectProgressBar from "@/app/components/stages/redirect/RedirectProgressBar";
 import Switch from "react-switch";
 import {useGeneralStageStore} from "@/app/state/general_stages";
@@ -26,7 +26,7 @@ export const StageForm = ({title, canGoBack, inputFields, submitFormData, goBack
 
     return (
         <div className="m-auto w-full max-w-xs">
-            {!hasTokenDefinedInEnv() &&
+            {!hasBothTokenAndApiKeyDefined() &&
                 <BearerTokenHeader/>
             }
 
