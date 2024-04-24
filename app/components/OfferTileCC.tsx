@@ -1,5 +1,4 @@
 import {Offer} from "@/app/state/offer_model";
-import {formatNumber} from "@/app/utils/FormatUtils";
 
 interface Props {
     offer: Offer
@@ -9,18 +8,11 @@ interface Props {
 const OfferTileCC = (props: Props) => {
 
     const getCreditLimit = (offer: Offer): string => {
-        // From £{formatNumber(props?.offer?.product_attributes?.credit_limit_min)} to £{formatNumber(props?.offer?.product_attributes?.credit_limit_max)}
-        if (offer?.product_attributes?.credit_limit_min && offer?.product_attributes?.credit_limit_max) {
-            return "From £" + formatNumber(offer.product_attributes.credit_limit_min) + " to £" + formatNumber(offer.product_attributes.credit_limit_max)
-        } else if (offer?.product_attributes?.credit_limit_3) {
-            return offer.product_attributes.credit_limit_3
-        } else {
-            return "";
-        }
+        return "Up to £2500";
     }
 
     return (<div className={"offerTileContainer"}>
-            <div className={"offerTile flexContainer"}>
+            <div className={"offerTile flexContainer offerTileBottomCC"}>
                 <div className="flexColumn flexColumnBorder">
                     <div className={"offerTileColumnInnerPadding"} style={{height: "100%"}}>
                         <div style={{display: "block"}}>
@@ -34,10 +26,9 @@ const OfferTileCC = (props: Props) => {
                     <div className="flexColumnSplit">
                         <div className={"offerTileColumnInnerPadding"} style={{backgroundColor: "#E4FDD9"}}>
                             <div style={{display: "block"}}>
-                                <span className="offerEmphasisedText">{props?.offer?.product_attributes?.apr}%</span>
+                                <span className="offerEmphasisedText">{props?.offer?.apr}%</span>
                                 <br/>
-                                <span>{props?.offer?.product_attributes?.apr_label_1}</span>&nbsp;
-                                <span>{props?.offer?.product_attributes?.apr_label_2}</span>
+                                <span>Guaranteed APR</span>&nbsp;<span></span>
                             </div>
                         </div>
                     </div>
@@ -45,10 +36,9 @@ const OfferTileCC = (props: Props) => {
                     <div className="flexColumnSplit">
                         <div className={"offerTileColumnInnerPadding"}>
                             <div style={{display: "block"}}>
-                                <span>{props?.offer?.product_attributes?.purchases_1}</span>
+                                <span>Balance Transfer Available</span>
                                 <br/>
-                                <span
-                                    className="offerEmphasisedText">{props?.offer?.product_attributes?.purchases_3}</span>
+                                <span className="offerEmphasisedText"></span>
                             </div>
                         </div>
                     </div>
@@ -67,10 +57,9 @@ const OfferTileCC = (props: Props) => {
                     <div className="flexColumnSplit">
                         <div className={"offerTileColumnInnerPadding"}>
                             <div style={{display: "block"}}>
-                                <span>{props?.offer?.product_attributes?.balance_transfer_1}</span>
+                                <span>Contactless payments up to £100</span>
                                 <br/>
-                                <span
-                                    className="offerEmphasisedText">{props?.offer?.product_attributes?.balance_transfer_3}</span>
+                                <span className="offerEmphasisedText"></span>
                             </div>
                         </div>
                     </div>
@@ -84,12 +73,6 @@ const OfferTileCC = (props: Props) => {
                             onClick={props?.onProceed}
                         />
                     </div>
-                </div>
-            </div>
-            <div className={"offerTileRepExample flexContainer"}>
-                <div style={{display: "block"}}>
-                    <span style={{fontWeight: "bold"}}>Representative example: </span>
-                    <span>{props?.offer?.product_attributes?.rep_example}</span>
                 </div>
             </div>
             <br/>

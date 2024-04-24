@@ -50,25 +50,21 @@ const EligibilityOfferTilesStage = () => {
         };
     }, []);
 
-    const flattenAndSortOffers = (productOffers): Offer[] => {
-        const ret = [] as Offer[];
+    const flattenAndSortOffers = (responseObject): Offer[] => {
+        let ret = [] as Offer[];
 
-        for (const offer of productOffers) {
-            ret.push(...offer.product_offers);
+        const offerTypes = ["unsecured_offers", "credit_card_offers", "auto_finance_offers", "secured_offers"]
+
+        for (const offerType of offerTypes) {
+            ret.push(...responseObject[offerType]);
         }
-
-        let sortedOffers = ret.filter(offer => offer.offer_display_rank !== null)
-            .sort((a, b) => (a.offer_display_rank! - b.offer_display_rank!))
-            .concat(ret.filter(offer => offer.offer_display_rank === null)
-                .sort((a, b) => (a.apr || 0) - (b.apr || 0))
-            );
 
         if (obfuscateOffers) {
             // console.log("Obfuscating offers...");
-            sortedOffers = obfuscateLenderOfferValues(sortedOffers);
+            ret = obfuscateLenderOfferValues(ret);
         }
 
-        return sortedOffers;
+        return ret;
     }
 
     const proceedWithOffer = (offer: Offer) => {
@@ -144,7 +140,7 @@ const EligibilityOfferTilesStage = () => {
                             paddingTop: "5px",
                         }}>{usePostForProceed ? "App will POST to the Proceed URL, keeping control" : "App will GET the Proceed URL and relinquish control to remote"}</div>
                     <br/>
-                    {flattenAndSortOffers(allOffersResponse?.response_json_as_object?.["offers"])
+                    {flattenAndSortOffers(allOffersResponse?.response_json_as_object)
                         .map((offer) => {
                             if (offer.product_type === "CreditCard" || offer.product_type === "Credit Card") {
                                 return (<div key={offer["uuid"]}>

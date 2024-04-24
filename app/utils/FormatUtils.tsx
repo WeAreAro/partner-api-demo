@@ -18,14 +18,20 @@ export const obfuscateOfferResponseJson = (obfuscate: boolean, jsonObject: any):
     }
 
     const allOffers = [] as Offer[];
+    const offerTypes = ["unsecured_offers", "credit_card_offers", "auto_finance_offers", "secured_offers"]
 
-    if (jsonObject && jsonObject["offers"] && jsonObject["offers"].length > 0) {
-        for (const offer of jsonObject["offers"]) {
-            if (offer["product_offers"] && offer["product_offers"].length > 0) {
-                console.log("Pushing for : ", offer["product_type"]);
-                allOffers.push(...offer["product_offers"]);
+    for (const offerType of offerTypes) {
+
+        const offerTypeStr = offerTypes[offerType];
+
+        console.log("Obfuscating offer type : ", offerTypeStr);
+
+        if (jsonObject && jsonObject[offerTypeStr] && jsonObject[offerTypeStr].length > 0) {
+            for (const offer of jsonObject[offerType]) {
+                allOffers.push(offer);
             }
         }
+
     }
 
     obfuscateLenderOfferValues(allOffers);
@@ -55,8 +61,6 @@ export const obfuscateLenderOfferValues = (offers: Offer[]) => {
                     offer.apr = firstCC.apr;
                     offer.total_repayment = firstCC.total_repayment;
                     offer.monthly_repayment = firstCC.monthly_repayment;
-
-                    offer.product_attributes = firstCC.product_attributes;
                 }
             }
         }

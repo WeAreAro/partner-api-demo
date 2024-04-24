@@ -118,7 +118,12 @@
     border: 3px solid var(--offer-tile-border-color);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    box-shadow: 0px 12px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 12px 12px rgba(0, 0, 0, 0.4);
+}
+
+.offerTileBottomCC {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .offerTileRepExample {
@@ -130,7 +135,7 @@
     padding: 10px;
     font-size: 14px;
     background-color: rgb(245, 245, 245);
-    box-shadow: 0px 12px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 12px 12px rgba(0, 0, 0, 0.4);
 }
 
 .offerTileColumnInnerPadding {
@@ -187,7 +192,6 @@
 @media screen and (max-width: 945px) {
     .offerTileContainer {
         margin: 0 20px 0 20px;
-        x-background-color: yellow !important;
     }
 
     .offerTilePerMonth {
@@ -226,7 +230,6 @@
 
 @media screen and (max-width: 1257px) {
     .offerTileContainer {
-        x-background-color: red;
     }
 
     .offerTilePerMonth {

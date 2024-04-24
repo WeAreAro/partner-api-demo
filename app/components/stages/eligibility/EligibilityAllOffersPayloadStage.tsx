@@ -17,6 +17,7 @@ import {YesNoValue} from "@/app/state/enum/Common";
 import DismissableMessage from "@/app/components/DismissableMessage";
 import {obfuscateOfferResponseJson} from "@/app/utils/FormatUtils";
 import {removeUnwantedProperties} from "@/app/utils/ObjectUtils";
+import {responseHasOffers} from "@/app/utils/OfferUtils";
 
 const EligibilityAllOffersPayloadStage = () => {
 
@@ -339,7 +340,7 @@ const EligibilityAllOffersPayloadStage = () => {
                         setCurrentStage(savedStage - 1);
                     }}
                 />
-                {(allOffersResponseObject && allOffersResponseObject["offers"] && allOffersResponseObject["offers"].length > 0) &&
+                {(allOffersResponseObject && responseHasOffers(allOffersResponseObject)) &&
                     <input
                         ref={continueRef}
                         className="bg-lime-600 hover:bg-lime-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
