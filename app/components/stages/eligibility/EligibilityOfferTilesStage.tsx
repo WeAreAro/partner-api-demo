@@ -60,7 +60,6 @@ const EligibilityOfferTilesStage = () => {
         }
 
         if (obfuscateOffers) {
-            // console.log("Obfuscating offers...");
             ret = obfuscateLenderOfferValues(ret);
         }
 
@@ -85,27 +84,7 @@ const EligibilityOfferTilesStage = () => {
                 window.alert("You are now leaving this website to go to the Lender's website. Please press BACK in the " +
                     "browser if you wish to return after having left.");
                 window.location.href = getUrl;
-
-                /*
-
-                // Causes CORS errors when it tries to do a redirect internally in the app.
-                // We could change the server to return HTTP 200 and return a payload with the URL but then
-                // we aren't really any different to the use of the original POST mechanism.
-
-                fetch(process.env.API_BASE_URL + offer.proceed_url, {
-                    headers: {
-                        'Authorization': 'Basic ' + savedJwtBearerToken,
-                    }
-                })
-                    .then(response => {
-                        // Handle response
-                        console.log('Response:', response);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-                 */
-
+                
             }
         } catch (e) {
             setOverlayActive(false);

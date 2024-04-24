@@ -41,8 +41,6 @@ export const obfuscateOfferResponseJson = (obfuscate: boolean, jsonObject: any):
 export const obfuscateLenderOfferValues = (offers: Offer[]) => {
     if (offers && offers.length > 0) {
 
-        // console.log("Obfuscating : ", offers.length);
-
         const firstLoan = offers.find(offer => offer.product_type !== "CreditCard" && offer.product_type !== "Credit Card");
         if (firstLoan) {
             for (const offer of offers) {
