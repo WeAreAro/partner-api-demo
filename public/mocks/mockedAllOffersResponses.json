@@ -34,8 +34,7 @@
         "total_credit_charge": 1609.52,
         "card_limit": 10000,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/ftern.png",
-        "proceed_url": "/partner/v1/quote/all-offers/74cbf596-fb6e-494b-9803-aae8685eefd0/offer/58c513dd-f21d-4360-abf5-76d86b0470b1"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/ftern.png"
       },
       {
         "uuid": "39e7d753-9731-4920-a76e-feabff1e0db2",
@@ -62,8 +61,7 @@
         "total_credit_charge": 1910.65,
         "card_limit": 10000,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/jnl.png",
-        "proceed_url": "/partner/v1/quote/all-offers/74cbf596-fb6e-494b-9803-aae8685eefd0/offer/39e7d753-9731-4920-a76e-feabff1e0db2"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/jnl.png"
       },
       {
         "uuid": "69f01f8c-8a85-43b2-8e3b-2f25ef2bed7c",
@@ -90,8 +88,7 @@
         "total_credit_charge": -3500,
         "card_limit": 5000,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/1l8.png",
-        "proceed_url": "/partner/v1/quote/all-offers/74cbf596-fb6e-494b-9803-aae8685eefd0/offer/69f01f8c-8a85-43b2-8e3b-2f25ef2bed7c"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/1l8.png"
       },
       {
         "uuid": "906fa8bb-c8f5-405d-9437-f95cb1df6dbe",
@@ -118,8 +115,7 @@
         "total_credit_charge": 1920.51,
         "card_limit": 10000,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zpa.png",
-        "proceed_url": "/partner/v1/quote/all-offers/74cbf596-fb6e-494b-9803-aae8685eefd0/offer/906fa8bb-c8f5-405d-9437-f95cb1df6dbe"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zpa.png"
       }
     ],
     "credit_card_offers": [
@@ -148,8 +144,7 @@
         "total_credit_charge": null,
         "card_limit": 250,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/1l8cc-sip.png",
-        "proceed_url": "/partner/v1/quote/all-offers/74cbf596-fb6e-494b-9803-aae8685eefd0/offer/5becec12-4683-4520-9906-0851d5a0716a"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/1l8cc-sip.png"
       },
       {
         "uuid": "26dc4dfc-c495-4a13-b92d-14e4bb9f5b84",
@@ -176,8 +171,7 @@
         "total_credit_charge": null,
         "card_limit": 900,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zpacc-01.png",
-        "proceed_url": "/partner/v1/quote/all-offers/74cbf596-fb6e-494b-9803-aae8685eefd0/offer/26dc4dfc-c495-4a13-b92d-14e4bb9f5b84"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zpacc-01.png"
       },
       {
         "uuid": "89542e1c-c1fa-4522-ad78-4e8dda887ba8",
@@ -204,8 +198,7 @@
         "total_credit_charge": null,
         "card_limit": 900,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zpacc-bt.png",
-        "proceed_url": "/partner/v1/quote/all-offers/74cbf596-fb6e-494b-9803-aae8685eefd0/offer/89542e1c-c1fa-4522-ad78-4e8dda887ba8"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zpacc-bt.png"
       }
     ],
     "auto_finance_offers": [
@@ -249,8 +242,7 @@
         "total_credit_charge": null,
         "card_limit": 600,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zpacc-01.png",
-        "proceed_url": "/partner/v1/quote/all-offers/7c472cc0-c667-47d5-81d0-c3946cb6a4aa/offer/5ac4be3a-86e1-40aa-90b9-886132f8dd90"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zpacc-01.png"
       },
       {
         "uuid": "3735a9c2-42c5-4602-87fc-6b36ff83303c",
@@ -277,8 +269,7 @@
         "total_credit_charge": null,
         "card_limit": 250,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/1l8cc-sip.png",
-        "proceed_url": "/partner/v1/quote/all-offers/7c472cc0-c667-47d5-81d0-c3946cb6a4aa/offer/3735a9c2-42c5-4602-87fc-6b36ff83303c"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/1l8cc-sip.png"
       },
       {
         "uuid": "f287cd1f-9623-4ed8-beb0-f4eec2ead6a0",
@@ -305,8 +296,7 @@
         "total_credit_charge": null,
         "card_limit": 600,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zpacc-bt.png",
-        "proceed_url": "/partner/v1/quote/all-offers/7c472cc0-c667-47d5-81d0-c3946cb6a4aa/offer/f287cd1f-9623-4ed8-beb0-f4eec2ead6a0"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zpacc-bt.png"
       }
     ],
     "auto_finance_offers": [],
@@ -347,8 +337,7 @@
         "total_credit_charge": 2860.88,
         "card_limit": 10000,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/ftern.png",
-        "proceed_url": "/partner/v1/quote/all-offers/5c492a2d-c96d-4a0e-9825-9b85d1899093/offer/46a94a5e-22de-477d-920d-f92d2baba2c1"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/ftern.png"
       },
       {
         "uuid": "57e01732-739c-4daf-b76b-73933ed69c50",
@@ -375,8 +364,7 @@
         "total_credit_charge": -3500,
         "card_limit": 5000,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/1l8.png",
-        "proceed_url": "/partner/v1/quote/all-offers/5c492a2d-c96d-4a0e-9825-9b85d1899093/offer/57e01732-739c-4daf-b76b-73933ed69c50"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/1l8.png"
       }
     ],
     "credit_card_offers": [],
@@ -409,8 +397,7 @@
         "total_credit_charge": 1220.32,
         "card_limit": 10000,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zuthp-mbn.png",
-        "proceed_url": "/partner/v1/quote/all-offers/5c492a2d-c96d-4a0e-9825-9b85d1899093/offer/50956d96-8e47-4206-8fe1-7f3bcbda62c6"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zuthp-mbn.png"
       },
       {
         "uuid": "b5a3e149-874d-4f6e-b6f8-4a486e6440b4",
@@ -440,8 +427,7 @@
         "total_credit_charge": 1220.32,
         "card_limit": 10000,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zut-ald.png",
-        "proceed_url": "/partner/v1/quote/all-offers/5c492a2d-c96d-4a0e-9825-9b85d1899093/offer/b5a3e149-874d-4f6e-b6f8-4a486e6440b4"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zut-ald.png"
       },
       {
         "uuid": "e700b6e8-8777-479b-b3d7-ba7ba20e9cfe",
@@ -471,8 +457,7 @@
         "total_credit_charge": 1220.32,
         "card_limit": 10000,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zuthp-zut.png",
-        "proceed_url": "/partner/v1/quote/all-offers/5c492a2d-c96d-4a0e-9825-9b85d1899093/offer/e700b6e8-8777-479b-b3d7-ba7ba20e9cfe"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zuthp-zut.png"
       },
       {
         "uuid": "e528d67f-2f3e-4a6d-8ace-e1b9d3c1f058",
@@ -502,8 +487,7 @@
         "total_credit_charge": 1220.32,
         "card_limit": 10000,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zuthp-mar.png",
-        "proceed_url": "/partner/v1/quote/all-offers/5c492a2d-c96d-4a0e-9825-9b85d1899093/offer/e528d67f-2f3e-4a6d-8ace-e1b9d3c1f058"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/zuthp-mar.png"
       }
     ],
     "secured_offers": []
@@ -527,7 +511,7 @@
         "product_code": "str",
         "product_name": "Stepone",
         "lender_name": "Stepone",
-        "apr": 13.76,
+        "aprc": 13.76,
         "rate_type": "Representative",
         "approval_percentage": 0,
         "offer_display_rank": 1,
@@ -546,8 +530,7 @@
         "total_credit_charge": null,
         "card_limit": 10000,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/str.png",
-        "proceed_url": "/partner/v1/quote/all-offers/9974e25f-69d4-440b-a92a-c99691d6a30f/offer/ae1a0b31-86b0-4717-84f3-860afdd28a1b"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/str.png"
       },
       {
         "uuid": "48ecd8c0-af1c-404b-95dd-df8a4d96cb99",
@@ -555,7 +538,7 @@
         "product_code": "ctr",
         "product_name": "Central Trust Secured Referral",
         "lender_name": "Central Trust",
-        "apr": 29.7,
+        "aprc": 29.7,
         "rate_type": "Representative",
         "approval_percentage": 0,
         "offer_display_rank": null,
@@ -574,8 +557,7 @@
         "total_credit_charge": null,
         "card_limit": 10000,
         "rep_example_text": "Representative Example: £10000.00 over 36 months, representative 29.70% APR REAL. Monthly payment £404.59. Charge for credit is £0.00 and fees payable £2148.00. Total repayable £14566.00.",
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/ctr.png",
-        "proceed_url": "/partner/v1/quote/all-offers/9974e25f-69d4-440b-a92a-c99691d6a30f/offer/48ecd8c0-af1c-404b-95dd-df8a4d96cb99"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/ctr.png"
       },
       {
         "uuid": "b25e941c-53ea-4d47-853e-25a7f1fe85e5",
@@ -583,7 +565,7 @@
         "product_code": "utr",
         "product_name": "United Trust Bank Secured Referral",
         "lender_name": "United Trust Bank",
-        "apr": 21.7,
+        "aprc": 21.7,
         "rate_type": "Representative",
         "approval_percentage": 0,
         "offer_display_rank": null,
@@ -602,8 +584,7 @@
         "total_credit_charge": null,
         "card_limit": 10000,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/utr.png",
-        "proceed_url": "/partner/v1/quote/all-offers/9974e25f-69d4-440b-a92a-c99691d6a30f/offer/b25e941c-53ea-4d47-853e-25a7f1fe85e5"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/utr.png"
       },
       {
         "uuid": "8c6dddd9-3bcb-455c-8903-125ccbdb43f8",
@@ -611,7 +592,7 @@
         "product_code": "srr",
         "product_name": "Spring Finance Secured Referral",
         "lender_name": "Spring Finance",
-        "apr": 30.4,
+        "aprc": 30.4,
         "rate_type": "Representative",
         "approval_percentage": 0,
         "offer_display_rank": null,
@@ -630,8 +611,7 @@
         "total_credit_charge": null,
         "card_limit": 10000,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/srr.png",
-        "proceed_url": "/partner/v1/quote/all-offers/9974e25f-69d4-440b-a92a-c99691d6a30f/offer/8c6dddd9-3bcb-455c-8903-125ccbdb43f8"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/srr.png"
       },
       {
         "uuid": "acdd4e44-9771-488f-858b-da4bb0418e8b",
@@ -639,7 +619,7 @@
         "product_code": "wor",
         "product_name": "WestOne Secured Referral",
         "lender_name": "WestOne",
-        "apr": 25.91,
+        "aprc": 25.91,
         "rate_type": "Representative",
         "approval_percentage": 0,
         "offer_display_rank": null,
@@ -658,8 +638,7 @@
         "total_credit_charge": null,
         "card_limit": 10000,
         "rep_example_text": null,
-        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/wor.png",
-        "proceed_url": "/partner/v1/quote/all-offers/9974e25f-69d4-440b-a92a-c99691d6a30f/offer/acdd4e44-9771-488f-858b-da4bb0418e8b"
+        "product_logo_url": "https://assets.aro-sandbox.co.uk/product-logos/wor.png"
       }
     ]
   }

@@ -2,9 +2,8 @@
 
 import {RedirectPartnerDetails, useRedirectStageStore} from '@/app/state/redirect_stages';
 import React, {useEffect, useState} from 'react';
-import {createInputFields, Field, getPossibleValues, InputType} from '../../InputField';
+import {createInputFields, Field} from '../../InputField';
 import {StageForm} from './StageForm';
-import {YesNoValue} from "@/app/state/enum/Common";
 import {useGeneralStageStore} from "@/app/state/general_stages";
 import {checkRequiredFields} from "@/app/utils/ValidationUtils";
 
@@ -17,7 +16,6 @@ const PartnerDetailsStage = () => {
     const savedPartnerCode = savedPartnerDetails?.partner_code;
     const savedPartnerReference = savedPartnerDetails?.partner_reference;
     const savedCampaignCode = savedPartnerDetails?.campaign_code;
-    const savedAgreeTerms = savedPartnerDetails?.agree_terms;
 
     const setCurrentStage = useRedirectStageStore((state) => state.setCurrentStage)
 
@@ -28,8 +26,7 @@ const PartnerDetailsStage = () => {
     const [formData, setFormData] = useState<RedirectPartnerDetails>({
         partner_code: savedPartnerCode ?? "FFW-TEST",
         partner_reference: savedPartnerReference ?? "REFERENCE-1",
-        campaign_code: savedCampaignCode ?? "CAMPAIGN-1",
-        agree_terms: savedAgreeTerms ?? YesNoValue.Yes
+        campaign_code: savedCampaignCode ?? "CAMPAIGN-1"
     })
 
     const [errors, setErrors] = useState({} as any);
@@ -48,12 +45,6 @@ const PartnerDetailsStage = () => {
         {
             name: "campaign_code",
             title: "Partner Campaign Code",
-        },
-        {
-            name: "agree_terms",
-            type: InputType.Enum,
-            possibleValues: getPossibleValues(YesNoValue),
-            required: true
         }
     ]
 

@@ -7,6 +7,7 @@ export interface Offer {
     product_name: string
     lender_name: string
     apr: number
+    aprc: number // For secured
     rate_type: string
     approval_percentage: number
     loan_offered: number
@@ -26,6 +27,5 @@ export interface Offer {
     card_limit: number
     rep_example_text: string
     product_logo_url: string
-    proceed_url: string
     proceed_url_redirect: string
 }

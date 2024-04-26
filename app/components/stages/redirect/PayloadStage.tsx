@@ -5,7 +5,6 @@ import {useGeneralStageStore} from "@/app/state/general_stages";
 import {fetchWithTimeout} from "@/app/utils/HttpUtils";
 import LoadingOverlayWrapper from "react-loading-overlay-ts";
 import {Accordion, AccordionItem as Item} from "@szhsin/react-accordion";
-import {YesNoValue} from "@/app/state/enum/Common";
 import DismissableMessage from "@/app/components/DismissableMessage";
 import {removeUnwantedProperties} from "@/app/utils/ObjectUtils";
 
@@ -122,8 +121,7 @@ const PayloadStage = () => {
             "Partner": {
                 "partner_code": partnerDetailsPayload.partner_code ? partnerDetailsPayload.partner_code : undefined,
                 "reference": partnerDetailsPayload.partner_reference ? partnerDetailsPayload.partner_reference : undefined,
-                "campaign_code": partnerDetailsPayload.campaign_code ? partnerDetailsPayload.campaign_code : undefined,
-                "agree_terms": partnerDetailsPayload.agree_terms ? partnerDetailsPayload.agree_terms : YesNoValue.No,
+                "campaign_code": partnerDetailsPayload.campaign_code ? partnerDetailsPayload.campaign_code : undefined
             },
 
             // Journey specific.

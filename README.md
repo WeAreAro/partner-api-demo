@@ -22,7 +22,7 @@ A live version of this demo can be found [here](https://partner-api-demo.freedom
 
 **If you want to skip this step, then mocked responses will be returned instead (the API will not be invoked).**
 
-To execute the API and see real results you should request (and have been supplied with) a JWT Bearer Token for the Aro
+To execute the API and see real results you should request (and have been supplied with) credentials for the Aro
 Sandbox environment.
 
 If you do not have this, please liaise with <u>Aro Partner Support</u>.
@@ -32,12 +32,16 @@ and in the following format:
 
 ```
 NEXT_PUBLIC_API_BEARER_TOKEN=<token starting ey...>
+NEXT_PUBLIC_API_KEY=<api key>
 ```
 
-## Specifying API Bearer Token at Runtime
+## Specifying API Bearer Token & API Key at Runtime
 
-If you have not defined your API Token within the environment, it is possible to specify it at runtime and still see
-real API responses.
+If you have not specified your API Bearer Token and API Key within the environment, it is possible to set them at
+runtime and still see real API responses.
+
+Please note that for the Redirect API only an API Bearer Token (in JWT format) is required, whereas for the Eligibility
+API an additional API Key is also required. Please refer to the online API documents for more information.
 
 This option will only be available if the environment variable defined above **is not** specified.
 
@@ -52,7 +56,7 @@ to you that starts "ey".
 
 After entering a valid token, the lock should close. Now whenever you make API requests the token will be used.
 
-![img_2.png](docs/img_locked.png)
+![img_2.png]( docs/img_locked.png)
 
 ## Getting Started for Development
 

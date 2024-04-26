@@ -71,20 +71,22 @@ const EligibilityOfferTilesStage = () => {
             setOverlayActive(true);
 
             if (usePostForProceed) {
-                setOfferToProceed({
+                var offerToProceed = {
                     offer: offer,
-                    aro_reference: allOffersResponse.response_json_as_object["freedom_reference"]
-                });
+                    aro_reference: allOffersResponse.response_json_as_object["aro_reference"]
+                };
+                console.log("Proceed with offer", offerToProceed);
+                setOfferToProceed(offerToProceed);
                 setCurrentStage(savedStage + 1);
             } else {
 
                 // URL needs to be unsecured to work (probably with a one-time or time-expired token)
-                const getUrl = process.env.API_BASE_URL + offer.proceed_url_redirect;
+                const getUrl = offer.proceed_url_redirect;
                 console.log("Offer GET Url :", getUrl);
                 window.alert("You are now leaving this website to go to the Lender's website. Please press BACK in the " +
                     "browser if you wish to return after having left.");
                 window.location.href = getUrl;
-                
+
             }
         } catch (e) {
             setOverlayActive(false);

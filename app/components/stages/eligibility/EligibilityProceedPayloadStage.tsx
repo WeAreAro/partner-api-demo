@@ -102,7 +102,10 @@ const EligibilityProceedPayloadStage = () => {
 
         console.log("Using Bearer Token and API Key", useJwtToken, useApiKey);
 
-        const url = "/ff-api" + savedOfferToProceed.offer["proceed_url"];
+        const proceed_url_part = "/partner/v1/quote/all-offers/proceed/" + savedOfferToProceed["aro_reference"] + "/offer/" + savedOfferToProceed.offer["uuid"];
+        const url = "/ff-api" + proceed_url_part;
+
+        console.log("Proceed URL", url);
         setProceedUrl(url);
 
         if (!useJwtToken) {

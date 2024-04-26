@@ -52,7 +52,7 @@ const OfferTileLoan = (props: Props) => {
                     <div className="flexColumnSplit" style={{backgroundColor: "#9c9bf8"}}>
                         <div className={"offerTileColumnInnerPadding"}>
                             <div style={{display: "block"}}>
-                                <span className="offerEmphasisedText">{props?.offer?.apr} %</span>
+                                <span className="offerEmphasisedText">{props?.offer?.apr ?? props?.offer?.aprc} %</span>
                                 <br/>
                                 <span>Representative</span>
                             </div>
