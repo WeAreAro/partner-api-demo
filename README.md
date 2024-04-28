@@ -25,7 +25,7 @@ A live version of this demo can be found [here](https://partner-api-demo.freedom
 To execute the API and see real results you should request (and have been supplied with) credentials for the Aro
 Sandbox environment.
 
-If you do not have this, please liaise with <u>Aro Partner Support</u>.
+If you do not have these, please liaise with <u>Aro Partner Support</u>.
 
 The token should be added into a file called `.env.local` that you should create in the root of the project folder,
 and in the following format:
