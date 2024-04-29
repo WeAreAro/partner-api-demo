@@ -75,6 +75,7 @@ const EligibilityAllOffersPayloadStage = () => {
             otherIncome.push({
                 income: otherIncomePayload.income_1,
                 income_description: otherIncomePayload.description_1,
+                period: otherIncomePayload.period_1
             })
         }
 
@@ -82,6 +83,7 @@ const EligibilityAllOffersPayloadStage = () => {
             otherIncome.push({
                 income: otherIncomePayload.income_2,
                 income_description: otherIncomePayload.description_2,
+                period: otherIncomePayload.period_2
             })
         }
 
@@ -95,6 +97,7 @@ const EligibilityAllOffersPayloadStage = () => {
             jointOtherIncome.push({
                 income: jointOtherIncomePayload.income_1,
                 income_description: jointOtherIncomePayload.description_1,
+                period: jointOtherIncomePayload.period_1
             })
         }
 
@@ -102,6 +105,7 @@ const EligibilityAllOffersPayloadStage = () => {
             jointOtherIncome.push({
                 income: jointOtherIncomePayload.income_2,
                 income_description: jointOtherIncomePayload.description_2,
+                period: jointOtherIncomePayload.period_2
             })
         }
 

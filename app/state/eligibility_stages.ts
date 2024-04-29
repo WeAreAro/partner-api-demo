@@ -219,9 +219,7 @@ export interface EligibilityEmploymentPayload {
 
     gross_income: number,
     emp_years: number,
-    emp_months: number,
-
-    additional_household_income: number,
+    emp_months: number
 }
 
 export interface EligibilityJointEmploymentPayload {
@@ -264,11 +262,13 @@ export interface EligibilityJointOtherIncomePayload {
 export interface EligibilityOtherIncome {
     income: number;
     income_description: OtherIncomeDescription;
+    period: OtherIncomePeriod;
 }
 
 export interface EligibilityJointOtherIncome {
     income: number;
     income_description: OtherIncomeDescription;
+    period: OtherIncomePeriod;
 }
 
 export interface EligibilityMarketingConsentPayload {
