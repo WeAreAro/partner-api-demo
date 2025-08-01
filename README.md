@@ -1,4 +1,4 @@
-# Aro Partner API Sandbox Project
+# ClearScore Partner API Sandbox Project
 
 The purpose of this project is to provide an example of how a Partner could implement the API within a modern frontend
 stack.
@@ -22,10 +22,10 @@ A live version of this demo can be found [here](https://partner-api-demo.freedom
 
 **If you want to skip this step, then mocked responses will be returned instead (the API will not be invoked).**
 
-To execute the API and see real results you should request (and have been supplied with) credentials for the Aro
+To execute the API and see real results you should request (and have been supplied with) credentials for the ClearScore
 Sandbox environment.
 
-If you do not have these, please liaise with <u>Aro Partner Support</u>.
+If you do not have these, please liaise with <u>ClearScore Partner Services</u>.
 
 The token should be added into a file called `.env.local` that you should create in the root of the project folder,
 and in the following format:
@@ -105,8 +105,9 @@ You can toggle whether validation is available by using the switch at the bottom
 ## Some Useful Info
 
 1. Form data is pre-populated to make it easier to work with the APIs - you can change the field data per your own needs
-    - This includes the `Partner Code` field that you can populate with your own code when supplied by Aro, which along
-      with the Sandbox API token to allow you to make API calls and use the Lending Panel configured for your account.
+    - This includes the `Partner Code` field that you can populate with your own code when supplied by ClearScore, which
+    - along with the Sandbox API token to allow you to make API calls and use the Lending Panel configured for your
+    - account.
 1. Use the Left and Right cursor keys to quickly navigate the UI (without the need to find and click the Back and
    Continue buttons) - make sure you're not focused on a UI field though
 1. The UI has been built to be responsive and will also work on a mobile (or small screen) device
@@ -115,7 +116,7 @@ You can toggle whether validation is available by using the switch at the bottom
 
 Bootstrapping common components from TailWindCSS.
 
-## Aro Sandbox API
+## ClearScore Sandbox API
 
 It currently uses [`next.config.js`] to bypass CORS for local development.
 

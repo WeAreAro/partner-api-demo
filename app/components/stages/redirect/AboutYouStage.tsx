@@ -35,7 +35,7 @@ const AboutYouStage = () => {
         surname: savedSurname ?? "Doe",
         email: savedEmail ?? "johndoe@example.com",
         home_phone: savedHomePhone ?? "01914207700",
-        mobile_phone: savedMobilePhone ?? "071234567891",
+        mobile_phone: savedMobilePhone ?? "07123456789",
         marital_status: savedMaritalStatus ?? MaritalStatus.Married,
         residential_status: savedResidentialStatus ?? ResidentialStatus['Homeowner with a mortgage'],
         dob: savedDob ?? "04/04/1972",

@@ -27,7 +27,7 @@ const EligibilityCurrentEmploymentStage = () => {
 
     const [formData, setFormData] = useState<EligibilityEmploymentPayload>({
         occupation: savedOccupation ?? "Software Engineer",
-        employer_name: savedEmployerName ?? "Aro",
+        employer_name: savedEmployerName ?? "ClearScore",
 
         employment_industry: savedEmploymentIndustry ?? EmploymentIndustry['Computers - Software'],
         employment_status: savedEmploymentStatus ?? EmploymentStatus['Employed'],

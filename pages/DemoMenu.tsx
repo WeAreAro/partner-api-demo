@@ -12,10 +12,10 @@ import {FaCarSide} from "react-icons/fa6";
 const DemoMenu = () => {
     return (
         <><Head>
-            <title>Aro API Demo</title>
+            <title>ClearScore API Demo</title>
             <link rel="shortcut icon" href="logo.png" type="image/x-icon"/>
         </Head>
-            <Header showNav={false} headerTitle={"Aro API Demo"}/>
+            <Header showNav={false} headerTitle={"ClearScore API Demo"}/>
             <div className="api-menu-title">Redirect API Examples</div>
             <div className="api-menu-container">
                 <div className="api-menu-item">
