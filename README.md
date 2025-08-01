@@ -71,7 +71,7 @@ Open [http://localhost:3000/DemoMenu](http://localhost:3000) with your browser t
 
 You will be presented with a menu page as follows that allows you to access each of the journeys supported by the APIs:
 
-![img_demo.png](docs/img_demo_menu.png)
+![img_demo.png](docs/img_demo_menu_cs.png)
 
 Alternatively you can access each journey individually:
 
